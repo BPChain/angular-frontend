@@ -4,8 +4,9 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import {DashboardComponent} from './dashboard/dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { BarchartComponent } from './dashboard/barchart/barchart.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { BarchartComponent } from './dashboard/barchart/barchart.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
