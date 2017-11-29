@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BarchartComponent } from './dashboard/barchart/barchart.component';
 import { ChartsModule } from 'ng2-charts';
+import { MetricComponent } from './dashboard/metric/metric.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ChartsModule } from 'ng2-charts';
     AppComponent,
     DashboardComponent,
     BarchartComponent,
+    MetricComponent,
   ],
   imports: [
     BrowserModule,

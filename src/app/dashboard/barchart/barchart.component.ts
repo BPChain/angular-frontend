@@ -12,7 +12,7 @@ export class BarchartComponent implements OnInit, OnChanges {
   @Input() privateStats: PublicStats;
 
   barChartOptions: any;
-  barChartLabels: number[];
+  barChartLabels: string[];
   barChartType: string;
   barChartLegend: boolean;
   barChartData: any[];
@@ -24,14 +24,14 @@ ngOnInit() {
   };
   this.barChartType = 'bar';
   this.barChartLegend = true;
+  this.barChartLabels = ['activeMiners', 'activeWorkers', 'averageBlockTime'];
 
 }
 
 ngOnChanges() {
-  this.barChartLabels = [this.publicStats.activeMiners, this.publicStats.activeWorkers, 2008, 2009, 2008, 2003, 2002];
   this.barChartData = [
-    {data: [this.publicStats.activeWorkers, 120000, 81, 56, 55, 40], label: 'Public'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Private'}
+    {data: [this.publicStats.activeMiners, this.publicStats.activeWorkers, this.publicStats.averageBlockTime], label: 'Public'},
+    {data: [280000, 400008, 13], label: 'Private'}
   ];
 
 }
