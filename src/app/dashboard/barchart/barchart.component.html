@@ -1,6 +1,6 @@
 <div>
   <div style="display: block">
-    <div *ngIf="publicStats">
+    <div *ngIf="publicStats && privateStats">
       <canvas baseChart
               [datasets]="barChartData"
               [labels]="barChartLabels"

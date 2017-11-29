@@ -38,12 +38,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
   reset(): void {}
 
   private load() {
+   this.loadPublicData();
+   this.loadPrivateData();
+  }
+
+  private loadPublicData() {
     this.publicStatsService.getPublicStats<PublicStats>()
       .subscribe(
         response => {
           console.log(response);
           this.publicStats = response;
         });
+  }
+
+  private loadPrivateData() {
     this.privateStatsService.getPrivateStats<PrivateStats>()
       .subscribe(
         response => {

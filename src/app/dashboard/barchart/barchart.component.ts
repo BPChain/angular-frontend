@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {PublicStats} from '../../services/PublicStats';
+import {PrivateStats} from '../../services/PrivateStats';
 
 @Component({
   selector: 'app-barchart',
@@ -9,7 +10,7 @@ import {PublicStats} from '../../services/PublicStats';
 export class BarchartComponent implements OnInit, OnChanges {
 
   @Input() publicStats: PublicStats;
-  @Input() privateStats: PublicStats;
+  @Input() privateStats: PrivateStats;
 
   barChartOptions: any;
   barChartLabels: string[];
@@ -31,7 +32,7 @@ ngOnInit() {
 ngOnChanges() {
   this.barChartData = [
     {data: [this.publicStats.activeMiners, this.publicStats.activeWorkers, this.publicStats.averageBlockTime], label: 'Public'},
-    {data: [280000, 400008, 13], label: 'Private'}
+    {data: [this.privateStats.numberOfMiners, this.privateStats.numberOfHosts, this.privateStats.avgBlocktime], label: 'Private'}
   ];
 
 }

@@ -1,8 +1,9 @@
 <button (click)="load()">Update</button>
 
-<div *ngIf="publicStats">
+<div *ngIf="publicStats && privateStats">
 <app-barchart
   [publicStats]="publicStats"
+  [privateStats]="privateStats"
 ></app-barchart>
   <app-metric
   [publicStats]="publicStats"></app-metric>
