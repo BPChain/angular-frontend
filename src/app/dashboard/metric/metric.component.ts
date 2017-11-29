@@ -6,7 +6,7 @@ import {PublicStats} from '../../services/PublicStats';
   templateUrl: './metric.component.html',
   styleUrls: ['./metric.component.css']
 })
-export class MetricComponent implements OnInit {
+export class MetricComponent implements OnInit, OnChanges {
 
   constructor() { }
 
@@ -14,5 +14,9 @@ export class MetricComponent implements OnInit {
   @Input() privateStats: PublicStats;
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+
   }
 }
