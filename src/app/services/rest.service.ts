@@ -10,8 +10,8 @@ interface Query {
 }
 
 export class RestService {
-  base: string = 'http://localhost:2020/api';
-  resource: string = '/ethereum/publicStat/';
+  base = 'http://localhost:2020/api';
+  resource = '/';
   type: any;
 
   constructor(@Inject(HttpClient) private http: HttpClient) { }
@@ -28,16 +28,8 @@ export class RestService {
 
     return this.http.get<T>(url);
   }
-  /*query<T>(query?: Query) {
-    let url = this.url;
-    if (query) {
-      url += `?${this.toQueryString(query)}`;
-    }
 
-    return this.http.get<T>(url);
-  }*/
-
-  /*get<T>(id: number) {
+  get<T>(id: number) {
     return this.http.get<T>(this.url + '/' + id);
   }
 
@@ -51,7 +43,7 @@ export class RestService {
 
   delete<T>(id: number) {
     return this.http.delete<T>(this.url + '/' + id);
-  }*/
+  }
 
   private toQueryString(paramsObject) {
     return Object

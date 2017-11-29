@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PublicStatsComponent } from './public-stats.component';
+import { DashboardComponent } from './dashboard.component';
 
-describe('PublicStatsComponent', () => {
-  let component: PublicStatsComponent;
-  let fixture: ComponentFixture<PublicStatsComponent>;
+describe('DashboardComponent', () => {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PublicStatsComponent ]
+      declarations: [ DashboardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PublicStatsComponent);
+    fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -23,3 +23,4 @@ describe('PublicStatsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
