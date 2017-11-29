@@ -12,3 +12,4 @@ export class PublicStats {
   hashRate: number;
   timeToNextEpoch: number;
 }
+

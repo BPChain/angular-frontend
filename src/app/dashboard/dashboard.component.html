@@ -1,7 +1,9 @@
+<button (click)="load()">Update</button>
+<div *ngIf="stats">
+
 <app-barchart
-  [miners]="stats?.activeMiners"
-  [workers]="stats?.activeWorkers"
-  [date]="stats?.activeWorkers"
+  [publicStats]="stats"
 ></app-barchart>
+</div>
 
 
