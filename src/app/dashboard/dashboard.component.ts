@@ -1,21 +1,23 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { PublicStatsService, } from '../services/public-stats.service';
 import { PublicStats} from '../services/PublicStats';
+import {PrivateStatsService} from '../services/private-stats.service';
+import {PrivateStats} from '../services/PrivateStats';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [PublicStatsService]
+  providers: [PublicStatsService, PrivateStatsService]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   refresh = true;
-  stats: PublicStats;
+  publicStats: PublicStats;
+  privateStats: PrivateStats;
   interval: any;
-  isDataLoaded = false;
 
-  constructor(private publicStatsService: PublicStatsService) {
+  constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
   }
 
   ngOnInit() {
@@ -25,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (this.refresh) {
         this.load();
       }
-    }, 15000);
+    }, 10000);
   }
 
 
@@ -40,7 +42,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           console.log(response);
-          this.stats = response;
+          this.publicStats = response;
+        });
+    this.privateStatsService.getPrivateStats<PrivateStats>()
+      .subscribe(
+        response => {
+          console.log(response);
+          this.privateStats = response;
         });
   }
 

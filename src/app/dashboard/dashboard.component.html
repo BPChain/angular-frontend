@@ -1,13 +1,11 @@
 <button (click)="load()">Update</button>
 
-<div *ngIf="stats">
+<div *ngIf="publicStats">
 <app-barchart
-  [publicStats]="stats"
+  [publicStats]="publicStats"
 ></app-barchart>
   <app-metric
-  [publicStats]="stats"></app-metric>
-  <app-linechart
-    [publicStats]="stats"></app-linechart>
+  [publicStats]="publicStats"></app-metric>
 </div>
 
 

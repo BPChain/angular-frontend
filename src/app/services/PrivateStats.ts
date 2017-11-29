@@ -1,8 +1,13 @@
 export class PrivateStats {
-  activeMiners: number;
-  activeWorkers: number;
-  averageBlockTime: number;
-  averageBlockTimeDifficulty: number;
-  averageHashRate: number;
-  gasPrice: number;
+  id: number;
+  chain: string;
+  timestamp: number;
+  numberOfHosts: number;
+  numberOfMiners: number;
+  avgHashrate: number;
+  avgBlocktime: number;
+  avgGasPrice: number;
+  avgDifficulty: number;
+  _id: string;
+  __v: number;
 }
