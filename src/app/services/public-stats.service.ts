@@ -13,7 +13,7 @@ export class PublicStatsService {
     return this.base + this.resource;
   }
 
-  query<PublicStats>() {
+  getPublicStats<PublicStats>() {
     const url = this.url;
     return this.http.get<PublicStats>(url);
   }

@@ -35,7 +35,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   reset(): void {}
 
   private load() {
-    this.publicStatsService.query<PublicStats>()
+    this.publicStatsService.getPublicStats<PublicStats>()
       .subscribe(
         response => {
           console.log(response);
