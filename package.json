@@ -6,10 +6,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    //"test": "ng test",
-    //"lint": "ng lint",
-    "lint": "tslint",    
-    "test": "npm run lint",
+    "lint": "ng lint",    
+    "test": "ng test",
     "e2e": "ng e2e"
   },
   "private": true,
