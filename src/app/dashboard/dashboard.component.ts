@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   refresh = true;
   stats: PublicStats;
   interval: any;
+  isDataLoaded = false;
 
   constructor(private publicStatsService: PublicStatsService) {
   }
