@@ -1,10 +1,3 @@
-<head>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-  </head>
-
 <app-form (load)="loadData($event)"></app-form>
 
 <div *ngIf="publicStats && privateStats">
@@ -15,9 +8,3 @@
 ></app-barchart>
 </div>
 <button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>
-
-
-<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
-
-
