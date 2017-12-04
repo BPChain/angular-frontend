@@ -16,7 +16,7 @@
             <div class="switch">
                 <label>
                   Public
-                  <input type="checkbox">
+                  <input type="checkbox" [checked]="check" (change)="check = !check">
                   <span class="lever"></span>
                   Private
                 </label>
@@ -36,7 +36,7 @@
               </p>
         </div>
         <div class="card-action">
-            <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action">Show Data
+            <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action" (click)="emitEvent()">Show Data
                 <i class="material-icons right">send</i>
               </button>
         </div>

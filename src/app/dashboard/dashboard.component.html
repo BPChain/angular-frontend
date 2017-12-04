@@ -5,16 +5,16 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   </head>
 
-<button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>
+<app-form (load)="loadData($event)"></app-form>
 
 <div *ngIf="publicStats && privateStats">
-<app-barchart
+  <app-metric [currentCheck]="currentCheck" [publicStats]="publicStats" [privateStats]="privateStats"></app-metric>
+  <app-barchart
   [publicStats]="publicStats"
   [privateStats]="privateStats"
 ></app-barchart>
-  <app-metric
-  [publicStats]="publicStats"></app-metric>
 </div>
+<button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>
 
 
 <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>

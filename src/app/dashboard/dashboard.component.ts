@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   publicStats: PublicStats;
   privateStats: PrivateStats;
   interval: any;
+  currentCheck: boolean;
 
   constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
   }
@@ -58,6 +59,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.log(response);
           this.privateStats = response;
         });
+  }
+
+  loadData(data) {
+     this.currentCheck = data;
   }
 
 }

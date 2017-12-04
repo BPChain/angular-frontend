@@ -26,7 +26,6 @@ ngOnInit() {
   this.barChartType = 'bar';
   this.barChartLegend = true;
   this.barChartLabels = ['activeMiners', 'activeWorkers', 'averageBlockTime'];
-
 }
 
 ngOnChanges() {

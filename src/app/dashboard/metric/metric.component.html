@@ -1,15 +1,25 @@
 <div>
-<table>
-  <tr>
-    <th>Private</th>
-    <th>Public</th>
-  </tr>
-  <tr>
-    <td><ul style="list-style-type:none"> <li>averageBlockTimeDifficulty: 1</li>
-      <li>averageHashRate: 2</li>
-      <li>gasPrice: 3</li></ul></td>
-    <td><ul style="list-style-type:none"> <li>hashRate: {{ publicStats?.hashRate }}</li>
-      <li>timeToNextEpoch: {{ publicStats?.timeToNextEpoch }}</li></ul></td>
-  </tr>
-</table>
+  <div *ngIf="!currentCheck">
+    <div class="card grey lighten-5">
+        <h6 class="card-title">Public</h6>
+        <div class="card-content">
+          <ul style="list-style-type:none"> <li>hashRate: {{ publicStats?.hashRate }}</li>
+            <li>timeToNextEpoch: {{ publicStats?.timeToNextEpoch }}</li></ul>
+        </div>
+      </div>
+  </div>
+
+  <div *ngIf="currentCheck">
+    <div class="card grey lighten-5">
+          <h6 class="card-title">Private</h6>
+          <div class="card-content">
+            <ul style="list-style-type:none">
+              <li>chain: {{privateStats?.chain}}</li>
+              <li>averageBlockTimeDifficulty: {{privateStats?.avgDifficulty}}</li>
+              <li>averageHashRate: {{privateStats?.avgHashrate}}</li>
+              <li>gasPrice: {{privateStats?.avgGasPrice}}</li></ul>
+          </div>
+    </div>
+  </div>
+
 </div>
