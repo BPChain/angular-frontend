@@ -1,3 +1,4 @@
+<!--
 <div>
   <div *ngIf="!currentCheck">
     <div class="card grey lighten-5">
@@ -21,5 +22,45 @@
           </div>
     </div>
   </div>
-
 </div>
+-->
+
+<div class="container">
+    <div class="row"> 
+    <div class="col s8 offset-s2">
+      <table class="bordered highlight">
+          <thead>
+            <tr>
+                <th></th>
+                <th>Public</th>
+                <th>Private</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Average HashRate</b></td>
+              <td>{{publicStats?.hashRate}} GH/s</td>
+              <td>{{privateStats?.avgHashrate}} GH/s</td>
+            </tr>
+            <tr>
+                <td><b>Average Block Time</b></td>
+                <td>{{publicStats?.averageBlockTime}}</td>
+                <td>{{privateStats?.avgDifficulty}}</td>
+              </tr>
+            <tr>
+              <td><b>Number of miners</b></td>
+              <td>{{publicStats?.activeMiners}}</td>
+              <td>{{privateStats?.numberOfMiners}}</td>
+            </tr>
+            <tr>
+              <td><b>Number of workers</b></td>
+              <td>{{publicStats?.activeWorkers}}</td>
+              <td>{{privateStats?.numberOfHosts}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="divider"></div>

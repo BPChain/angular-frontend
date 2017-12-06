@@ -5,14 +5,16 @@
             <h6 class="card-title">Choose Blockchain</h6>
             <br>
             <h6 class="">Define network type</h6>
-            <div class="switch">
-                <label>
-                  Public
-                  <input type="checkbox" [checked]="check" (change)="check = !check">
-                  <span class="lever"></span>
-                  Private
-                </label>
-            </div>
+            <form action="#">
+                <p>
+                  <input type="checkbox" class="filled-in" id="test5" />
+                  <label for="test5">Public</label>
+                </p>
+                <p>
+                  <input type="checkbox" class="filled-in" id="test6" />
+                  <label for="test6">Private</label>
+                </p>
+              </form>
             <h6 class="">Set amount of nodes</h6>
             <p>
               <input name="group2" type="radio" id="test3" />
@@ -36,3 +38,5 @@
         </div>
       </div>
     </div>
+    <br>
+    <div class="divider"></div>
