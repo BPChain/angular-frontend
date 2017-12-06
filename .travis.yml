@@ -4,7 +4,13 @@ node_js:
 cache:
   directories:
     - node_modules
-sudo: enabled
+sudo: required
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
 notifications:
   email: false
 script: node_modules/karma/bin/karma start ./karma.conf.js
