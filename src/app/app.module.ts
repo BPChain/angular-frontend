@@ -9,6 +9,8 @@ import { BarchartComponent } from './dashboard/barchart/barchart.component';
 import { ChartsModule } from 'ng2-charts';
 import { MetricComponent } from './dashboard/metric/metric.component';
 import { FormComponent } from './dashboard/form/form.component';
+import { PublicChartsComponent } from './dashboard/barcharts/public-charts/public-charts.component';
+import { PrivateChartsComponent } from './dashboard/barcharts/private-charts/private-charts.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { FormComponent } from './dashboard/form/form.component';
     BarchartComponent,
     MetricComponent,
     FormComponent,
+    PublicChartsComponent,
+    PrivateChartsComponent,
   ],
   imports: [
     BrowserModule,

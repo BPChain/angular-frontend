@@ -18,10 +18,10 @@ export class BarchartComponent implements OnInit, OnChanges {
   barChartLegend: boolean;
   barChartData: any[];
 
-ngOnInit() {
+  ngOnInit() {
   this.barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
   };
   this.barChartType = 'bar';
   this.barChartLegend = false;
@@ -29,7 +29,7 @@ ngOnInit() {
 }
 
 ngOnChanges() {
-  this.barChartData = [
+    this.barChartData = [
     {data: [this.publicStats.numberOfMiners, this.publicStats.numberOfWorkers, this.publicStats.avgBlocktime], label: 'Public'},
     {data: [this.privateStats.numberOfMiners, this.privateStats.numberOfHosts, this.privateStats.avgBlocktime], label: 'Private'}
   ];

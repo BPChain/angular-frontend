@@ -2,9 +2,11 @@
 
 <div *ngIf="publicStats && privateStats">
   <app-metric [currentCheck]="currentCheck" [publicStats]="publicStats" [privateStats]="privateStats"></app-metric>
-  <app-barchart
-  [publicStats]="publicStats"
-  [privateStats]="privateStats"
-></app-barchart>
+  <app-public-charts [publicStats]="publicStats">
+  </app-public-charts>
+
+  <app-private-charts [privateStats]="privateStats"></app-private-charts>
+
+
 </div>
 <button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>
