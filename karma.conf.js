@@ -15,6 +15,13 @@ module.exports = function (config) {
     client:{
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
+    files: [
+      './src/*.js',
+      './src/*.css',
+      './src/*.html',
+      './src/*.ts'
+
+    ],
     coverageIstanbulReporter: {
       reports: [ 'html', 'lcovonly' ],
       fixWebpackSourcePaths: true
