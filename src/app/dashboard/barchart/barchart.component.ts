@@ -24,13 +24,13 @@ ngOnInit() {
     responsive: true
   };
   this.barChartType = 'bar';
-  this.barChartLegend = true;
-  this.barChartLabels = ['activeMiners', 'activeWorkers', 'averageBlockTime'];
+  this.barChartLegend = false;
+  this.barChartLabels = ['numberOfMiners', 'numberOfWorkers', 'avgBlocktime'];
 }
 
 ngOnChanges() {
   this.barChartData = [
-    {data: [this.publicStats.activeMiners, this.publicStats.activeWorkers, this.publicStats.averageBlockTime], label: 'Public'},
+    {data: [this.publicStats.numberOfMiners, this.publicStats.numberOfWorkers, this.publicStats.avgBlocktime], label: 'Public'},
     {data: [this.privateStats.numberOfMiners, this.privateStats.numberOfHosts, this.privateStats.avgBlocktime], label: 'Private'}
   ];
 

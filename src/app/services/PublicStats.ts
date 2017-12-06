@@ -1,15 +1,12 @@
-export class BlockTimeDifficulty {
-  date: Date;
-  difficulty: number;
-  block_time: number;
-}
-
 export class PublicStats {
-  activeMiners: number;
-  activeWorkers: number;
-  averageBlockTime: number;
-  blockTimeDifficulty: BlockTimeDifficulty[];
-  hashRate: number;
+  __id: number;
+  avgBlocktime: number;
+  avgHashrate: number;
+  numberOfMiners: number;
+  numberOfWorkers: number;
   timeToNextEpoch: number;
+  timeStamp: number;
+  chain: string;
+  __v: number;
 }
 

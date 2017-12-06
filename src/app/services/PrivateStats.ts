@@ -1,5 +1,5 @@
 export class PrivateStats {
-  id: number;
+  _id: number;
   chain: string;
   timestamp: number;
   numberOfHosts: number;
@@ -8,6 +8,5 @@ export class PrivateStats {
   avgBlocktime: number;
   avgGasPrice: number;
   avgDifficulty: number;
-  _id: string;
   __v: number;
 }
