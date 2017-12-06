@@ -16,10 +16,10 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     files: [
-      './src/*.js',
-      './src/*.css',
-      './src/*.html',
-      './src/*.ts'
+      './src/*/*.component.spec.ts',
+      './src/*/*.css',
+      './src/*/*.html',
+      './src/*/*.ts'
 
     ],
     coverageIstanbulReporter: {
