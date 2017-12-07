@@ -4,14 +4,17 @@
           <div class="card-content" id="form">
             <h6 class="card-title">Choose Blockchain</h6>
             <br>
-            <form>
             <h6 class="">Define network type</h6>
-              <p>
-            <input type="checkbox" id= "public" [checked]="check" (change)="check = !check">
-              <label for="public">Public</label>
-              <input type="checkbox" id="private" [checked]="check" (change)="check = !check">
-                <label for="private">Private</label>
-              </p>
+            <form action="#">
+                <p>
+                  <input type="checkbox" class="filled-in" id="test5" />
+                  <label for="test5">Public</label>
+                </p>
+                <p>
+                  <input type="checkbox" class="filled-in" id="test6" />
+                  <label for="test6">Private</label>
+                </p>
+              </form>
             <h6 class="">Set amount of nodes</h6>
             <p>
               <input name="group2" type="radio" id="test3" />
@@ -25,7 +28,6 @@
                 <input name="group2" type="radio" id="test5" />
                 <label class="" for="test5">1000 nodes</label>
               </p>
-          </form>
         </div>
         <div class="card-action">
             <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action" (click)="emitEvent()">Show Data
@@ -36,3 +38,5 @@
         </div>
       </div>
     </div>
+    <br>
+    <div class="divider"></div>
