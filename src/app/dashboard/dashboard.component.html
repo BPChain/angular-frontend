@@ -1,22 +1,15 @@
 <app-form (load)="loadData($event)"></app-form>
 
 <div *ngIf="publicStats && privateStats">
+    <app-metric [publicStats]="publicStats" [privateStats]="privateStats"></app-metric>
   <div class="row">
-  <div class="col s12">
-    <app-metric [currentCheck]="currentCheck" [publicStats]="publicStats" [privateStats]="privateStats"></app-metric></div>
-  <div class="col s6">
+  <div *ngIf="publicCheck" [ngClass]="privateCheck? 'col s6': 'col s12'">
     <app-public-charts [publicStats]="publicStats">
     </app-public-charts>
   </div>
-  <div class="col s6">
-    <app-private-charts [privateStats]="privateStats"></app-private-charts>
+  <div *ngIf="privateCheck" [ngClass]="publicCheck? 'col s6': 'col s12'">
+    <app-private-charts [privateStats]="this.privateStats"></app-private-charts>
   </div>
 </div>
-
-
-
-
-
-
-</div>
-<button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>
+  </div>
+  <button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>

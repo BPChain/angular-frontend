@@ -11,6 +11,7 @@ import { MetricComponent } from './dashboard/metric/metric.component';
 import { FormComponent } from './dashboard/form/form.component';
 import { PublicChartsComponent } from './dashboard/barcharts/public-charts/public-charts.component';
 import { PrivateChartsComponent } from './dashboard/barcharts/private-charts/private-charts.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PrivateChartsComponent } from './dashboard/barcharts/private-charts/pri
   imports: [
     BrowserModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

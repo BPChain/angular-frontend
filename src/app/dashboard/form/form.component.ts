@@ -6,6 +6,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  publicChecked = false;
+  privateChecked = false;
 
  @Output() load: EventEmitter<any> = new EventEmitter();
 
@@ -17,7 +19,9 @@ export class FormComponent implements OnInit {
   }
 
   emitEvent() {
-    this.load.emit(this.check);
+    console.log("private" + this.privateChecked);
+    console.log("public" + this.publicChecked);
+    this.load.emit([this.publicChecked, this.privateChecked]);
   }
 
 }
