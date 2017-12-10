@@ -1,0 +1,32 @@
+<div *ngIf="publicStats">
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="avgBlocktime"
+            [labels]="avgBlocktimeLabel"
+            [options]="avgBlocktimeOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="avgHashrate"
+            [labels]="avgHashrateLabel"
+            [options]="avgHashrateOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="minersWorkers"
+            [labels]="minersWorkersLabel"
+            [options]="minersWorkersOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+</div>

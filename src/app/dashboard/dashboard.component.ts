@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   publicCheck: boolean;
   privateCheck: boolean;
 
+
   constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
   }
 
@@ -63,8 +64,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadData(data) {
-     this.publicCheck = data[0];
+    this.publicCheck = data[0];
     this.privateCheck = data[1];
+    window.dispatchEvent(new Event('resize'));
   }
 
 }

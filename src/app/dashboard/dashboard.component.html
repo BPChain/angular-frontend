@@ -3,12 +3,14 @@
 <div *ngIf="publicStats && privateStats">
     <app-metric [publicStats]="publicStats" [privateStats]="privateStats"></app-metric>
   <div class="row">
-  <div *ngIf="publicCheck" [ngClass]="privateCheck? 'col s6': 'col s12'">
-    <app-public-charts [publicStats]="publicStats">
+  <div *ngIf="publicCheck" class="col s6">
+    <h3>Public</h3>
+    <app-public-charts [publicStats]="publicStats" style="width: 100%;">
     </app-public-charts>
   </div>
-  <div *ngIf="privateCheck" [ngClass]="publicCheck? 'col s6': 'col s12'">
-    <app-private-charts [privateStats]="this.privateStats"></app-private-charts>
+  <div *ngIf="privateCheck" class="col s6">
+    <h3>Private</h3>
+    <app-private-charts [privateStats]="this.privateStats" style="width: 100%;"></app-private-charts>
   </div>
 </div>
   </div>
