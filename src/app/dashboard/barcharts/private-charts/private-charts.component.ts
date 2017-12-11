@@ -39,7 +39,7 @@ export class PrivateChartsComponent implements OnInit, OnChanges {
       yAxes: [{
         ticks: {
           beginAtZero: true,
-          max: 30000,
+          max: 50000,
         }
       }]
     }
