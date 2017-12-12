@@ -1,16 +1,14 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class PrivateStatsService {
 
-  base = 'http://localhost:2020/api';
-  resource = '/ethereum/privateStat';
-
   constructor(@Inject(HttpClient) private http: HttpClient) {}
 
   get url() {
-    return this.base + this.resource;
+    return environment.baseURL + environment.privateStatsResource;
   }
 
   getPrivateStats<PrivateStats>() {
