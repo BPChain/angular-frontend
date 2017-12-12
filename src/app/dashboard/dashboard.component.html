@@ -1,1 +1,17 @@
-{{ stats?.activeMiners }}
+<app-form (load)="loadData($event)"></app-form>
+
+<div *ngIf="publicStats && privateStats">
+    <app-metric [publicStats]="publicStats" [privateStats]="privateStats"></app-metric>
+  <div class="row">
+  <div *ngIf="publicCheck" class="col s6">
+    <h3>Public</h3>
+    <app-public-charts [publicStats]="publicStats" style="width: 100%;">
+    </app-public-charts>
+  </div>
+  <div *ngIf="privateCheck" class="col s6">
+    <h3>Private</h3>
+    <app-private-charts [privateStats]="this.privateStats" style="width: 100%;"></app-private-charts>
+  </div>
+</div>
+  </div>
+  <button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>

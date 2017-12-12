@@ -2,10 +2,10 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
-export class PublicStatsService {
+export class PrivateStatsService {
 
   base = 'http://localhost:2020/api';
-  resource = '/ethereum/publicStat';
+  resource = '/ethereum/privateStat';
 
   constructor(@Inject(HttpClient) private http: HttpClient) {}
 
@@ -13,8 +13,8 @@ export class PublicStatsService {
     return this.base + this.resource;
   }
 
-  getPublicStats<PublicStats>() {
+  getPrivateStats<PrivateStats>() {
     const url = this.url;
-    return this.http.get<PublicStats>(url);
+    return this.http.get<PrivateStats>(url);
   }
 }

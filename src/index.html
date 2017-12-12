@@ -2,13 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>MyApp</title>
+  <title>Chainboard</title>
   <base href="/">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 </head>
+
 <body>
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper container">
+            <img src="assets/images/logo.png" style="width:6%; "> </img>
+          <a id="logo-container" href="#" class="brand-logo black-text">Chainboard</a>
+
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="#">Navbar Link</a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+
+
   <app-root></app-root>
+
+
+  <footer class="page-footer blue-grey darken-3">
+      <div class="container">
+        <div class="row">
+          <div class="col m6 s12">
+            <h5 class="white-text">BPChain</h5>
+            <p class="grey-text text-lighten-4">We are a team of college students working on this project . Any feedback is greatly appreciated.</p>
+
+
+          </div>
+          <div class="col m3 s12">
+            <h5 class="white-text">Connect</h5>
+            <ul>
+              <li><a class="white-text center" href="https://github.com/BPChain"> <i class="small material-icons"> code </i> GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+        Made with <i class="small material-icons"> favorite </i> @ HPI
+        </div>
+      </div>
+    </footer>
+
 </body>
 </html>
