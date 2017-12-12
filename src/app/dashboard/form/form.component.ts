@@ -19,8 +19,6 @@ export class FormComponent implements OnInit {
   }
 
   emitEvent() {
-    console.log("private" + this.privateChecked);
-    console.log("public" + this.publicChecked);
     this.load.emit([this.publicChecked, this.privateChecked]);
   }
 
