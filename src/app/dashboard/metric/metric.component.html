@@ -1,30 +1,3 @@
-<!--
-<div>
-  <div *ngIf="!currentCheck">
-    <div class="card grey lighten-5">
-        <h6 class="card-title">Public</h6>
-        <div class="card-content">
-          <ul style="list-style-type:none"> <li>hashRate: {{ publicStats?.hashRate }}</li>
-            <li>timeToNextEpoch: {{ publicStats?.timeToNextEpoch }}</li></ul>
-        </div>
-      </div>
-  </div>
-
-  <div *ngIf="currentCheck">
-    <div class="card grey lighten-5">
-          <h6 class="card-title">Private</h6>
-          <div class="card-content">
-            <ul style="list-style-type:none">
-              <li>chain: {{privateStats?.chain}}</li>
-              <li>averageBlockTimeDifficulty: {{privateStats?.avgDifficulty}}</li>
-              <li>averageHashRate: {{privateStats?.avgHashrate}}</li>
-              <li>gasPrice: {{privateStats?.avgGasPrice}}</li></ul>
-          </div>
-    </div>
-  </div>
-</div>
--->
-
 <div class="container">
     <div class="row">
     <div class="col s8 offset-s2">
@@ -39,23 +12,23 @@
           <tbody>
             <tr>
               <td><b>Average HashRate</b></td>
-              <td>{{publicStats?.avgHashrate}} GH/s</td>
-              <td>{{privateStats?.avgHashrate}} H/s</td>
+              <td>{{ publicStats?.avgHashrate }} GH/s</td>
+              <td>{{ privateStats?.avgHashrate }} H/s</td>
             </tr>
             <tr>
                 <td><b>Average Block Time</b></td>
-                <td>{{publicStats?.avgBlocktime}} Min</td>
-                <td>{{privateStats?.avgBlocktime}} Sec</td>
+                <td>{{ publicStats?.avgBlocktime }} Min</td>
+                <td>{{ privateStats?.avgBlocktime }} Sec</td>
               </tr>
             <tr>
               <td><b>Number of miners</b></td>
-              <td>{{publicStats?.numberOfMiners}}</td>
-              <td>{{privateStats?.numberOfMiners}}</td>
+              <td>{{ publicStats?.numberOfMiners }}</td>
+              <td>{{ privateStats?.numberOfMiners }}</td>
             </tr>
             <tr>
               <td><b>Number of workers</b></td>
-              <td>{{publicStats?.numberOfWorkers}}</td>
-              <td>{{privateStats?.numberOfHosts}}</td>
+              <td>{{ publicStats?.numberOfWorkers }}</td>
+              <td>{{ privateStats?.numberOfHosts }}</td>
             </tr>
           </tbody>
         </table>
