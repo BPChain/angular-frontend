@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  angular-frontend:
+    build: .
+    container_name: api-server
+    networks:
+      - backendnet
+    ports:
+      - "4200:4200"
+networks:
+  backendnet:
+    external:
+      name: backendnet
