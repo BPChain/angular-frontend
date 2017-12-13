@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 #background {
-    background-image: url("assets/images/background.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
+  background-image: url("assets/images/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
 #form {
-    color:black !important;
-  }
+  color: black !important;
+}
