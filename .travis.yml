@@ -3,11 +3,6 @@ dist: trusty
 language: node_js
 node_js: stable
 
-git:
-  depth: 3
-  lfs_skip_smudge: true
-
-
 cache:
   directories: node_modules
 
