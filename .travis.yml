@@ -1,28 +1,38 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js: stable
+
+git:
+  depth: 3
+  lfs_skip_smudge: true
+
+
 cache:
-  directories:
-    - node_modules
-sudo: required
+  directories: node_modules
+
 addons:
-  apt:
-    sources:
+apt:
+  sources:
     - google-chrome
-    packages:
+  packages:
     - google-chrome-stable
     - google-chrome-beta
-notifications:
-  email: false
+
 before_install:
- - export CHROME_BIN=chromium-browser
- - export DISPLAY=:99.0
- - sh -e /etc/init.d/xvfb start
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
 before_script:
- - npm install -g angular/cli
- - npm install -g karma
- - npm install
- - ng lint
- - ng build --aot --prod
- - ng serve & ng e2e
+- npm install -g @angular-cli
+- npm install -g karma
+- npm install
+- ng lint
+- ng build --aot --prod
+- ng serve & ng e2e
+
 script:
- - ng test --watch=false
+- ng test --watch=false
+
+notifications: false
