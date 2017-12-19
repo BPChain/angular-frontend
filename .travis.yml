@@ -29,7 +29,6 @@ before_script:
 - npm install -g karma
 - npm install
 - ng lint
-- ng build --aot --prod
 - ng serve & ng e2e
 
 script:
