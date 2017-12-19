@@ -1,16 +1,17 @@
 <app-form (load)="loadData($event)"></app-form>
 
 <div *ngIf="publicStats && privateStats">
-    <app-metric [publicStats]="publicStats" [privateStats]="privateStats"></app-metric>
+  <app-linechart></app-linechart>
+    <app-metric [publicStats]="publicStats[0]" [privateStats]="privateStats[0]"></app-metric>
   <div class="row">
   <div *ngIf="publicCheck" class="col s6">
     <h3>Public</h3>
-    <app-public-charts [publicStats]="publicStats" style="width: 100%;">
+    <app-public-charts [publicStats]="publicStats[0]" style="width: 100%;">
     </app-public-charts>
   </div>
   <div *ngIf="privateCheck" class="col s6">
     <h3>Private</h3>
-    <app-private-charts [privateStats]="this.privateStats" style="width: 100%;"></app-private-charts>
+    <app-private-charts [privateStats]="privateStats[0]" style="width: 100%;"></app-private-charts>
   </div>
 </div>
   </div>

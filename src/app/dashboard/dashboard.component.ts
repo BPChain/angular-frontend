@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { PublicStatsService, } from '../services/public-stats.service';
+import { PublicStatsService } from '../services/public-stats.service';
 import { PublicStats} from '../services/PublicStats';
 import {PrivateStatsService} from '../services/private-stats.service';
 import {PrivateStats} from '../services/PrivateStats';
@@ -13,11 +13,12 @@ import {PrivateStats} from '../services/PrivateStats';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   refresh = true;
-  publicStats: PublicStats;
-  privateStats: PrivateStats;
+  publicStats: any;
+  privateStats: any;
   interval: any;
   publicCheck: boolean;
   privateCheck: boolean;
+  timeArray: any;
 
 
   constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
@@ -25,7 +26,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.load();
-
     this.interval = setInterval(() => {
       if (this.refresh) {
         this.load();
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private loadPublicData() {
-    this.publicStatsService.getPublicStats<PublicStats>()
+    this.publicStatsService.getPublicStats()
       .subscribe(
         response => {
           console.log(response);
@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private loadPrivateData() {
-    this.privateStatsService.getPrivateStats<PrivateStats>()
+    this.privateStatsService.getPrivateStats()
       .subscribe(
         response => {
           console.log(response);

@@ -11,8 +11,15 @@ export class PrivateStatsService {
     return environment.baseURL + environment.privateStatsResource;
   }
 
-  getPrivateStats<PrivateStats>() {
+  getPrivateStats() {
     const url = this.url;
-    return this.http.get<PrivateStats>(url);
+    return this.http.get(url);
   }
+
+  getLastStats(id) {
+    const url = this.url;
+    return this.http.get(url + `/?numberOfItems=${id}`);
+  }
+
+
 }

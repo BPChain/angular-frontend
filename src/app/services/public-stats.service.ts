@@ -11,8 +11,8 @@ export class PublicStatsService {
     return environment.baseURL + environment.publicStatsResource;
   }
 
-  getPublicStats<PublicStats>() {
+  getPublicStats () {
     const url = this.url;
-    return this.http.get<PublicStats>(url);
+    return this.http.get (url);
   }
 }
