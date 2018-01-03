@@ -23,16 +23,19 @@ export class FormComponent implements OnInit {
  @Output() load: EventEmitter<any> = new EventEmitter();
 
   private check = false;
-  private date: Date;
+  private startDate: Date;
+  private endDate: Date;
+  
   constructor() {
-    this.date = new Date()
+    this.startDate = new Date();
+    this.endDate = new Date()
    }
 
   ngOnInit() {
   }
 
   emitEvent() {
-    this.load.emit([this.publicChecked, this.privateChecked]);
+    this.load.emit([this.publicChecked, this.privateChecked, this.startDate, this.endDate]);
   }
 
 }

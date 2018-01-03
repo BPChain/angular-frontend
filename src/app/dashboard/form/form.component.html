@@ -30,9 +30,10 @@
                 <label class="" for="test5">1000 nodes</label>
               </p>
               -->
-
-              <ng-datepicker [(ngModel)]="date" [ngModelOptions] = "{standalone: true}" [options] = "options" position = "top-right"></ng-datepicker>
-              
+              <h6 class="">Choose start date</h6>
+              <ng-datepicker [(ngModel)]="startDate" [ngModelOptions] = "{standalone: true}" [options] = "options" position = "top-right"></ng-datepicker>
+              <h6 class="">Choose end date</h6>
+              <ng-datepicker [(ngModel)]="endDate" [ngModelOptions] = "{standalone: true}" [options] = "options" position = "top-right" ></ng-datepicker>
             </div>
             <div class="card-action">
                 <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action" (click)="emitEvent()">Show Data
