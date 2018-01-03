@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'http://localhost:2020/api',
-  privateStatsResource: '/ethereum/privateStat',
-  publicStatsResource: '/ethereum/publicStat'
+  baseURL: 'http://172.16.64.115:2020/api',
+  privateStatsResource: '/private/ethereum',
+  publicStatsResource: '/public/ethereum'
 };

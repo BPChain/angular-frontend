@@ -25,10 +25,10 @@ export class FormComponent implements OnInit {
   private check = false;
   private startDate: Date;
   private endDate: Date;
-  
+
   constructor() {
-    this.startDate = new Date();
-    this.endDate = new Date()
+    this.startDate = new Date('2017-12-31');
+    this.endDate = new Date();
    }
 
   ngOnInit() {

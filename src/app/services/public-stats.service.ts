@@ -9,11 +9,17 @@ export class PublicStatsService {
   }
 
   get url() {
-    return environment.baseURL + environment.publicStatsResource + '?numberOfItems=100'; // TODO remove
+    return environment.baseURL + environment.publicStatsResource;
   }
 
   getPublicStats() {
     const url = this.url;
+    return this.http.get(url);
+  }
+
+  blubber(start: string, end: string) {
+    const url = this.url + '?startTime=' + start + '&endTime=' + end;
+    console.log(url);
     return this.http.get(url);
   }
 
@@ -22,5 +28,6 @@ export class PublicStatsService {
     if (query) {
       url += `?${query}`;
     }
+    return this.http.get<T>(url);
   }
 }

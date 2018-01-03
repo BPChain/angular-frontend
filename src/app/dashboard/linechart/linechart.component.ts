@@ -16,7 +16,7 @@ export class LinechartComponent implements OnInit, OnChanges {
   }
 
   public lineChartData: Array<any> = [
-    {data: this.data, label: 'AvgBLOCKTIME'}
+    {data: this.data, label: 'Avg Hashrate'}
   ];
 
   public lineChartLabels: Array<any>;
@@ -50,13 +50,14 @@ export class LinechartComponent implements OnInit, OnChanges {
     for (const record of this.publicData) {
       this.data.push(record.avgHashrate);
       this.labels.push(new Date(record.timeStamp));
-      console.log('nach changes ' +  record);
     }
-    this.lineChartData = [{data: this.data, label: 'Avg Blocktime'}];
+    this.lineChartData = [{data: this.data, label: 'Avg Hashrate'}];
     this.lineChartLabels = this.labels;
   }
 
+
   ngOnChanges() {
+
   }
 
 }

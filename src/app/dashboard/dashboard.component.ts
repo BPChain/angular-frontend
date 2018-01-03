@@ -18,8 +18,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   interval: any;
   publicCheck: boolean;
   privateCheck: boolean;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date = new Date('2018-01-02');
+  endDate: Date = new Date;
 
   constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
   }
@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private loadPublicData() {
-    this.publicStatsService.getPublicStats()
+    this.publicStatsService.blubber(this.startDate.toISOString(), this.endDate.toISOString())
       .subscribe(
         response => {
           console.log(response);
@@ -67,6 +67,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   loadData(data) {
     this.publicCheck = data[0];
     this.privateCheck = data[1];
+    this.startDate = data[2];
+    this.endDate = data[3];
     window.dispatchEvent(new Event('resize'));
   }
 
