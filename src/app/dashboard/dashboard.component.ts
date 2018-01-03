@@ -13,11 +13,13 @@ import {PrivateStats} from '../services/PrivateStats';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   refresh = true;
-  publicStats: PublicStats;
+  publicStats: any;
   privateStats: PrivateStats;
   interval: any;
   publicCheck: boolean;
   privateCheck: boolean;
+  startDate: Date;
+  endDate: Date;
 
   constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
   }
@@ -45,7 +47,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   private loadPublicData() {
-    this.publicStatsService.getPublicStats<PublicStats>()
+    this.publicStatsService.getPublicStats()
       .subscribe(
         response => {
           console.log(response);

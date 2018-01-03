@@ -5,14 +5,22 @@ import {environment} from '../../environments/environment';
 @Injectable()
 export class PublicStatsService {
 
-  constructor(@Inject(HttpClient) private http: HttpClient) {}
+  constructor(@Inject(HttpClient) private http: HttpClient) {
+  }
 
   get url() {
     return environment.baseURL + environment.publicStatsResource + '?numberOfItems=100'; // TODO remove
   }
 
-  getPublicStats<PublicStats>() {
+  getPublicStats() {
     const url = this.url;
-    return this.http.get<PublicStats>(url);
+    return this.http.get(url);
+  }
+
+  query<T>(query?) {
+    let url = this.url;
+    if (query) {
+      url += `?${query}`;
+    }
   }
 }

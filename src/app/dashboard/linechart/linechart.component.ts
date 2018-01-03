@@ -49,7 +49,7 @@ export class LinechartComponent implements OnInit, OnChanges {
   ngOnInit() {
     for (const record of this.publicData) {
       this.data.push(record.avgHashrate);
-      this.labels.push(record.timeStamp);
+      this.labels.push(new Date(record.timeStamp));
       console.log('nach changes ' +  record);
     }
     this.lineChartData = [{data: this.data, label: 'Avg Blocktime'}];
