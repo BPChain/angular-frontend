@@ -27,7 +27,6 @@
     "zone.js": "^0.8.19",
     "ng2-datepicker": "^2.1.7"
   },
-  
   "devDependencies": {
     "@angular/cli": "1.5.4",
     "@angular/compiler-cli": "^5.1.2",

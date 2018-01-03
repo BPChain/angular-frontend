@@ -1,24 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {PublicStats} from '../../services/PublicStats';
 
 @Component({
   selector: 'app-linechart',
   templateUrl: './linechart.component.html',
   styleUrls: ['./linechart.component.css']
 })
-export class LinechartComponent implements OnInit {
+export class LinechartComponent implements OnInit, OnChanges {
+   @Input() publicData;
+   data: number[];
+   labels: any[] = [];
 
-  constructor() { }
+  constructor() {
+    this.data = [0];
+  }
 
-  public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+  public lineChartData: Array<any> = [
+    {data: this.data, label: 'AvgBLOCKTIME'}
   ];
 
-  public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions:any = {
+  public lineChartLabels: Array<any>;
+  public lineChartOptions: any = {
     responsive: true
   };
 
-  public lineChartColors:Array<any> = [
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
       borderColor: 'rgba(148,159,177,1)',
@@ -29,18 +35,28 @@ export class LinechartComponent implements OnInit {
     }
   ];
 
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
+  public lineChartLegend = true;
+  public lineChartType = 'line';
 
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
- 
-  public chartHovered(e:any):void {
+
+  public chartHovered(e: any): void {
     console.log(e);
   }
 
   ngOnInit() {
+    for (const record of this.publicData) {
+      this.data.push(record.avgHashrate);
+      this.labels.push(record.timeStamp);
+      console.log('nach changes ' +  record);
+    }
+    this.lineChartData = [{data: this.data, label: 'Avg Blocktime'}];
+    this.lineChartLabels = this.labels;
+  }
+
+  ngOnChanges() {
   }
 
 }

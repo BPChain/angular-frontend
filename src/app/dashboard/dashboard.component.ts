@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   publicCheck: boolean;
   privateCheck: boolean;
 
-
   constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
   }
 

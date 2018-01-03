@@ -8,7 +8,7 @@ export class PublicStatsService {
   constructor(@Inject(HttpClient) private http: HttpClient) {}
 
   get url() {
-    return environment.baseURL + environment.publicStatsResource;
+    return environment.baseURL + environment.publicStatsResource + '?numberOfItems=100'; // TODO remove
   }
 
   getPublicStats<PublicStats>() {
