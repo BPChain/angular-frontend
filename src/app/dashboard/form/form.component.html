@@ -14,6 +14,8 @@
                 <input type="checkbox" class="filled-in" id="test6" name="private" [(ngModel)]="privateChecked"/>
                 <label for="test6">Private</label>
               </p>
+              
+              <!-- 
               <h6 class="">Set amount of nodes</h6>
               <p>
                 <input name="group2" type="radio" id="test3" />
@@ -27,6 +29,10 @@
                 <input name="group2" type="radio" id="test5" />
                 <label class="" for="test5">1000 nodes</label>
               </p>
+              -->
+
+              <ng-datepicker [(ngModel)]="date" [ngModelOptions] = "{standalone: true}" [options] = "options" position = "top-right"></ng-datepicker>
+              
             </div>
             <div class="card-action">
                 <button class="btn waves-effect waves-light grey darken-2" type="submit" name="action" (click)="emitEvent()">Show Data
