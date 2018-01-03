@@ -10,6 +10,7 @@ import { FormComponent } from './dashboard/form/form.component';
 import { PublicChartsComponent } from './dashboard/barcharts/public-charts/public-charts.component';
 import { PrivateChartsComponent } from './dashboard/barcharts/private-charts/private-charts.component';
 import {FormsModule} from '@angular/forms';
+import { LinechartComponent } from './dashboard/linechart/linechart.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {FormsModule} from '@angular/forms';
     FormComponent,
     PublicChartsComponent,
     PrivateChartsComponent,
+    LinechartComponent,
   ],
   imports: [
     BrowserModule,
