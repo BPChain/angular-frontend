@@ -1,6 +1,6 @@
 <app-welcome></app-welcome>
 <br>
-<div fxLayout="row" fxLayoutAlign="space-evenly center">
+<div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="!publicCheck && !privateCheck">
   <app-form (showData)="loadRequestedData($event)"></app-form>
   <app-metric [publicStatistics]="currentPublicStatistics" [privateStatistics]="currentPrivateStatistics"></app-metric>
 </div>
@@ -25,6 +25,9 @@
   <div *ngIf="!timeBasedPrivateStatistics">
     <app-private-charts [currentPrivateData]="currentPrivateStatistics"></app-private-charts>
   </div>
+  </div>
+  <div *ngIf="publicCheck || privateCheck">
+    <button mat-button (click)="resetChecks()">Update Data</button>
   </div>
 </div>
 
