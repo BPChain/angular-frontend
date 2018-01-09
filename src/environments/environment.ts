@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'http://172.16.64.115:2020/api',
+  baseURL: 'https://bpt-lab.org/bp2017w1-bpchain/api',
   privateStatsResource: '/private/ethereum',
   publicStatsResource: '/public/ethereum',
 };
