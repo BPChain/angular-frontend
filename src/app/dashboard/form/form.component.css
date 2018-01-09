@@ -1,0 +1,17 @@
+.margin {
+  margin: 0 10px;
+}
+
+mat-card {
+  background: whitesmoke;
+}
+
+.main-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card mat-card-actions button{
+  float: right;
+}

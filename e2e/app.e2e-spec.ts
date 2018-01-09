@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('chainboard-prototypechainboard-prototype App', () => {
+describe('angular-frontend App', () => {
   let page: AppPage;
 
   beforeEach(() => {
