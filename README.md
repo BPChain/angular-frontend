@@ -1,4 +1,6 @@
 # AngularFrontend
+Master-Branch: [![Build Status](https://travis-ci.org/BPChain/angular-frontend.svg?branch=master)](https://travis-ci.org/BPChain/angular-frontend)
+Dev-Branch: [![Build Status](https://travis-ci.org/BPChain/angular-frontend.svg?branch=dev)](https://travis-ci.org/BPChain/angular-frontend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
 
