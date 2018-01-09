@@ -1,0 +1,14 @@
+mat-card {
+  background: whitesmoke;
+}
+
+table {
+
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #A7A7A7;
+
+}

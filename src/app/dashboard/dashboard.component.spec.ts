@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {PrivateStatisticsService} from "../services/private-statistics.service";
+import {PublicStatisticsService} from "../services/public-statistics.service";
+import {HttpClientModule} from "@angular/common/http";
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -8,7 +12,10 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ]
+      declarations: [ DashboardComponent ],
+      imports: [HttpClientModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      providers: [HttpClientModule, PrivateStatisticsService, PublicStatisticsService],
     })
     .compileComponents();
   }));
@@ -23,4 +30,3 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-

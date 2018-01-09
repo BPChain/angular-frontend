@@ -1,76 +1,94 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { PublicStatsService, } from '../services/public-stats.service';
-import { PublicStats} from '../services/PublicStats';
-import {PrivateStatsService} from '../services/private-stats.service';
-import {PrivateStats} from '../services/PrivateStats';
-
+import {PrivateStatisticsService} from "../services/private-statistics.service";
+import {PublicStatisticsService} from "../services/public-statistics.service";
+import {PrivateStatistics} from "../services/PrivateStatistics";
+import {PublicStatistics} from "../services/PublicStatistics";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [PublicStatsService, PrivateStatsService]
+  providers: [PrivateStatisticsService, PublicStatisticsService],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  refresh = true;
-  publicStats: any;
-  privateStats: PrivateStats;
   interval: any;
-  publicCheck: boolean;
-  privateCheck: boolean;
-  startDate: Date = new Date('2018-01-02');
-  endDate: Date = new Date;
+  refresh = true;
 
-  constructor(private publicStatsService: PublicStatsService, private privateStatsService: PrivateStatsService) {
-  }
+  privateCheck: boolean;
+  publicCheck: boolean;
+  startDate: Date;
+  endDate: Date;
+
+  currentPrivateStatistics: PrivateStatistics;
+  currentPublicStatistics: PublicStatistics;
+  timeBasedPublicStatistics: any; // TODO fix type
+
+  constructor(private privateStatisticsService: PrivateStatisticsService, private publicStatisticsService: PublicStatisticsService) { }
 
   ngOnInit() {
-    this.load();
+    this.loadLatestData();
 
     this.interval = setInterval(() => {
       if (this.refresh) {
-        this.load();
+        this.loadLatestData();
       }
     }, 10000);
   }
-
 
   ngOnDestroy() {
     clearInterval(this.interval);
   }
 
-  reset(): void {}
-
-  private load() {
-   this.loadPublicData();
-   this.loadPrivateData();
+  loadLatestData() {
+    this.loadLatestPrivateData();
+    this.loadLatestPublicData();
   }
 
-  private loadPublicData() {
-    this.publicStatsService.blubber(this.startDate.toISOString(), this.endDate.toISOString())
+  loadLatestPrivateData() {
+    this.privateStatisticsService.get()
       .subscribe(
         response => {
-          console.log(response);
-          this.publicStats = response;
-        });
+          this.currentPrivateStatistics = response[0];
+        }
+      )
   }
 
-  private loadPrivateData() {
-    this.privateStatsService.getPrivateStats<PrivateStats>()
+  loadLatestPublicData() {
+    this.publicStatisticsService.get()
       .subscribe(
         response => {
-          console.log(response);
-          this.privateStats = response;
-        });
+          this.currentPublicStatistics = response[0];
+        }
+      )
   }
 
-  loadData(data) {
-    this.publicCheck = data[0];
-    this.privateCheck = data[1];
-    this.startDate = data[2];
-    this.endDate = data[3];
-    window.dispatchEvent(new Event('resize'));
+  loadRequestedData(userInput: Array<any>) {
+    this.privateCheck = userInput[0];
+    this.publicCheck = userInput[1];
+    this.startDate = userInput[2];
+    this.endDate = userInput[3];
+
+    this.timeBasedPublicStatistics = null;
+    if(this.startDate && this.endDate){
+      this.loadTimeBasedData(this.startDate, this.endDate);
+    }
   }
 
+  loadTimeBasedData(start: Date, end: Date){
+    if(this.checkValidDates(start, end)){
+      let query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
+      this.publicStatisticsService.query(query)
+        .subscribe(
+          response => {
+            this.timeBasedPublicStatistics = response;
+          }
+        )
+    }
+  }
+
+   checkValidDates(start: Date, end: Date) {
+    return start < end;
+  }
 }
+
 

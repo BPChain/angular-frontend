@@ -1,37 +1,71 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './menu/footer/footer.component';
+import { HeaderComponent } from './menu/header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ChartsModule } from 'ng2-charts';
-import { MetricComponent } from './dashboard/metric/metric.component';
+import { WelcomeComponent } from './dashboard/welcome/welcome.component';
 import { FormComponent } from './dashboard/form/form.component';
-import { PublicChartsComponent } from './dashboard/barcharts/public-charts/public-charts.component';
-import { PrivateChartsComponent } from './dashboard/barcharts/private-charts/private-charts.component';
-import {FormsModule} from '@angular/forms';
-import { LinechartComponent } from './dashboard/linechart/linechart.component';
-import { NgDatepickerModule } from 'ng2-datepicker';
+import { MetricComponent } from './dashboard/metric/metric.component';
+import {PublicChartsComponent} from "./dashboard/charts/public-charts/public-charts.component";
+import {PrivateChartsComponent} from "./dashboard/charts/private-charts/private-charts.component";
+import {BarchartComponent} from "./dashboard/charts/barchart/barchart.component";
+import {LinechartComponent} from "./dashboard/charts/linechart/linechart.component";
+
+
+
+import {
+  MatButtonModule, MatIconModule, MatToolbarModule, MatCardModule, MatCheckboxModule,
+  MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatSnackBarModule,
+} from "@angular/material";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ChartsModule} from "ng2-charts";
+import {HttpClientModule} from "@angular/common/http";
+import {DatePipe} from "@angular/common";
+import {FlexLayoutModule} from "@angular/flex-layout";
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    FooterComponent,
+    HeaderComponent,
     DashboardComponent,
-    MetricComponent,
+    WelcomeComponent,
     FormComponent,
+    MetricComponent,
     PublicChartsComponent,
     PrivateChartsComponent,
+    BarchartComponent,
     LinechartComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    ChartsModule,
     FormsModule,
-    NgDatepickerModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ChartsModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSnackBarModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [HttpClientModule, DatePipe],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

@@ -1,18 +1,26 @@
-<app-form (load)="loadData($event)"></app-form>
-
-<div *ngIf="publicStats && privateStats">
-    <app-metric [publicStats]="publicStats[0]" [privateStats]="privateStats[0]"></app-metric>
-  <div class="row">
-  <div *ngIf="publicCheck" class="col s6">
-    <h3>Public</h3>
-    <app-public-charts [publicStats]="publicStats[0]" style="width: 100%;">
-    </app-public-charts>
-  </div>
-  <div *ngIf="privateCheck" class="col s6">
-    <h3>Private</h3>
-    <app-private-charts [privateStats]="privateStats[0]" style="width: 100%;"></app-private-charts>
-  </div>
+<app-welcome></app-welcome>
+<br>
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+  <app-form (showData)="loadRequestedData($event)"></app-form>
+  <app-metric [publicStatistics]="currentPublicStatistics" [privateStatistics]="currentPrivateStatistics"></app-metric>
 </div>
-  <app-linechart  [publicData]="publicStats" style="width: 100%;"></app-linechart>
+<br>
+<div fxLayout="row" fxLayoutAlign="center start" *ngIf="currentPrivateStatistics && currentPublicStatistics">
+  <div *ngIf="publicCheck" fxFlex="45">
+    <span class="mat-h1">Public</span>
+    <br>
+    <div *ngIf="timeBasedPublicStatistics">
+      <app-public-charts [currentPublicData]="currentPublicStatistics" [publicData]="timeBasedPublicStatistics"></app-public-charts>
+    </div>
+    <div *ngIf="!timeBasedPublicStatistics">
+      <app-public-charts [currentPublicData]="currentPublicStatistics"></app-public-charts>
+    </div>
   </div>
-  <button class="btn waves-effect waves-light grey darken-2" (click)="load()">Update</button>
+  <div *ngIf="privateCheck" fxFlex="45">
+    <span class="mat-h1">Private</span>
+    <br>
+    <app-private-charts [currentPrivateData]="currentPrivateStatistics"></app-private-charts>
+    </div>
+</div>
+
+

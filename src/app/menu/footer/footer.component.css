@@ -1,0 +1,9 @@
+.description{
+  font-size: 12px;
+  font-style: normal;
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
