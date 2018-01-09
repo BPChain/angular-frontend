@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes} from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 
@@ -29,6 +28,7 @@ import {ChartsModule} from 'ng2-charts';
 import {HttpClientModule} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { LandingComponent } from './landing/landing.component';
 
 
 @NgModule({
@@ -44,6 +44,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
     PrivateChartsComponent,
     BarchartComponent,
     LinechartComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
