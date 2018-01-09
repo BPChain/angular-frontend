@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes} from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 
@@ -10,26 +11,24 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { WelcomeComponent } from './dashboard/welcome/welcome.component';
 import { FormComponent } from './dashboard/form/form.component';
 import { MetricComponent } from './dashboard/metric/metric.component';
-import {PublicChartsComponent} from "./dashboard/charts/public-charts/public-charts.component";
-import {PrivateChartsComponent} from "./dashboard/charts/private-charts/private-charts.component";
-import {BarchartComponent} from "./dashboard/charts/barchart/barchart.component";
-import {LinechartComponent} from "./dashboard/charts/linechart/linechart.component";
+import {PublicChartsComponent} from './dashboard/charts/public-charts/public-charts.component';
+import {PrivateChartsComponent} from './dashboard/charts/private-charts/private-charts.component';
+import {BarchartComponent} from './dashboard/charts/barchart/barchart.component';
+import {LinechartComponent} from './dashboard/charts/linechart/linechart.component';
 
 
 
 import {
   MatButtonModule, MatIconModule, MatToolbarModule, MatCardModule, MatCheckboxModule,
-  MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, 
+  MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule,
   MatSnackBarModule, MatSelectModule,
-} from "@angular/material";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {ChartsModule} from "ng2-charts";
-import {HttpClientModule} from "@angular/common/http";
-import {DatePipe} from "@angular/common";
-import {FlexLayoutModule} from "@angular/flex-layout";
-
-
+} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ChartsModule} from 'ng2-charts';
+import {HttpClientModule} from '@angular/common/http';
+import {DatePipe} from '@angular/common';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 @NgModule({
