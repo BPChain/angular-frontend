@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
 import { LandingComponent } from './landing/landing.component';
-import { NotFoundComponent } from './misc/not-found/not-found.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 
 export const ROUTES = [

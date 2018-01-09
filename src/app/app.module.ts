@@ -29,6 +29,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { LandingComponent } from './landing/landing.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { LandingComponent } from './landing/landing.component';
     BarchartComponent,
     LinechartComponent,
     LandingComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
