@@ -9,6 +9,7 @@ import {PrivateStatistics} from "../../../services/PrivateStatistics";
 export class PrivateChartsComponent implements OnInit {
 
   @Input() currentPrivateData: PrivateStatistics;
+  @Input() privateData?: any; // TODO fix type
 
   constructor() { }
 

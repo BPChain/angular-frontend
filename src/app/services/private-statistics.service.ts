@@ -12,13 +12,13 @@ export class PrivateStatisticsService {
     return environment.baseURL + environment.privateStatsResource;
   }
 
-  query<T>(query?: string) {
+  query(query?: string) {
     let url = this.url;
     if (query) {
       url += '?' + query;
     }
 
-    return this.http.get<T>(url);
+    return this.http.get(url);
   }
 
   get() {

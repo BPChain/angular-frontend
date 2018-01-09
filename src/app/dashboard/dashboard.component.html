@@ -19,8 +19,13 @@
   <div *ngIf="privateCheck" fxFlex="45">
     <span class="mat-h1">Private</span>
     <br>
+    <div *ngIf="timeBasedPrivateStatistics">
+    <app-private-charts [currentPrivateData]="currentPrivateStatistics" [privateData]="timeBasedPrivateStatistics"></app-private-charts>
+  </div>
+  <div *ngIf="!timeBasedPrivateStatistics">
     <app-private-charts [currentPrivateData]="currentPrivateStatistics"></app-private-charts>
-    </div>
+  </div>
+  </div>  
 </div>
 
 
