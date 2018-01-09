@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentPrivateStatistics: PrivateStatistics;
   currentPublicStatistics: PublicStatistics;
   timeBasedPublicStatistics: any; // TODO fix type
+  timeBasedPrivateStatistics: any; //TODO fix type
 
   constructor(private privateStatisticsService: PrivateStatisticsService, private publicStatisticsService: PublicStatisticsService) { }
 
@@ -69,13 +70,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.endDate = userInput[3];
 
     this.timeBasedPublicStatistics = null;
+    this.timeBasedPrivateStatistics = null;
     if(this.startDate && this.endDate){
-      this.loadTimeBasedData(this.startDate, this.endDate);
+      if(this.checkValidDates(this.startDate, this.endDate)) {
+      this.loadTimeBasedPublicData(this.startDate, this.endDate);
+      this.loadTimeBasedPrivateData(this.startDate, this.endDate);
+      }
     }
   }
 
-  loadTimeBasedData(start: Date, end: Date){
-    if(this.checkValidDates(start, end)){
+  loadTimeBasedPublicData(start: Date, end: Date){
       let query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
       this.publicStatisticsService.query(query)
         .subscribe(
@@ -83,7 +87,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.timeBasedPublicStatistics = response;
           }
         )
-    }
+  }
+
+  loadTimeBasedPrivateData(start:Date, end:Date) {
+      let query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
+      this.privateStatisticsService.query(query)
+      .subscribe(
+        response => {
+          this.timeBasedPrivateStatistics = response;
+        }
+      )
   }
 
    checkValidDates(start: Date, end: Date) {
