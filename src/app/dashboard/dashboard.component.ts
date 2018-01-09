@@ -103,6 +103,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
    checkValidDates(start: Date, end: Date) {
     return start < end;
   }
+
+  resetChecks() {
+    this.privateCheck = false;
+    this.publicCheck = false;
+  }
 }
 
 
