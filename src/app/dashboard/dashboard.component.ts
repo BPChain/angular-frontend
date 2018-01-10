@@ -81,6 +81,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   loadTimeBasedPublicData(start: Date, end: Date){
       let query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
+      console.log(start);
       this.publicStatisticsService.query(query)
         .subscribe(
           response => {

@@ -19,7 +19,8 @@ import {LinechartComponent} from "./dashboard/charts/linechart/linechart.compone
 
 import {
   MatButtonModule, MatIconModule, MatToolbarModule, MatCardModule, MatCheckboxModule,
-  MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, MatSnackBarModule,
+  MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule, 
+  MatSnackBarModule, MatSelectModule,
 } from "@angular/material";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -63,6 +64,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   providers: [HttpClientModule, DatePipe],
   bootstrap: [AppComponent],
