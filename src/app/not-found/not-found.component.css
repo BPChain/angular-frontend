@@ -1,0 +1,34 @@
+.background {
+  background-image: url("../../assets/images/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparent-background {
+  background-color: rgba(0,0,0,0);
+}
+
+.spacer{
+  flex: 1 1 auto;
+}
+
+.white-text{
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mat-h1{
+  font-size: 4.2rem;
+}
+
+.mat-h2{
+  font-size: 1.64rem;
+  font-weight: 300;
+  margin: .82rem 0 .656rem 0;
+}
+
