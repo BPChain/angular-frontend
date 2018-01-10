@@ -5,3 +5,7 @@
 .mat-h1 {
   font-size: 2rem;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
