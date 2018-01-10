@@ -6,12 +6,12 @@ mat-card {
   background: whitesmoke;
 }
 
-.main-div{
+.main-div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-mat-card mat-card-actions button{
+mat-card mat-card-actions button {
   float: right;
 }
