@@ -31,7 +31,6 @@ export class FormComponent implements OnInit {
   ngOnInit() {
   }
 
-
   emitEvent() {
     this.startDate = this.DateBuilderService.convertDate(this.startDate, this.startHours, this.startMinutes);
     this.endDate = this.DateBuilderService.convertDate(this.endDate, this.endHours, this.endMinutes);
