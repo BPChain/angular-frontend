@@ -9,24 +9,24 @@
 }
 
 .transparent-background {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.spacer{
+.spacer {
   flex: 1 1 auto;
 }
 
-.white-text{
+.white-text {
   color: white;
   text-align: center;
   vertical-align: middle;
 }
 
-.mat-h1{
+.mat-h1 {
   font-size: 4.2rem;
 }
 
-.mat-h2{
+.mat-h2 {
   font-size: 1.64rem;
   font-weight: 300;
   margin: .82rem 0 .656rem 0;
