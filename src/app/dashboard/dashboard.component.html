@@ -4,7 +4,6 @@
   <app-form (showData)="loadRequestedData($event)"></app-form>
   <app-metric [publicStatistics]="currentPublicStatistics" [privateStatistics]="currentPrivateStatistics"></app-metric>
 </div>
-<br>
 <div  class ="margin" *ngIf="publicCheck || privateCheck">
   <button mat-raised-button (click)="resetChecks()">
     <mat-icon>
@@ -36,5 +35,12 @@
   </div>
   </div>
 </div>
-
+<div  class ="margin" *ngIf="(publicCheck || privateCheck) && (timeBasedPrivateStatistics || timeBasedPublicStatistics)">
+  <button mat-raised-button (click)="resetChecks()">
+    <mat-icon>
+      arrow_back
+    </mat-icon>
+    Update Data
+  </button>
+</div>
 
