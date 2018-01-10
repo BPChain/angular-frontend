@@ -1,7 +1,11 @@
 .logo {
-  width:20%;
+  width: 20%;
 }
 
 .mat-h1 {
   font-size: 2rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }
