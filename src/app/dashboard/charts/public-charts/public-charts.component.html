@@ -1,6 +1,6 @@
 <app-barchart [labels]="['avgBlocktime']" [max]="20" [statistics]="currentPublicData"></app-barchart>
 <app-barchart [labels]="['avgHashrate']" [max]="50000000" [statistics]="currentPublicData"></app-barchart>
-<app-barchart [labels]="['numberOfMiners','numberOfWorkers']" [max]="200000" [statistics]="currentPublicData"></app-barchart>
+<app-barchart [labels]="['numberOfMiners','numberOfWorkers']" [max]="300000" [statistics]="currentPublicData"></app-barchart>
 <div *ngIf="publicData">
   <app-linechart [labels]="['avgBlocktime']" [statistics]="publicData"></app-linechart>
   <app-linechart [labels]="['avgHashrate']" [statistics]="publicData"></app-linechart>

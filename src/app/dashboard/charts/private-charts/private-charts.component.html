@@ -1,6 +1,6 @@
 <app-barchart [labels]="['avgBlocktime']" [max]="20" [statistics]="currentPrivateData"></app-barchart>
 <app-barchart [labels]="['avgHashrate']" [max]="50000" [statistics]="currentPrivateData"></app-barchart>
-<app-barchart [labels]="['numberOfMiners','numberOfHosts']" [max]="10" [statistics]="currentPrivateData"></app-barchart>
+<app-barchart [labels]="['numberOfMiners','numberOfHosts']" [max]="50" [statistics]="currentPrivateData"></app-barchart>
 <div *ngIf="privateData">
     <app-linechart [labels]="['avgBlocktime']" [statistics]="privateData"></app-linechart>
     <app-linechart [labels]="['avgHashrate']" [statistics]="privateData"></app-linechart>
