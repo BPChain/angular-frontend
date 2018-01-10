@@ -5,6 +5,15 @@
   <app-metric [publicStatistics]="currentPublicStatistics" [privateStatistics]="currentPrivateStatistics"></app-metric>
 </div>
 <br>
+<div  class ="margin" *ngIf="publicCheck || privateCheck">
+  <button mat-raised-button (click)="resetChecks()">
+    <mat-icon>
+      arrow_back
+    </mat-icon>
+    Update Data
+  </button>
+</div>
+<br>
 <div fxLayout="row" fxLayoutAlign="center start" *ngIf="currentPrivateStatistics && currentPublicStatistics">
   <div *ngIf="publicCheck" fxFlex="45">
     <span class="mat-h1">Public</span>
@@ -25,9 +34,6 @@
   <div *ngIf="!timeBasedPrivateStatistics">
     <app-private-charts [currentPrivateData]="currentPrivateStatistics"></app-private-charts>
   </div>
-  </div>
-  <div *ngIf="publicCheck || privateCheck">
-    <button mat-button (click)="resetChecks()">Update Data</button>
   </div>
 </div>
 
