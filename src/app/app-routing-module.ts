@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 
-import { LandingComponent } from './landing/landing.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
+import {ImpressumComponent} from './impressum/impressum.component';
 
 export const appRoutes = [
-  { path: 'landing', component: LandingComponent },
+  { path: 'impressum', component: ImpressumComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/landing' },
+  { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
   { path: '**', component: NotFoundComponent }
 ];
 

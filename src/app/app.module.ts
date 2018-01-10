@@ -19,7 +19,6 @@ import { PublicChartsComponent } from './dashboard/charts/public-charts/public-c
 import { PrivateChartsComponent } from './dashboard/charts/private-charts/private-charts.component';
 import { BarchartComponent } from './dashboard/charts/barchart/barchart.component';
 import { LinechartComponent } from './dashboard/charts/linechart/linechart.component';
-import { LandingComponent } from './landing/landing.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing-module';
 
@@ -28,6 +27,7 @@ import {
   MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule,
   MatSnackBarModule, MatSelectModule,
 } from '@angular/material';
+import { ImpressumComponent } from './impressum/impressum.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +42,8 @@ import {
     PrivateChartsComponent,
     BarchartComponent,
     LinechartComponent,
-    LandingComponent,
     NotFoundComponent,
+    ImpressumComponent,
   ],
   imports: [
     BrowserModule,
