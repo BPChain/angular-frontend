@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadTimeBasedPrivateData(start: Date, end: Date) {
-      const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
+      const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString() + '&numberOfItems=100';
       console.log(start.toISOString());
       this.privateStatisticsService.query(query)
       .subscribe(
