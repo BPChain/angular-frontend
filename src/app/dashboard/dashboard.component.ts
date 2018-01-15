@@ -85,6 +85,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         .subscribe(
           response => {
             this.timeBasedPublicStatistics = response;
+            console.log(response);
           }
         );
   }
