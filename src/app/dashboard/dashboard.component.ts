@@ -80,22 +80,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadTimeBasedPublicData(start: Date, end: Date) {
-      const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
-      this.publicStatisticsService.query(query)
+    const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString() + '&numberOfItems=100';
+    this.publicStatisticsService.query(query)
         .subscribe(
           response => {
             this.timeBasedPublicStatistics = response;
-            console.log(response);
           }
         );
   }
 
   loadTimeBasedPrivateData(start: Date, end: Date) {
       const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString() + '&numberOfItems=100';
-      console.log(start.toISOString());
       this.privateStatisticsService.query(query)
       .subscribe(
         response => {
+          console.log(response);
           this.timeBasedPrivateStatistics = response;
         }
       );
