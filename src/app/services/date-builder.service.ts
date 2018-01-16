@@ -5,7 +5,7 @@ export class DateBuilderService {
 
   constructor() { }
 
-  public convertDate(day:Date, hours: number, minutes: number) {
+  public convertDate(day: Date, hours: number, minutes: number) {
     if (hours != null) {
     day.setHours(hours);
     }

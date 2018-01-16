@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { PublicStatisticsService } from './public-statistics.service';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
 
 describe('PublicStatisticsService', () => {
   beforeEach(() => {
