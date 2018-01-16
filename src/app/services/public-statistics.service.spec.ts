@@ -50,16 +50,30 @@ describe('PublicStatisticsService', () => {
           'timeStamp': 1513688843010,
           'chain': 'ethereum',
           '__v': 0
-        }
+        },
       ];
 
-      service.get().subscribe(users => {
-        expect(users).toEqual(dummyStatistics);
+      service.get().subscribe(result => {
+        expect(result).toEqual(dummyStatistics);
       });
 
       const req = httpMock.expectOne(`${service.url}`);
       expect(req.request.method).toBe('GET');
       req.flush(dummyStatistics);
-    });  });
+    });
+  });
+
+  describe(`query()`, () => {
+
+    it(`should issue a query request`, async(() => {
+        service.query('test').subscribe();
+        httpMock.expectOne({
+          url: `${service.url}?test`,
+          method: 'GET'
+        });
+      })
+    );
+
+  });
 
 });
