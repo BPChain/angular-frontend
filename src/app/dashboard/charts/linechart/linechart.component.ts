@@ -1,12 +1,12 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {DatePipe} from "@angular/common";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-linechart',
   templateUrl: './linechart.component.html',
   styleUrls: ['./linechart.component.css']
 })
-export class LinechartComponent implements OnInit, OnChanges{
+export class LinechartComponent implements OnInit, OnChanges {
 
   @Input() labels: string[];
   @Input() statistics: any;
@@ -18,7 +18,7 @@ export class LinechartComponent implements OnInit, OnChanges{
   private lineChartLabels = [];
   private lineChartData: Array<any>;
 
-  constructor(private datePipe: DatePipe){
+  constructor(private datePipe: DatePipe) {
 
   }
 
@@ -46,8 +46,6 @@ export class LinechartComponent implements OnInit, OnChanges{
     this.lineChartData = [];
     this.lineChartLabels.length = 0;
 
-    let dataHelperArray = [];
-    let dateHelperArray = [];
     let dataArray = [];
     let dates = [];
     dataArray = this.statistics.map(record => {
@@ -57,32 +55,21 @@ export class LinechartComponent implements OnInit, OnChanges{
       return this.datePipe.transform(record.timeStamp, 'short');
     });
 
-    // TODO remove once backend is fixed
-    let size = dataArray.length
-    for(let j = 1; j <= 50; j++){
-      let index = (Math.floor(size/50)) * j;
-      dataHelperArray[j-1]=dataArray[index];
-      dateHelperArray[j-1]=dates[index];
-    }
-
-    for (let i = 0; i < dateHelperArray.length; i++) {
-      this.lineChartLabels.push(dateHelperArray[i]);
+    for (let i = 0; i < dates.length; i++) {
+      this.lineChartLabels.push(dates[i]);
     }
       this.lineChartData = [
-        {data: dataHelperArray, label: this.labels[0], borderWidth: [1]},
+        {data: dataArray, label: this.labels[0], borderWidth: [1]},
       ];
-
-
-
   }
 
 
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 }
