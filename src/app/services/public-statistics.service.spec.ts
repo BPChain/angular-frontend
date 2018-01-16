@@ -27,27 +27,39 @@ describe('PublicStatisticsService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('get()', () => {
+  describe(`get()`, () => {
 
     it(`should issue a get request`, async(() => {
         service.get().subscribe();
         httpMock.expectOne({
-          url: '',
+          url: `${service.url}`,
           method: 'GET'
         });
       })
     );
 
-    it(`should respond with fake data`, async() => {
-      service.get().subscribe((next) => {
-        expect(next).toEqual({ baz: '123' });
+    it(`should return an Observable<PublicStatistics[]`, () => {
+      const dummyStatistics = [
+        {
+          '_id': '5a390f0be06d32001e7fb5d7',
+          'avgBlocktime': 15.064466666666666,
+          'avgHashrate': 21833916,
+          'numberOfMiners': 65275,
+          'numberOfWorkers': 178121,
+          'timeToNextEpoch': 150192.73266666665,
+          'timeStamp': 1513688843010,
+          'chain': 'ethereum',
+          '__v': 0
+        }
+      ];
+
+      service.get().subscribe(users => {
+        expect(users).toEqual(dummyStatistics);
       });
 
-      httpMock.match({
-        url: '',
-        method: 'GET'
-      })[0].flush({ baz: '123' });
-    });
-  });
+      const req = httpMock.expectOne(`${service.url}`);
+      expect(req.request.method).toBe('GET');
+      req.flush(dummyStatistics);
+    });  });
 
 });
