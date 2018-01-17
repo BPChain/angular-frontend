@@ -12,6 +12,8 @@ import {BarchartComponent} from './charts/barchart/barchart.component';
 import {LinechartComponent} from './charts/linechart/linechart.component';
 import {ChartsModule} from 'ng2-charts';
 import {HttpClientModule} from '@angular/common/http';
+import {DashboardRoutingModule} from './dashboard-routing-module';
+import {ChartsComponent} from './charts/charts.component';
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import {HttpClientModule} from '@angular/common/http';
     ReactiveFormsModule,
     ChartsModule,
     HttpClientModule,
+    DashboardRoutingModule
 
   ],
   declarations: [
@@ -32,6 +35,7 @@ import {HttpClientModule} from '@angular/common/http';
     PrivateChartsComponent,
     BarchartComponent,
     LinechartComponent,
+    ChartsComponent
   ],
   providers: [HttpClientModule, DatePipe],
 
