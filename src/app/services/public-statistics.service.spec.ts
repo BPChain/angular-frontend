@@ -1,4 +1,4 @@
-import {TestBed, inject, async} from '@angular/core/testing';
+import {TestBed, async} from '@angular/core/testing';
 
 import { PublicStatisticsService } from './public-statistics.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
