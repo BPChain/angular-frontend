@@ -21,13 +21,8 @@ import { BarchartComponent } from './dashboard/charts/barchart/barchart.componen
 import { LinechartComponent } from './dashboard/charts/linechart/linechart.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing-module';
-
-import {
-  MatButtonModule, MatIconModule, MatToolbarModule, MatCardModule, MatCheckboxModule,
-  MatDatepickerModule, MatFormFieldModule, MatNativeDateModule, MatInputModule,
-  MatSnackBarModule, MatSelectModule,
-} from '@angular/material';
 import { ImpressumComponent } from './impressum/impressum.component';
+import {AppMaterialModule} from './app-material.module';
 
 @NgModule({
   declarations: [
@@ -47,24 +42,15 @@ import { ImpressumComponent } from './impressum/impressum.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    AppMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     ChartsModule,
     HttpClientModule,
     FlexLayoutModule,
     AppRoutingModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatSelectModule,
+
   ],
   providers: [HttpClientModule, DatePipe],
   bootstrap: [AppComponent],
