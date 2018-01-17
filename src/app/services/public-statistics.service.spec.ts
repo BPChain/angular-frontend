@@ -74,6 +74,15 @@ describe('PublicStatisticsService', () => {
       })
     );
 
+    it(`should issue a query request without a query`, async(() => {
+        service.query().subscribe();
+        httpMock.expectOne({
+          url: `${service.url}`,
+          method: 'GET'
+        });
+      })
+    );
+
   });
 
 });
