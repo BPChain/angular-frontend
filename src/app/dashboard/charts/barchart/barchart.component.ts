@@ -1,5 +1,4 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {PrivateStatistics} from "../../../services/PrivateStatistics";
 
 @Component({
   selector: 'app-barchart',
@@ -40,19 +39,19 @@ export class BarchartComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.barChartData = [];
-    for(let i = 0; i < this.labels.length; i++){
+    for (let i = 0; i < this.labels.length; i++) {
       this.barChartData.push(
         {data: [this.statistics[this.labels[i]]], label: this.labels[i]}
-      )
+      );
     }
   }
 
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 

@@ -23,18 +23,18 @@ export class FormComponent implements OnInit {
 
   minDate = new Date('2017-12-20');
   maxDate = new Date(Date.now());
-  hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
-  minutes = [0,10,20,30,40,50]
+  hours = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  minutes = [0, 10, 20, 30, 40, 50];
 
-  constructor(private DateBuilderService: DateBuilderService) { }
+  constructor(private dateBuilderService: DateBuilderService) { }
 
   ngOnInit() {
   }
 
   emitEvent() {
-    this.startDate = this.DateBuilderService.convertDate(this.startDate, this.startHours, this.startMinutes);
-    this.endDate = this.DateBuilderService.convertDate(this.endDate, this.endHours, this.endMinutes);
-    this.showData.emit([this.privateChecked, this.publicChecked, this.startDate,this.endDate]);
+    this.startDate = this.dateBuilderService.convertDate(this.startDate, this.startHours, this.startMinutes);
+    this.endDate = this.dateBuilderService.convertDate(this.endDate, this.endHours, this.endMinutes);
+    this.showData.emit([this.privateChecked, this.publicChecked, this.startDate, this.endDate]);
   }
 
 }

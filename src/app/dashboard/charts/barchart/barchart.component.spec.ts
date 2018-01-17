@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BarchartComponent } from './barchart.component';
-import {ChartsModule} from "ng2-charts";
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {ChartsModule} from 'ng2-charts';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('BarchartComponent', () => {
   let component: BarchartComponent;

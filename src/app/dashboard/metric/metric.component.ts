@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PublicStatistics} from "../../services/PublicStatistics";
-import {PrivateStatistics} from "../../services/PrivateStatistics";
+import {PublicStatistics} from '../../services/PublicStatistics';
+import {PrivateStatistics} from '../../services/PrivateStatistics';
 
 @Component({
   selector: 'app-metric',

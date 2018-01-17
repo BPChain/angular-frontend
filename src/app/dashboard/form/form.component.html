@@ -17,16 +17,17 @@
             <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
             <mat-datepicker #start></mat-datepicker>
           </mat-form-field>
+
           <mat-form-field style="width:80px;">
               <mat-select placeholder="Hours" [(ngModel)]="startHours" [ngModelOptions]="{standalone: true}" ngDefaultControl>
                 <mat-option>None</mat-option>
-                <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+                <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
               </mat-select>
             </mat-form-field> :
             <mat-form-field style="width:80px;">
                 <mat-select placeholder="Minutes" [(ngModel)]="startMinutes" [ngModelOptions]="{standalone: true}" ngDefaultControl>
                   <mat-option>None</mat-option>
-                  <mat-option *ngFor="let minute of minutes" [value]="minute">{{minute}}</mat-option>
+                  <mat-option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</mat-option>
                 </mat-select>
               </mat-form-field>
         </p>
@@ -39,13 +40,13 @@
           <mat-form-field style="width:80px;">
               <mat-select placeholder="Hours" [(ngModel)]="endHours" [ngModelOptions]="{standalone: true}" ngDefaultControl>
                 <mat-option>None</mat-option>
-                <mat-option *ngFor="let hour of hours" [value]="hour">{{hour}}</mat-option>
+                <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
               </mat-select>
             </mat-form-field> :
             <mat-form-field style="width:80px;">
                 <mat-select placeholder="Minutes" [(ngModel)]="endMinutes" [ngModelOptions]="{standalone: true}" ngDefaultControl>
                   <mat-option>None</mat-option>
-                  <mat-option *ngFor="let minute of minutes" [value]="minute">{{minute}}</mat-option>
+                  <mat-option *ngFor="let minute of minutes" [value]="minute">{{ minute }}</mat-option>
                 </mat-select>
               </mat-form-field>
         </p>
