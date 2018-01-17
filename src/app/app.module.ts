@@ -14,10 +14,8 @@ import {DashboardModule} from './dashboard/dashboard.module';
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent,
     HeaderComponent,
-
-
+    FooterComponent,
     NotFoundComponent,
     ImpressumComponent,
   ],
@@ -25,9 +23,8 @@ import {DashboardModule} from './dashboard/dashboard.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppMaterialModule,
-
-    AppRoutingModule,
     DashboardModule,
+    AppRoutingModule,
 
   ],
   bootstrap: [AppComponent],
