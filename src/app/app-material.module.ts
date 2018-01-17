@@ -6,10 +6,12 @@ import {
   MatNativeDateModule, MatSelectModule, MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     CommonModule,
+    FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
@@ -23,6 +25,7 @@ import {
     MatSelectModule,
   ],
   exports: [
+    FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
