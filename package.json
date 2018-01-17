@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host=0.0.0.0 --port=4200 --public-host=https://bpt-lab.org/bp2017w1-frontend/",
+    "start": "ng serve --host=0.0.0.0 --port=4200 --disable-host-check",
     "build": "ng build",
     "test": "ng test --code-cover",
     "lint": "ng lint",
