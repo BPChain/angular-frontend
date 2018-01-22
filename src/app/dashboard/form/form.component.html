@@ -3,7 +3,7 @@
       Choose Blockchain
     </mat-card-title>
     <mat-card-content>
-      <form name="select">
+      <form name="select" #form="ngForm" (ngSubmit)="emitEvent()">
         <h2 class="mat-h3">Define Network Type</h2>
         <p>
           <mat-checkbox class="margin" [(ngModel)]="publicChecked" [ngModelOptions]="{standalone: true}" ngDefaultControl>Public</mat-checkbox>
@@ -51,7 +51,7 @@
               </mat-form-field>
         </p>
         <mat-card-actions>
-          <button mat-raised-button type="submit" (click)="emitEvent()">Show Data
+          <button mat-raised-button type="submit" >Show Data
             <mat-icon>
               send
             </mat-icon></button>
