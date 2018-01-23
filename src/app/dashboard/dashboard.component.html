@@ -28,11 +28,11 @@
     <span class="mat-h1">Private</span>
     <br>
     <div *ngIf="timeBasedPrivateStatistics">
-    <app-private-charts [currentPrivateData]="currentPrivateStatistics" [privateData]="timeBasedPrivateStatistics"></app-private-charts>
-  </div>
-  <div *ngIf="!timeBasedPrivateStatistics">
-    <app-private-charts [currentPrivateData]="currentPrivateStatistics"></app-private-charts>
-  </div>
+      <app-private-charts [currentPrivateData]="currentPrivateStatistics" [privateData]="timeBasedPrivateStatistics"></app-private-charts>
+    </div>
+    <div *ngIf="!timeBasedPrivateStatistics">
+      <app-private-charts [currentPrivateData]="currentPrivateStatistics"></app-private-charts>
+    </div>
   </div>
 </div>
 <div  class ="margin" *ngIf="(publicCheck || privateCheck) && (timeBasedPrivateStatistics || timeBasedPublicStatistics)">
@@ -43,4 +43,3 @@
     Update Data
   </button>
 </div>
-
