@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PrivateStatistics} from "../../../services/PrivateStatistics";
+import {PrivateStatistics} from '../../../services/PrivateStatistics';
 
 @Component({
   selector: 'app-private-charts',

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MetricComponent } from './metric.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 describe('MetricComponent', () => {
   let component: MetricComponent;

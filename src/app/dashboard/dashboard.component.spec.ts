@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
-import {PrivateStatisticsService} from "../services/private-statistics.service";
-import {PublicStatisticsService} from "../services/public-statistics.service";
-import {HttpClientModule} from "@angular/common/http";
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {PrivateStatisticsService} from '../services/private-statistics.service';
+import {PublicStatisticsService} from '../services/public-statistics.service';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

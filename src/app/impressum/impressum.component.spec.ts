@@ -1,24 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BarchartComponent } from './barchart.component';
-import {ChartsModule} from 'ng2-charts';
+import { ImpressumComponent } from './impressum.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
-describe('BarchartComponent', () => {
-  let component: BarchartComponent;
-  let fixture: ComponentFixture<BarchartComponent>;
+describe('ImpressumComponent', () => {
+  let component: ImpressumComponent;
+  let fixture: ComponentFixture<ImpressumComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarchartComponent ],
-      imports: [ ChartsModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      declarations: [ ImpressumComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BarchartComponent);
+    fixture = TestBed.createComponent(ImpressumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

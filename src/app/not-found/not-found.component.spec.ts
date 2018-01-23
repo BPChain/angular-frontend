@@ -1,24 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BarchartComponent } from './barchart.component';
-import {ChartsModule} from 'ng2-charts';
+import { NotFoundComponent } from './not-found.component';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
-describe('BarchartComponent', () => {
-  let component: BarchartComponent;
-  let fixture: ComponentFixture<BarchartComponent>;
+describe('NotFoundComponent', () => {
+  let component: NotFoundComponent;
+  let fixture: ComponentFixture<NotFoundComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BarchartComponent ],
-      imports: [ ChartsModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      declarations: [ NotFoundComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BarchartComponent);
+    fixture = TestBed.createComponent(NotFoundComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

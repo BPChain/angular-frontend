@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {PrivateStatisticsService} from "../services/private-statistics.service";
-import {PublicStatisticsService} from "../services/public-statistics.service";
-import {PrivateStatistics} from "../services/PrivateStatistics";
-import {PublicStatistics} from "../services/PublicStatistics";
+import {PrivateStatisticsService} from '../services/private-statistics.service';
+import {PublicStatisticsService} from '../services/public-statistics.service';
+import {PrivateStatistics} from '../services/PrivateStatistics';
+import {PublicStatistics} from '../services/PublicStatistics';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentPrivateStatistics: PrivateStatistics;
   currentPublicStatistics: PublicStatistics;
   timeBasedPublicStatistics: any; // TODO fix type
-  timeBasedPrivateStatistics: any; //TODO fix type
+  timeBasedPrivateStatistics: any; // TODO fix type
 
   constructor(private privateStatisticsService: PrivateStatisticsService, private publicStatisticsService: PublicStatisticsService) { }
 
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         response => {
           this.currentPrivateStatistics = response[0];
         }
-      )
+      );
   }
 
   loadLatestPublicData() {
@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         response => {
           this.currentPublicStatistics = response[0];
         }
-      )
+      );
   }
 
   loadRequestedData(userInput: Array<any>) {
@@ -71,36 +71,42 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.timeBasedPublicStatistics = null;
     this.timeBasedPrivateStatistics = null;
-    if(this.startDate && this.endDate){
-      if(this.checkValidDates(this.startDate, this.endDate)) {
+    if (this.startDate && this.endDate) {
+      if (this.checkValidDates(this.startDate, this.endDate)) {
       this.loadTimeBasedPublicData(this.startDate, this.endDate);
       this.loadTimeBasedPrivateData(this.startDate, this.endDate);
       }
     }
   }
 
-  loadTimeBasedPublicData(start: Date, end: Date){
-      let query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
-      this.publicStatisticsService.query(query)
+  loadTimeBasedPublicData(start: Date, end: Date) {
+    const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString() + '&numberOfItems=100';
+    this.publicStatisticsService.query(query)
         .subscribe(
           response => {
             this.timeBasedPublicStatistics = response;
           }
-        )
+        );
   }
 
-  loadTimeBasedPrivateData(start:Date, end:Date) {
-      let query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString();
+  loadTimeBasedPrivateData(start: Date, end: Date) {
+      const query = 'startTime=' + start.toISOString() + '&endTime=' + end.toISOString() + '&numberOfItems=100';
       this.privateStatisticsService.query(query)
       .subscribe(
         response => {
+          console.log(response);
           this.timeBasedPrivateStatistics = response;
         }
-      )
+      );
   }
 
    checkValidDates(start: Date, end: Date) {
     return start < end;
+  }
+
+  resetChecks() {
+    this.privateCheck = false;
+    this.publicCheck = false;
   }
 }
 

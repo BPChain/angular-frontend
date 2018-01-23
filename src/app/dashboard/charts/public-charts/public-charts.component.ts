@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {PublicStatistics} from "../../../services/PublicStatistics";
+import {PublicStatistics} from '../../../services/PublicStatistics';
 
 @Component({
   selector: 'app-public-charts',
@@ -16,6 +16,6 @@ export class PublicChartsComponent implements OnInit, OnChanges  {
   ngOnInit() {
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
   }
 }
