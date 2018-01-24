@@ -1,7 +1,6 @@
-FROM node:8.4
+FROM node:8.4 AS builder
 
-ENV HOME=/home/app
-WORKDIR $HOME
+WORKDIR /home/app
 
 COPY package.json package.json
 COPY package-lock.json package-lock.json
@@ -17,6 +16,12 @@ COPY .angular-cli.json .angular-cli.json
 COPY e2e e2e
 COPY src src
 
-EXPOSE 4200:4200
+RUN npm run build
 
-ENTRYPOINT ["npm", "start", "--"]
+# ---------------------------------------------------------------------------- #
+FROM nginx
+WORKDIR /var/app
+
+COPY --from=builder /home/app/dist /usr/share/nginx/html
+COPY --from=builder /home/app/dist /usr/share/nginx/html/bp2017w1-frontend
+

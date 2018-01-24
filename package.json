@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host=0.0.0.0 --port=4200 --disable-host-check",
-    "build": "ng build",
+    "build": "ng build --deploy-url=/bp2017w1-frontend/ --base-href=/bp2017w1-frontend/",
     "test": "npm run lint && ng test --code-cover",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -28,6 +28,7 @@
     "chart.js": "^2.7.1",
     "core-js": "^2.4.1",
     "ng2-charts": "^1.6.0",
+    "node-sass": "^4.7.2",
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14"
   },
