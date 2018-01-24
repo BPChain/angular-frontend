@@ -9,3 +9,7 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.mat-button, .mat-fab, .mat-icon-button, .mat-mini-fab, .mat-raised-button {
+  color: black;
+}

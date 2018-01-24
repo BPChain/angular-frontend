@@ -7,9 +7,8 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {ImpressumComponent} from './impressum/impressum.component';
 
 export const appRoutes = [
-  { path: 'impressum', component: ImpressumComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
+  // { path: 'impressum', component: ImpressumComponent },
+  { path: '', component: DashboardComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
