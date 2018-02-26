@@ -1,0 +1,55 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-form-field {
+  width: 300px;
+}
+
+mat-checkbox {
+  margin-left: 10px;
+}
+
+#tabs .mat-tab-label {
+  min-width : 0px; // added
+   width: 100px;
+   height: 42px;
+   border-radius: 3px;
+   background-color: #e0e0e0;
+ }
+
+.sidenav {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  &.header {
+    text-align: center;
+  }
+
+  &.footer {
+    margin: 0px;
+  }
+
+}
+
+button {
+  border: 1px solid rgba(153, 153, 153, 0.253);
+  border-radius: 2px;
+  margin: 3px;
+}
+
+mat-sidenav {
+  width: 320px;
+}
+
+mat-sidenav-container {
+  height: 1000px;
+}
+
+mat-card {
+  margin: 0px;
+  padding: 0px;
+}
+
+
