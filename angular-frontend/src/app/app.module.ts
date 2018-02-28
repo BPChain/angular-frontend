@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { FrappeDirective } from './frappe.directive';
 
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
@@ -15,6 +16,7 @@ import { DataVisualizationBarComponent } from './data-visualization-bar/data-vis
 @NgModule({
   declarations: [
     AppComponent,
+    FrappeDirective,
     SelectionBarComponent,
     DescriptionBarComponent,
     DataVisualizationBarComponent,
