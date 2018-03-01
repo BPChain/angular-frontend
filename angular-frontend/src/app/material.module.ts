@@ -9,6 +9,7 @@ import {
   MatInputModule,
   MatCheckboxModule,
   MatFormFieldModule,
+  MatListModule,
 } from '@angular/material';
 
 const modules = [
@@ -20,6 +21,7 @@ const modules = [
   MatInputModule,
   MatCheckboxModule,
   MatFormFieldModule,
+  MatListModule,
 ];
 
 

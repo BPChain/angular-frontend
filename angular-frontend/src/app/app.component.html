@@ -1,21 +1,27 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="header">
   <mat-toolbar-row>
     <span>BPChain</span>
-    <span class="example-spacer"></span>
+    <span class="spacer"></span>
     <button mat-button>Login</button>
     <button mat-button>About</button>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav opened mode="side">
+  <mat-sidenav opened="true" mode="side" fixedInViewport="true" fixedTopGap="64" fixedBottomGap="30">
     <app-selection-bar></app-selection-bar>
   </mat-sidenav>
 
-  <mat-sidenav opened mode="side" position="end">
+  <mat-sidenav-content>
+      <app-data-visualization-bar></app-data-visualization-bar>
+  </mat-sidenav-content>
+
+  <mat-sidenav opened mode="side" position="end" fixedInViewport="true" fixedTopGap="64" fixedBottomGap="30">
     <app-description-bar></app-description-bar>
   </mat-sidenav>
 
-  <app-data-visualization-bar></app-data-visualization-bar>
-
 </mat-sidenav-container>
+
+<mat-toolbar color="primary" class="footer">
+
+</mat-toolbar>

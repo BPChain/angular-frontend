@@ -1,56 +1,58 @@
-<div class="header">
-  <h2>Parameter</h2>
-</div>
+<div class="container body">
+  <div class="container header">
+    <h2>Parameter</h2>
+  </div>
 
-<div class="parameter-input">
-  <mat-form-field>
-    <input matInput placeholder="Number of hosts">
-  </mat-form-field>
+  <div class="container input">
+    <mat-form-field>
+      <input matInput placeholder="Number of hosts" type="number">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Number of miners">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Number of miners">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Initial difficulty">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Initial difficulty">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Transactions / min">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Transactions / min">
+    </mat-form-field>
 
-  <mat-checkbox>Smart contract ready</mat-checkbox>
+    <mat-checkbox>Smart contract ready</mat-checkbox>
 
-  <mat-form-field>
-    <input matInput placeholder="Smart Contract calls / min">
-  </mat-form-field>
-</div>
+    <mat-form-field>
+      <input matInput placeholder="Smart Contract calls / min">
+    </mat-form-field>
+  </div>
 
-<div class="chain-selector">
-  <mat-card class="chain-selector">
-    <mat-card-content>
-      <mat-tab-group class="demo-tab-group">
-        <mat-tab class="selector" label="Private">
-          <div class="demo-tab-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis
-            vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin
-            consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-            orci enim rutrum enim, vel tempor sapien arcu a tellus.
-          </div>
-        </mat-tab>
-        <mat-tab class="selector" label="Public">
-          <div class="demo-tab-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis
-            vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin
-            consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor,
-            orci enim rutrum enim, vel tempor sapien arcu a tellus.
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
-</div>
-
-<div class="footer">
-
+  <div class="container selector">
+    <div class="chain-selector ">
+      <mat-card class="chain-selector">
+        <mat-card-content>
+          <mat-tab-group>
+            <mat-tab class="selector container" label="Private">
+              <div class="chain-menu">
+                <mat-selection-list #privateChainSelector>
+                  <mat-list-option *ngFor="let chain of privateChains">
+                    {{ chain }}
+                  </mat-list-option>
+                </mat-selection-list>
+              </div>
+            </mat-tab>
+            <mat-tab class="selector container" label="Public">
+              <div class="chain-menu">
+                <mat-selection-list #publicChainSelector>
+                  <mat-list-option *ngFor="let chain of publicChains">
+                    {{ chain }}
+                  </mat-list-option>
+                </mat-selection-list>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

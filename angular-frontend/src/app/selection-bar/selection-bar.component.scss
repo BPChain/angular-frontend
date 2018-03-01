@@ -1,17 +1,42 @@
 mat-form-field {
-  width: 300px;
+  width: 280px;
 }
 
-.header {
-  text-align: center;
-}
-
-.parameter-input {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.chain-selector {
-  margin: 0px;
+mat-card {
   padding: 0px;
 }
+
+mat-selection-list {
+  height: 360px;
+}
+
+.container {
+
+  &.header {
+    text-align: center;
+  }
+
+  &.input {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  &.selector {
+    margin: 0px;
+    padding: 0px;
+
+  }
+
+  &.body {
+    width: 320px;
+  }
+}
+
+.chain-menu {
+  margin-bottom: 30px;
+}
+
+.text {
+  margin: 25px;
+}
+

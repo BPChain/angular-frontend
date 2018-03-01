@@ -13,6 +13,8 @@ import { DescriptionBarComponent } from './description-bar/description-bar.compo
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
 
 
+import { DataRetrieverService } from './data-retriever.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,7 @@ import { DataVisualizationBarComponent } from './data-visualization-bar/data-vis
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [DataRetrieverService],
   bootstrap: [AppComponent]
 })
 
