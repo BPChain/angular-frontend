@@ -1,9 +1,8 @@
 <mat-card>
-  <div appFrappe
-      [data]= 'chainDatasets'
-      [type]="''">
+  <div *ngIf="chart">
+    <canvas id="schalala">{{ chart }}</canvas>
   </div>
-  <div appFrappe
-      [data]= 'chainDatasets'>
-  </div>
+ <!-- <div >
+      <app-linechart [labels]="labels" [chainData]="chainData"></app-linechart>
+  </div>-->
 </mat-card>

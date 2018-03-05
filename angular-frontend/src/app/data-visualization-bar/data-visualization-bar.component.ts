@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { DataRetrieverService } from '../data-retriever.service';
+import { DataRetrieverService } from '../services/data-retriever.service';
+import { Chart } from 'chart.js';
 
 
 @Component({
@@ -7,23 +8,69 @@ import { DataRetrieverService } from '../data-retriever.service';
   templateUrl: './data-visualization-bar.component.html',
   styleUrls: ['./data-visualization-bar.component.scss']
 })
-export class DataVisualizationBarComponent implements OnInit, OnChanges {
+export class DataVisualizationBarComponent implements OnInit {
 
-  public chainDatasets: object;
-  @Input() statistics: any[];
+  public chart: any;
+
+  constructor(private _dataRetriever: DataRetrieverService) { }
+
+  ngOnInit() {
+    this._dataRetriever
+      .chainApiData()
+      .subscribe(res => {
+        console.log(res['data']);
+
+        this.chart = new Chart('schalala', {
+          type: 'line',
+          data: {
+            labels: [1, 2, 3, 4, 5, 6],
+            datasets: [ {
+              data: res['data'],
+              borderColor: '#386638',
+              fill: false,
+            }]
+          },
+          options: {
+            legend: {display: false},
+            scales: {
+              xAxes: [
+                {display: true}
+              ],
+              yAxes: [{
+                display: true
+              }]
+            }
+          }
+        });
+    });
+
+
+  }
+/*
+  public chainData = [{}, {}, {}];
+  public labels: Array<any>;
+  public chartAvailable = false;
+  public testText = '';
 
   constructor(private _dataRetrieverService: DataRetrieverService) { }
 
   ngOnInit() {
-    this.chainDatasets = this._dataRetrieverService.getChainInfo();
+      let data = this._dataRetrieverService.getChainInfo();
+      this.testText = data.toString();
+      this.chainData = data['chainData'];
+      this.labels = data['labels'];
+      this.chartAvailable = true;
     setInterval(() => {
-      this.chainDatasets = this._dataRetrieverService.getChainInfo();
-      console.info(this.chainDatasets)
-    }, 4000);
+      data = this._dataRetrieverService.getChainInfo();
+      this.testText = data.toString();
+      this.chainData = data['chainData'];
+      this.labels = data['labels'];
+      this.chartAvailable = true;
+    }, 3000);
   }
 
   ngOnChanges() {
 
-  }
+  }*/
 
 }

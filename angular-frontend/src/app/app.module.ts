@@ -5,30 +5,33 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { FrappeDirective } from './frappe.directive';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import { HttpClientModule, HttpClient} from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts';
 
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
 import { DescriptionBarComponent } from './description-bar/description-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
 
-
-import { DataRetrieverService } from './data-retriever.service';
+import { DataRetrieverService } from './services/data-retriever.service';
+import { LinechartComponent } from './charts/linechart/linechart.component';
+import { BarchartComponent } from './charts/barchart/barchart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FrappeDirective,
     SelectionBarComponent,
     DescriptionBarComponent,
     DataVisualizationBarComponent,
+    LinechartComponent,
+    BarchartComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    ChartsModule,
   ],
   providers: [DataRetrieverService],
   bootstrap: [AppComponent]
