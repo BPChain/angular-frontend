@@ -1,25 +1,55 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+
 
 @Injectable()
 export class DataRetrieverService {
 
-  constructor() { }
+  public chainDatasets: object = {
+    labels: [1, 2, 3, 4, 5, 6],
+    datasets: [
+      {
+        title: 'Ethereum',
+        values: [
+          Math.random(),
+          Math.random(),
+          Math.random(),
+          Math.random(),
+          Math.random(),
+          Math.random(),
+        ],
+        color: 'green',
+      },
+      {
+        title: 'XAIN',
+        values: [
+          Math.random(),
+          Math.random(),
+          Math.random(),
+          Math.random(),
+          Math.random(),
+          Math.random(),
+        ],
+        color: 'black',
+      },
+    ]
+  };
+  private url = 'http://localhost:3000/api';
+
+  constructor(@Inject(HttpClient) private http: HttpClient) {
+    this.retrieveChainAPIInfo();
+  }
+
+  retrieveChainAPIInfo() {
+    let buffer;
+    setInterval(() => {
+      buffer = this.http.get(this.url);
+      buffer.subscribe(data => this.chainDatasets = data);
+      console.info(this.chainDatasets);
+    }, 3000);
+  }
 
   getChainInfo(): object {
-    return {
-      labels: [1, 2, 3, 4, 5, 6],
-      datasets: [
-        {
-          title: 'Ethereum',
-          values: [10, 47, 42, 12, 54, 38],
-          color: 'green',
-        },
-        {
-          title: 'XAIN',
-          values: [28, 93, 10, 21, 32, 13],
-          color: 'black',
-        },
-      ]
-    };
+    return this.chainDatasets;
   }
 }

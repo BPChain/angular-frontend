@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FrappeDirective } from './frappe.directive';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
 
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
@@ -26,7 +27,8 @@ import { DataRetrieverService } from './data-retriever.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule,
   ],
   providers: [DataRetrieverService],
   bootstrap: [AppComponent]

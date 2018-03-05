@@ -10,6 +10,7 @@ import {
   MatCheckboxModule,
   MatFormFieldModule,
   MatListModule,
+  MatExpansionModule,
 } from '@angular/material';
 
 const modules = [
@@ -22,6 +23,7 @@ const modules = [
   MatCheckboxModule,
   MatFormFieldModule,
   MatListModule,
+  MatExpansionModule,
 ];
 
 

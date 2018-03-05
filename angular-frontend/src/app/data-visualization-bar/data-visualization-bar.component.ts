@@ -16,6 +16,10 @@ export class DataVisualizationBarComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.chainDatasets = this._dataRetrieverService.getChainInfo();
+    setInterval(() => {
+      this.chainDatasets = this._dataRetrieverService.getChainInfo();
+      console.info(this.chainDatasets)
+    }, 4000);
   }
 
   ngOnChanges() {
