@@ -8,9 +8,10 @@ export class DataRetrieverService {
 
   constructor(private _http: HttpClient) { }
 
-  chainApiData() {
+
+  chainApiData(chain) {
     return this._http
-      .get('http://localhost:3000/api/ethereum')
+      .get(`http://localhost:3000/api/${chain.toLowerCase()}`)
       .map(result => result);
   }
 

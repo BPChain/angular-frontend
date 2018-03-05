@@ -1,8 +1,13 @@
 <mat-card>
-  <div *ngIf="chart">
-    <canvas id="schalala">{{ chart }}</canvas>
-  </div>
- <!-- <div >
-      <app-linechart [labels]="labels" [chainData]="chainData"></app-linechart>
-  </div>-->
+    <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+                    [datasets]="lineChartData"
+                    [labels]="lineChartLabels"
+                    [options]="lineChartOptions"
+                    [colors]="lineChartColors"
+                    [legend]="lineChartLegend"
+                    [chartType]="lineChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
 </mat-card>
