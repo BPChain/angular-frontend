@@ -105,7 +105,7 @@ export class DataVisualizationBarComponent implements OnInit {
     this.lineChartType = 'line';
     this.selectedChains = ['Ethereum', 'Xain', 'Multichain'];
 
-    setInterval(async () => {
+    /*setInterval(async () => {
       if (this.datasets) {
         this.update(this.datasets);
       }
@@ -123,6 +123,6 @@ export class DataVisualizationBarComponent implements OnInit {
             console.info(`${this.selectedChains[i]} done: ${res}`);
           });
       }
-    }, 4000);
+    }, 4000);*/
   }
 }

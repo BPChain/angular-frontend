@@ -1,58 +1,53 @@
-<div class="container body">
-  <div class="container header">
+
+<div class="selection-container">
+  <mat-card>
     <h2>Parameter</h2>
-  </div>
+    <mat-card-content>
+      <form>
+        <mat-form-field>
+          <input matInput placeholder="Number of hosts" type="number">
+        </mat-form-field>
 
-  <div class="container input">
-    <mat-form-field>
-      <input matInput placeholder="Number of hosts" type="number">
-    </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Number of miners" type="number">
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Number of miners" type="number">
-    </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Initial difficulty" type="number">
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Initial difficulty" type="number">
-    </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Transactions / min" type="number">
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Transactions / min" type="number">
-    </mat-form-field>
+        <mat-checkbox>Smart contract ready</mat-checkbox>
 
-    <mat-checkbox>Smart contract ready</mat-checkbox>
+        <mat-form-field>
+          <input matInput placeholder="Smart Contract calls / min" type="number">
+        </mat-form-field>
+      </form>
 
-    <mat-form-field>
-      <input matInput placeholder="Smart Contract calls / min" type="number">
-    </mat-form-field>
-  </div>
-
-  <div class="container selector">
-    <div class="chain-selector ">
-      <mat-card class="chain-selector">
-        <mat-card-content>
-          <mat-tab-group>
-            <mat-tab class="selector container" label="Private">
-              <div class="chain-menu">
-                <mat-selection-list #privateChainSelector>
-                  <mat-list-option *ngFor="let chain of privateChains">
-                    {{ chain }}
-                  </mat-list-option>
-                </mat-selection-list>
-              </div>
-            </mat-tab>
-            <mat-tab class="selector container" label="Public">
-              <div class="chain-menu">
-                <mat-selection-list #publicChainSelector>
-                  <mat-list-option *ngFor="let chain of publicChains">
-                    {{ chain }}
-                  </mat-list-option>
-                </mat-selection-list>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Private" >
+          <mat-selection-list #privateChainSelector>
+            <mat-list-option *ngFor="let chain of privateChains">
+              {{ chain }}
+            </mat-list-option>
+          </mat-selection-list>
+        </mat-tab>
+        <mat-tab label="Public">
+          <mat-selection-list #publicChainSelector>
+            <mat-list-option *ngFor="let chain of publicChains">
+              {{ chain }}
+            </mat-list-option>
+          </mat-selection-list>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
 </div>
+
