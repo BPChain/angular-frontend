@@ -17,6 +17,7 @@ export class DataVisualizationBarComponent implements OnInit {
   public lineChartLegend: boolean;
   public lineChartType: string;
 
+  private datasetStore: Array<any>;
   private datasets: Array<any>;
   private selectedChains: Array<any>;
 
@@ -104,24 +105,24 @@ export class DataVisualizationBarComponent implements OnInit {
     this.lineChartType = 'line';
     this.selectedChains = ['Ethereum', 'Xain', 'Multichain'];
 
-    setInterval(() => {
+    setInterval(async () => {
       if (this.datasets) {
         this.update(this.datasets);
       }
-      this.selectedChains.forEach(chain => {
-        console.info(`${chain} started`);
-
-        this._dataRetriever
-          .chainApiData(chain)
-          .subscribe(res => {
-            this.datasets.push(res);
-            console.info(`${chain} done: ${res}`);
-
-          });
-      });
-      console.info(this.datasets);
 
       this.datasets = [];
-    }, 3000);
+
+
+      for (let i = 0; i < this.selectedChains.length; i++) {
+        console.info(`${this.selectedChains[i]} started`);
+
+        await this._dataRetriever
+          .chainApiData(this.selectedChains[i])
+          .subscribe(res => {
+            this.datasets.push(res);
+            console.info(`${this.selectedChains[i]} done: ${res}`);
+          });
+      }
+    }, 4000);
   }
 }
