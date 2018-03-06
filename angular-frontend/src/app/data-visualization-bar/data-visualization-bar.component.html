@@ -1,6 +1,6 @@
 <mat-card>
-    <div style="display: block;">
-        <canvas baseChart width="400" height="400"
+    <div style="display: block;" *ngIf="display">
+        <canvas baseChart height="400px" width="400px"
                     [datasets]="lineChartData"
                     [labels]="lineChartLabels"
                     [options]="lineChartOptions"

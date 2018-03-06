@@ -35,8 +35,9 @@
             <mat-tab class="selector container" label="Private">
               <div class="chain-menu">
                 <mat-selection-list #privateChainSelector>
-                  <mat-list-option *ngFor="let chain of privateChains">
-                    {{ chain }}
+                  <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected"
+                    (click)="onSelectedPrivateChainsChanged(privateChainSelector)" [value]="chain.name">
+                    {{ chain.name }}
                   </mat-list-option>
                 </mat-selection-list>
               </div>
@@ -44,8 +45,9 @@
             <mat-tab class="selector container" label="Public">
               <div class="chain-menu">
                 <mat-selection-list #publicChainSelector>
-                  <mat-list-option *ngFor="let chain of publicChains">
-                    {{ chain }}
+                  <mat-list-option *ngFor="let chain of publicChains" [selected]="chain.selected"
+                  (click)="onSelectedPublicChainsChanged(publicChainSelector)" [value]="chain.name">
+                    {{ chain.name }}
                   </mat-list-option>
                 </mat-selection-list>
               </div>

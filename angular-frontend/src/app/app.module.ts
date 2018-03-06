@@ -12,10 +12,12 @@ import { ChartsModule } from 'ng2-charts';
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
 import { DescriptionBarComponent } from './description-bar/description-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
-
-import { DataRetrieverService } from './services/data-retriever.service';
 import { LinechartComponent } from './charts/linechart/linechart.component';
 import { BarchartComponent } from './charts/barchart/barchart.component';
+
+import { DataRetrieverService } from './services/data-retriever.service';
+import { ChainSelectorService } from './services/chain-selector.service';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import { BarchartComponent } from './charts/barchart/barchart.component';
     HttpClientModule,
     ChartsModule,
   ],
-  providers: [DataRetrieverService],
+  providers: [
+    DataRetrieverService,
+    ChainSelectorService,
+  ],
   bootstrap: [AppComponent]
 })
 

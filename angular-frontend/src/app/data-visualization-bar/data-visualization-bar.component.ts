@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { DataRetrieverService } from '../services/data-retriever.service';
+import { ChainSelectorService } from '../services/chain-selector.service';
 import { Chart } from 'chart.js';
 
 
@@ -21,57 +22,43 @@ export class DataVisualizationBarComponent implements OnInit {
   private datasets: Array<any>;
   private selectedChains: Array<any>;
 
-  public randomize(): void {
-    const _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {
-        data: new Array(this.lineChartData[i].data.length),
-        label: this.lineChartData[i].label
-      };
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
-  }
+  private display: boolean;
+  private refresh: boolean;
 
   public update(datasets): void {
-    const _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
+    const _lineChartData: Array<any> = new Array(this.datasets.length);
+    for (let i = 0; i < _lineChartData.length; i++) {
       _lineChartData[i] = {
-        data: new Array(this.lineChartData[i].data.length),
-        label: this.lineChartData[i].label
+        data: new Array(this.datasets[i].data.length),
+        label: this.datasets[i].label,
       };
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
+      for (let j = 0; j < this.datasets[i].data.length; j++) {
         _lineChartData[i].data[j] = datasets[i].data[j];
       }
     }
     this.lineChartData = _lineChartData;
+    if (this.refresh) {
+      this.display = false;
+      this.refresh = false;
+      setTimeout(() => {
+        this.display = true;
+      }, 1);
+    }
   }
 
-  // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
-
-  constructor(private _dataRetriever: DataRetrieverService) {
-  }
-
-
-
-  ngOnInit() {
-    this.lineChartData = [
-      {data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], label: 'Ethereum'},
-      {data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], label: 'XAIN'},
-      {data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], label: 'Multichain'},
-    ];
+  private initializeChart(chains: Array<any>) {
+    this.display = true;
+    this.refresh = false;
+    this.selectedChains = chains;
     this.lineChartLabels = [
-      '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'
+      '1', '2', '3', '4', '5', '6', '7', '8',
+      '9', '10', '11', '12', '13', '14', '15',
     ];
+    this.lineChartData = this.selectedChains.map(chain => {
+      return {data: this.lineChartLabels.map(label => {
+        return 0;
+      }), label: chain};
+    });
     this.lineChartOptions = {
       responsive: true
     };
@@ -103,26 +90,54 @@ export class DataVisualizationBarComponent implements OnInit {
     ];
     this.lineChartLegend = true;
     this.lineChartType = 'line';
-    this.selectedChains = ['Ethereum', 'Xain', 'Multichain'];
+  }
+
+  // events
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    console.log(e);
+  }
+
+  constructor(
+    private _dataRetriever: DataRetrieverService,
+    private _chainSelector: ChainSelectorService
+  ) {
+  }
+
+
+
+  ngOnInit() {
+    this.initializeChart(['Ethereum']);
+
 
     setInterval(async () => {
       if (this.datasets) {
         this.update(this.datasets);
       }
-
       this.datasets = [];
+      const _selectedChains = this._chainSelector.getSelectedChains();
 
 
-      for (let i = 0; i < this.selectedChains.length; i++) {
-        console.info(`${this.selectedChains[i]} started`);
-
-        await this._dataRetriever
-          .chainApiData(this.selectedChains[i])
-          .subscribe(res => {
-            this.datasets.push(res);
-            console.info(`${this.selectedChains[i]} done: ${res}`);
-          });
+      if (_selectedChains['private'].length) {
+        if (_selectedChains['private'].length !== this.selectedChains.length) {
+          this.refresh = true;
+        }
+        this.selectedChains = _selectedChains['private'];
       }
-    }, 4000);
+
+      if (this.selectedChains.length) {
+        for (let i = 0; i < this.selectedChains.length; i++) {
+
+          await this._dataRetriever
+            .chainApiData(this.selectedChains[i])
+            .subscribe(res => {
+              this.datasets.push(res);
+            });
+        }
+      }
+    }, 1000);
   }
 }
