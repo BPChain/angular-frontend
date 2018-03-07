@@ -1,13 +1,3 @@
 <mat-card>
-    <div style="display: block;" *ngIf="display">
-        <canvas baseChart
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [options]="lineChartOptions"
-                    [colors]="lineChartColors"
-                    [legend]="lineChartLegend"
-                    [chartType]="lineChartType"
-                    (chartHover)="chartHovered($event)"
-                    (chartClick)="chartClicked($event)"></canvas>
-        </div>
+    <app-linechart [selectedChains]='selectedChains'></app-linechart>
 </mat-card>
