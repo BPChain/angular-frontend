@@ -102,6 +102,22 @@ export class LinechartComponent implements OnInit, OnChanges {
         pointHoverBackgroundColor: '#fff',
         pointHoverBorderColor: 'rgba(110, 110, 110,0.8)'
       },
+      { // turquoise
+        backgroundColor: 'rgba(10, 190, 190, 0.2)',
+        borderColor: 'rgb(10, 190, 190)',
+        pointBackgroundColor: 'rgb(10, 190, 190)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(10, 190, 190,0.8)'
+      },
+      { // turquoise
+        backgroundColor: 'rgba(231, 0, 193, 0.2)',
+        borderColor: 'rgb(231, 0, 193)',
+        pointBackgroundColor: 'rgb(231, 0, 193)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(231, 0, 193,0.8)'
+      },
     ];
     this.lineChartLegend = true;
     this.lineChartType = 'line';

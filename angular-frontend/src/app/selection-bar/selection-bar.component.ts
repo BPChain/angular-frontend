@@ -33,10 +33,6 @@ export class SelectionBarComponent implements OnInit {
       'Vertcoin',
       'Lightcoin',
       'EVAPCoin',
-      'Example',
-      'Example',
-      'Example',
-      'Example',
     ].map(chain => {
       return {name: chain, selected: false};
     });
