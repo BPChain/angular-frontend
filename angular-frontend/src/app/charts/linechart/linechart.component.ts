@@ -136,7 +136,7 @@ export class LinechartComponent implements OnInit, OnChanges {
   public updateChart(datasets: object, parameter: string): void {
     let combinedDatasets: Array<object>;
 
-    if (this.isEmptyDataset(datasets) || !parameter) {
+    if (this.isEmptyDataset(datasets) || parameter === 'none') {
       combinedDatasets = this.getDefaultDataset();
     } else {
       combinedDatasets = datasets['private'].map(chart => {
@@ -199,7 +199,7 @@ export class LinechartComponent implements OnInit, OnChanges {
         this.isEmptyDataset(this.selectedChains) ||
         this.selectedParameter === ''
       ) {
-        this.updateChart(this.initDatasets(), false);
+        this.updateChart(this.initDatasets(), 'none');
       } else {
         if (!(this.isEmptyDataset(this.datasets))) {
           this.updateChart(this.datasets, this.selectedParameter);
