@@ -16,7 +16,7 @@ export class DataRetrieverService {
 
   getPublicChainApiData(chain) {
     return this._http
-      .get(`http://localhost:3000/api/${chain.toLowerCase()}`)
+      .get(`http://localhost:3000/api/public/${chain.toLowerCase()}`)
       .map(result => result);
   }
 

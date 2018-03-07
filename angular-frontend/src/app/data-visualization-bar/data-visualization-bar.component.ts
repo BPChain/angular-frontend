@@ -32,6 +32,10 @@ export class DataVisualizationBarComponent implements OnInit {
       combinedDatasets = datasets['private'].map(chart => {
         return {data: chart.data, label: `Private-${chart.label}`};
       });
+      combinedDatasets = combinedDatasets.concat(
+        datasets['public'].map(chart => {
+          return {data: chart.data, label: `Public-${chart.label}`};
+      }));
     }
     this.lineChartData = combinedDatasets.sort((a, b) => {
       return a['label'] > b['label'];
@@ -56,7 +60,8 @@ export class DataVisualizationBarComponent implements OnInit {
     ];
     this.lineChartData = this.initDefaultDataset();
     this.lineChartOptions = {
-      responsive: true
+      responsive: true,
+      elements: { point: { radius: 0 } },
     };
     this.lineChartColors = [
       { // grey
@@ -158,7 +163,7 @@ export class DataVisualizationBarComponent implements OnInit {
       );
 
       if (this.isEmptyDataset(chainsToDisplay)) {
-        // TODO: Display No chain selected
+        this.update(this.initDataset());
       } else {
       if (!(this.isEmptyDataset(this.datasets))) {
         this.update(this.datasets);
@@ -169,7 +174,7 @@ export class DataVisualizationBarComponent implements OnInit {
         this.updateDatasets(chainsToDisplay);
         this.selectedChains = chainsToDisplay;
       }
-    }, 500);
+    }, 200);
   }
 
 
