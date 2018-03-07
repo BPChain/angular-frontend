@@ -1,4 +1,4 @@
-<div id="content-wrapper">
+<div id="page-wrapper">
   <mat-toolbar color="primary" class="header">
     <mat-toolbar-row>
       <span>BPChain</span>
@@ -9,9 +9,11 @@
 
 
   <div id="content-with-arrow-buttons">
-    <button class="ArrowButton" mat-icon-button (click)="snavLeft.toggle()">
-      <mat-icon>keyboard_arrow_right</mat-icon>
-    </button>
+    <div class="button-container">
+      <button class="arrow-button" mat-icon-button (click)="leftSliderOnClick(snavLeft)">
+        <mat-icon>{{leftSliderIcon}}</mat-icon>
+      </button>
+    </div>
     <mat-sidenav-container id="SideNavWithContent">
       <mat-sidenav #snavLeft mode='side' position="start">
         <app-selection-bar></app-selection-bar>
@@ -26,9 +28,11 @@
       </mat-sidenav>
 
     </mat-sidenav-container>
-    <button class="ArrowButton" mat-icon-button (click)="snavRight.toggle()">
-      <mat-icon>keyboard_arrow_left</mat-icon>
-    </button>
+    <div class="button-container">
+      <button class="arrow-button" mat-icon-button (click)="rightSliderOnClick(snavRight)">
+        <mat-icon>{{rightSliderIcon}}</mat-icon>
+      </button>
+    </div>
 
   </div>
 
