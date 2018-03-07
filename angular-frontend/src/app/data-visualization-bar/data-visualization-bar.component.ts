@@ -23,6 +23,16 @@ export class DataVisualizationBarComponent implements OnInit {
   private display: boolean;
   private refresh: boolean;
 
+  private compareObjects(a, b): number {
+    if (a['label'] < b['label']) {
+      return -1;
+    }
+    if (a['label'] > b['label']) {
+      return 1;
+    }
+    return 0;
+  }
+
   public update(datasets): void {
     let combinedDatasets: Array<object>;
 
@@ -37,9 +47,9 @@ export class DataVisualizationBarComponent implements OnInit {
           return {data: chart.data, label: `Public-${chart.label}`};
       }));
     }
-    this.lineChartData = combinedDatasets.sort((a, b) => {
-      return a['label'] > b['label'];
-    });
+    this.lineChartData = combinedDatasets.sort(
+      (a, b) => this.compareObjects(a, b)
+    );
     if (this.refresh) {
       this.display = false;
       this.refresh = false;
@@ -168,7 +178,7 @@ export class DataVisualizationBarComponent implements OnInit {
       if (!(this.isEmptyDataset(this.datasets))) {
         this.update(this.datasets);
       }
-      if (!(this.equalsSelection(chainsToDisplay, this.selectedChains)) {
+      if (!(this.equalsSelection(chainsToDisplay, this.selectedChains))) {
         this.refresh = true;
       }
         this.updateDatasets(chainsToDisplay);
