@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChainSelectorService } from '../services/chain-selector.service';
+import { DataRetrieverService } from '../services/data-retriever.service';
 
 @Component({
   selector: 'app-selection-bar',
@@ -11,19 +12,20 @@ export class SelectionBarComponent implements OnInit {
   public publicChains: Array<object>;
   public selectedOptions: object;
 
-  constructor(private _chainSelector: ChainSelectorService) {
-  }
+  constructor(
+    private _chainSelector: ChainSelectorService,
+    private _dataRetriever: DataRetrieverService,
+  ) {  }
 
   ngOnInit() {
     this.privateChains = [
       'Ethereum',
       'XAIN',
       'Multichain',
-      'Hyperledger',
-      'Bitcoin',
     ].map(chain => {
       return {name: chain, selected: false};
     });
+
     this.publicChains = [
       'Bitcoin',
       'Ethereum',

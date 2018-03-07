@@ -8,16 +8,22 @@ export class DataRetrieverService {
 
   constructor(private _http: HttpClient) { }
 
+  getPrivateChains() {
+    return this._http
+      .get(`http://localhost:3000/api/chains`)
+      .map(result => result);
+  }
+
   getPublicChainApiData(chain) {
     return this._http
-    .get(`http://localhost:3000/api/${chain.toLowerCase()}`)
-    .map(result => result);
+      .get(`http://localhost:3000/api/${chain.toLowerCase()}`)
+      .map(result => result);
   }
 
   getPrivateChainApiData(chain) {
     return this._http
-    .get(`http://localhost:3000/api/${chain.toLowerCase()}`)
-    .map(result => result);
+      .get(`http://localhost:3000/api/${chain.toLowerCase()}`)
+      .map(result => result);
   }
 
   chainApiData(chain) {

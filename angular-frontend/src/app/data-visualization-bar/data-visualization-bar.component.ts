@@ -9,7 +9,6 @@ import { ChainSelectorService } from '../services/chain-selector.service';
   styleUrls: ['./data-visualization-bar.component.scss']
 })
 export class DataVisualizationBarComponent implements OnInit {
-
   public lineChartData: Array<any>;
   public lineChartLabels: Array<any>;
   public lineChartOptions: object;
@@ -25,11 +24,17 @@ export class DataVisualizationBarComponent implements OnInit {
   private refresh: boolean;
 
   public update(datasets): void {
-    const combinedDatasets = datasets['private'].map(chart => {
+    let combinedDatasets: Array<object>;
+
+    if (this.isEmptyDataset(datasets)) {
+      combinedDatasets = this.initDefaultDataset();
+    } else {
+      combinedDatasets = datasets['private'].map(chart => {
         return {data: chart.data, label: `Private-${chart.label}`};
       });
+    }
     this.lineChartData = combinedDatasets.sort((a, b) => {
-      return a.label > b.label;
+      return a['label'] > b['label'];
     });
     if (this.refresh) {
       this.display = false;
@@ -40,21 +45,16 @@ export class DataVisualizationBarComponent implements OnInit {
     }
   }
 
-  private initializeChart(chains: object) {
-    this.datasets = {public: [], private: []};
+  private initializeChart() {
+    this.datasets = this.initDataset();
     this.display = true;
     this.refresh = false;
-    this.selectedChains = chains;
+    this.selectedChains = this.initDataset();
     this.lineChartLabels = [
       '1', '2', '3', '4', '5', '6', '7', '8',
       '9', '10', '11', '12', '13', '14', '15',
     ];
-    this.lineChartData = this.selectedChains['private'].map(chain => {
-      return {data: this.lineChartLabels.map(label => {
-        return 0;
-      }), label: `Private-${chain}`};
-    });
-    console.info(this.lineChartData);
+    this.lineChartData = this.initDefaultDataset();
     this.lineChartOptions = {
       responsive: true
     };
@@ -103,22 +103,9 @@ export class DataVisualizationBarComponent implements OnInit {
   ) {
   }
 
-  private arraysEqual(arrayA, arrayB) {
-    if (arrayA.length !== arrayB.length) {
-      return false;
-    }
-    for (let i = arrayA.length; i--;) {
-        if (arrayA[i] !== arrayB[i]) {
-          return false;
-        }
-    }
-    return true;
-}
-
-
   private equalsSelection(selectionA, selectionB): boolean {
-    if (this.arraysEqual(selectionA['private'], selectionB['private'])) {
-      if (this.arraysEqual(selectionA['public'], selectionB['public'])) {
+    if (selectionA['private'].length === selectionB['private'].length) {
+      if (selectionA['public'].length === selectionB['public'].length) {
         return true;
       }
     }
@@ -139,53 +126,55 @@ export class DataVisualizationBarComponent implements OnInit {
     return {public: [], private: []};
   }
 
-  ngOnInit() {
-    this.initializeChart({private: ['Ethereum'], public: []});
+  private initDefaultDataset(): Array<object> {
+    return [
+      {data: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], label: 'No chain selected'}
+    ];
+  }
 
-    setInterval(async () => {
+  private updateDatasets(chainsToDisplay) {
+    this.datasets = this.initDataset();
+    chainsToDisplay['private'].forEach(chain => {
+        this._dataRetriever
+          .getPrivateChainApiData(chain)
+          .subscribe(res => {
+            this.datasets['private'].push(res);
+          });
+      });
+      chainsToDisplay['public'].forEach(chain => {
+        this._dataRetriever
+          .getPublicChainApiData(chain)
+          .subscribe(res => {
+            this.datasets['public'].push(res);
+          });
+      });
+    }
+
+  private trackData() {
+    setInterval(() => {
+      const chainsToDisplay = Object.assign(
+        {},
+        (this._chainSelector.getSelectedChains()),
+      );
+
+      if (this.isEmptyDataset(chainsToDisplay)) {
+        // TODO: Display No chain selected
+      } else {
       if (!(this.isEmptyDataset(this.datasets))) {
         this.update(this.datasets);
       }
-      this.datasets = this.initDataset();
-
-
-
-      console.info(this.selectedChains);
-      const _selectedChains = this._chainSelector.getSelectedChains();
-      console.info(_selectedChains);
-      console.info(this.selectedChains);
-      /*if (!(this.isEmptyDataset(_selectedChains))) {
-        console.info(this.selectedChains);
-        console.info(_selectedChains);
-        if (!(this.equalsSelection(this.selectedChains, _selectedChains))) {
-            this.selectedChains = _selectedChains;
-            console.info(this.selectedChains);
-            this.refresh = true;
-        }
-      }*/
-
-
-        this.selectedChains = Object.assign(_selectedChains);
-            this.refresh = true;
-
-
-
-      if (!(this.isEmptyDataset(this.selectedChains))) {
-        this.selectedChains['private'].forEach(chain => {
-          this._dataRetriever
-            .getPrivateChainApiData(chain)
-            .subscribe(res => {
-              this.datasets['private'].push(res);
-            });
-        });
-        this.selectedChains['public'].forEach(chain => {
-          this._dataRetriever
-            .getPublicChainApiData(chain)
-            .subscribe(res => {
-              this.datasets['public'].push(res);
-            });
-        });
+      if (!(this.equalsSelection(chainsToDisplay, this.selectedChains)) {
+        this.refresh = true;
       }
-    }, 3000);
+        this.updateDatasets(chainsToDisplay);
+        this.selectedChains = chainsToDisplay;
+      }
+    }, 500);
+  }
+
+
+  ngOnInit() {
+    this.initializeChart();
+    this.trackData();
   }
 }
