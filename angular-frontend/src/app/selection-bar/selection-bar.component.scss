@@ -2,3 +2,8 @@
   font-size: 13px;
 }
 
+::ng-deep .mat-tab-label{
+  min-width: 0 !important;
+  width: 50%;
+}
+
