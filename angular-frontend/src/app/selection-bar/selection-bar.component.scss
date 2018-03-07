@@ -1,42 +1,4 @@
-mat-form-field {
-  width: 280px;
-}
-
-mat-card {
-  padding: 0px;
-}
-
-mat-selection-list {
-  height: 360px;
-}
-
-.container {
-
-  &.header {
-    text-align: center;
-  }
-
-  &.input {
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-
-  &.selector {
-    margin: 0px;
-    padding: 0px;
-
-  }
-
-  &.body {
-    width: 320px;
-  }
-}
-
-.chain-menu {
-  margin-bottom: 30px;
-}
-
-.text {
-  margin: 25px;
+.mat-list-option {
+  font-size: 13px;
 }
 

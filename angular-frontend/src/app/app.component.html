@@ -1,27 +1,43 @@
-<mat-toolbar color="primary" class="header">
-  <mat-toolbar-row>
-    <span>BPChain</span>
-    <span class="spacer"></span>
-    <button mat-button>Login</button>
-    <button mat-button>About</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div id="page-wrapper">
+  <mat-toolbar color="primary" class="header">
+    <mat-toolbar-row>
+      <span>BPChain</span>
+      <button mat-button>Login</button>
+      <button mat-button>About</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-<mat-sidenav-container>
-  <mat-sidenav opened="true" mode="side" fixedInViewport="true" fixedTopGap="64" fixedBottomGap="30">
-    <app-selection-bar></app-selection-bar>
-  </mat-sidenav>
 
-  <mat-sidenav-content>
-      <app-data-visualization-bar></app-data-visualization-bar>
-  </mat-sidenav-content>
+  <div id="content-with-arrow-buttons">
+    <div class="button-container">
+      <button class="arrow-button" mat-icon-button (click)="leftSliderOnClick(snavLeft)">
+        <mat-icon>{{leftSliderIcon}}</mat-icon>
+      </button>
+    </div>
+    <mat-sidenav-container id="SideNavWithContent">
+      <mat-sidenav #snavLeft mode='side' position="start">
+        <app-selection-bar></app-selection-bar>
+      </mat-sidenav>
 
-  <mat-sidenav opened mode="side" position="end" fixedInViewport="true" fixedTopGap="64" fixedBottomGap="30">
-    <app-description-bar></app-description-bar>
-  </mat-sidenav>
+      <mat-sidenav-content>
+        <app-data-visualization-bar></app-data-visualization-bar>
+      </mat-sidenav-content>
 
-</mat-sidenav-container>
+      <mat-sidenav #snavRight mode='side' position="end">
+        <app-description-bar></app-description-bar>
+      </mat-sidenav>
 
-<mat-toolbar color="primary" class="footer">
+    </mat-sidenav-container>
+    <div class="button-container">
+      <button class="arrow-button" mat-icon-button (click)="rightSliderOnClick(snavRight)">
+        <mat-icon>{{rightSliderIcon}}</mat-icon>
+      </button>
+    </div>
 
-</mat-toolbar>
+  </div>
+
+
+  <mat-toolbar color="primary" class="footer">
+
+  </mat-toolbar>
+</div>
