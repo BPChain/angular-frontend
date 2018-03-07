@@ -1,25 +1,19 @@
-button {
-  border: 1px solid rgba(216, 216, 216, 0.192);
-  border-radius: 2px;
-  margin: 3px;
-}
 
 mat-toolbar {
+  button {
+    border: 1px solid rgba(216, 216, 216, 0.192);
+    border-radius: 2px;
+    margin: 3px;
+  }
 
   &.header {
     height: 64px;
-    //position: fixed;
     top: 0;
-    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-    //z-index: 2;
   }
 
   &.footer {
     height: 30px;
-    //position: fixed;
     bottom: 30px;
-    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-    //z-index: 2;
   }
 }
 
@@ -28,18 +22,16 @@ mat-toolbar {
 }
 
 #content-with-arrow-buttons{
-  //padding-top: 70px;
-  //padding-bottom: 40px;
   display: flex;
   height: 100%;
 }
 mat-sidenav {
-  width : 300px;
-
+  width : 250px;
+  background-color: transparent;
 }
 
 mat-sidenav-content {
-  min-width: 200px;
+  min-width: 300px;
 }
 mat-sidenav-container{
   width: 100%;
