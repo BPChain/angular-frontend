@@ -9,6 +9,7 @@ import {DataRetrieverService} from '../../services/data-retriever.service';
 export class LinechartComponent implements OnInit, OnChanges {
 
   @Input() selectedChains: object;
+  @Input() selectedParameter: string;
 
   // Chart.js parameter
   private lineChartData: Array<any>;
@@ -28,6 +29,7 @@ export class LinechartComponent implements OnInit, OnChanges {
 
   constructor(private _dataRetriever: DataRetrieverService) {
     this.selectedChains = this.initDatasets();
+    this.selectedParameter = '';
   }
 
   private initializeChart() {
@@ -115,18 +117,24 @@ export class LinechartComponent implements OnInit, OnChanges {
     return 0;
   }
 
-  public updateChart(datasets): void {
+  public updateChart(datasets: object, parameter: string): void {
     let combinedDatasets: Array<object>;
 
-    if (this.isEmptyDataset(datasets)) {
+    if (this.isEmptyDataset(datasets) || !parameter) {
       combinedDatasets = this.getDefaultDataset();
     } else {
       combinedDatasets = datasets['private'].map(chart => {
-        return {data: chart.data, label: `Private-${chart.label}`};
+        return {
+          data: chart[parameter],
+          label: `Private-${chart['chainName']}`
+        };
       });
       combinedDatasets = combinedDatasets.concat(
         datasets['public'].map(chart => {
-          return {data: chart.data, label: `Public-${chart.label}`};
+          return {
+            data: chart[parameter],
+            label: `Public-${chart['chainName']}`
+          };
       }));
     }
     this.lineChartData = combinedDatasets.sort(
@@ -171,11 +179,14 @@ export class LinechartComponent implements OnInit, OnChanges {
 
   private trackChartDataUpdates() {
     setInterval(() => {
-      if (this.isEmptyDataset(this.selectedChains)) {
-        this.updateChart(this.initDatasets());
+      if (
+        this.isEmptyDataset(this.selectedChains) ||
+        this.selectedParameter === ''
+      ) {
+        this.updateChart(this.initDatasets(), false);
       } else {
         if (!(this.isEmptyDataset(this.datasets))) {
-          this.updateChart(this.datasets);
+          this.updateChart(this.datasets, this.selectedParameter);
         }
         this.updateDatasets(this.selectedChains);
       }

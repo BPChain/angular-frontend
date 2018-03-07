@@ -10,6 +10,7 @@ import { LinechartComponent } from '../charts/linechart/linechart.component';
 })
 export class DataVisualizationBarComponent implements OnInit {
   private selectedChains: object;
+  private selectedParameter: string;
 
   constructor(private _chainSelector: ChainSelectorService) {
 
@@ -24,7 +25,7 @@ export class DataVisualizationBarComponent implements OnInit {
     return false;
   }
 
-  private trackSelectionUpdates() {
+  private trackSelectionUpdates(): void {
     setInterval(() => {
       const chainsToDisplay = Object.assign(
         {},
@@ -41,8 +42,15 @@ export class DataVisualizationBarComponent implements OnInit {
     return {public: [], private: []};
   }
 
+  private changeDisplayedParameter(parameter: string): void {
+    if (parameter !== this.selectedParameter) {
+      this.selectedParameter = parameter;
+    }
+  }
+
   ngOnInit() {
     this.selectedChains = this.initDatasets();
+    this.selectedParameter = '';
     this.trackSelectionUpdates();
   }
 }

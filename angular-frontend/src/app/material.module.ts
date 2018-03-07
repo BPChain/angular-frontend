@@ -12,6 +12,7 @@ import {
   MatListModule,
   MatIconModule,
   MatExpansionModule,
+  MatButtonToggleModule,
 } from '@angular/material';
 
 const modules = [
@@ -26,6 +27,7 @@ const modules = [
   MatListModule,
   MatIconModule,
   MatExpansionModule,
+  MatButtonToggleModule,
 ];
 
 
