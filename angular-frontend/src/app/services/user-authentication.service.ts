@@ -13,6 +13,7 @@ export class UserAuthenticationService {
       .post(
         `http://localhost:3000/login`,
         {username, password},
+        {responseType: 'text'},
       )
       .map(result => result);
   }
