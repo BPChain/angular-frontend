@@ -206,7 +206,7 @@ export class LinechartComponent implements OnInit, OnChanges {
         }
         this.updateDatasets(this.selectedChains);
       }
-    }, 1000);
+    }, 5000);
   }
 
   private initDatasets(): object {

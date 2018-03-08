@@ -1,0 +1,11 @@
+<form>
+  <mat-form-field [color]='options.value.color'>
+    <input #username matInput placeholder="Username" type="text">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input #password matInput placeholder="Password" type="password">
+  </mat-form-field>
+
+  <button mat-button (click)="submitCredentials(username.value, password.value)">Submit</button>
+</form>

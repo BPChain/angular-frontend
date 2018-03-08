@@ -13,6 +13,7 @@ import {
   MatIconModule,
   MatExpansionModule,
   MatButtonToggleModule,
+  MatDialogModule,
 } from '@angular/material';
 
 const modules = [
@@ -28,6 +29,7 @@ const modules = [
   MatIconModule,
   MatExpansionModule,
   MatButtonToggleModule,
+  MatDialogModule,
 ];
 
 
