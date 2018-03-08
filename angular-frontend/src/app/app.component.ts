@@ -15,7 +15,7 @@ export class AppComponent {
   public rightSliderIcon: string;
 
   constructor(public dialog: MatDialog) {
-    this.leftSliderIcon = 'keyboard_arrow_right';
+    this.leftSliderIcon = 'keyboard_arrow_left';
     this.rightSliderIcon = 'keyboard_arrow_left';
   }
 
