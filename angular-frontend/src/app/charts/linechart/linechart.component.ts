@@ -24,8 +24,8 @@ export class LinechartComponent implements OnInit, OnChanges {
 
 
   // Controll chart reload
-  private display:boolean;
-  private refresh:boolean;
+  private display: boolean;
+  private refresh: boolean;
 
   constructor(private _dataRetriever: DataRetrieverService) {
   }
@@ -38,7 +38,7 @@ export class LinechartComponent implements OnInit, OnChanges {
         '1', '2', '3', '4', '5', '6', '7', '8',
         '9', '10', '11', '12', '13', '14', '15',
       ],
-      data: [],
+      data: this.defaultDataset(),
       options: {
         responsive: true,
         elements: {point: {radius: 0}},
@@ -134,14 +134,12 @@ export class LinechartComponent implements OnInit, OnChanges {
 
 
   public updateChart(dataset: any): void {
-    console.log(dataset)
+    console.log(dataset);
     const dataToDisplay = dataset.map(chain => ({
       data: chain[this.selectedParameter],
-      label: chain['access'].concat('-', chain['chainName'])}));
-    console.log(dataToDisplay)
-    /*this.lineChart.data = combinedDatasets.sort(
-      (chainA, chainB) => this.alphabeticallyFirst(chainA, chainB)
-    );*/
+      label: chain['access'].concat('-', chain['chainName'])
+    }));
+    console.log(dataToDisplay);
     this.lineChart.data = dataToDisplay;
     if (this.refresh) {
       this.display = false;
@@ -154,23 +152,19 @@ export class LinechartComponent implements OnInit, OnChanges {
 
 
   private updateDataAndChart() {
-    console.log(this.selectedChains, this.selectedParameter)
+    console.log(this.selectedChains, this.selectedParameter);
     const observable = this._dataRetriever.getChainData(this.selectedChains);
     observable.subscribe(x => this.updateChart(x));
   }
 
-  private trackChartDataUpdates() {
+  private updateChartPeriodically() {
     setInterval(() => {
       console.log(this.lineChart);
       this.updateDataAndChart();
     }, 5000);
   }
 
-  private initDatasets(): object {
-    return {public: [], private: []};
-  }
-
-  private getDefaultDataset(): Array<object> {
+  private defaultDataset(): Array<object> {
     return [
       {
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -182,7 +176,7 @@ export class LinechartComponent implements OnInit, OnChanges {
   // Initialize
   ngOnInit() {
     this.initializeChart();
-    this.trackChartDataUpdates();
+    this.updateChartPeriodically();
   }
 
   // Selection updates
