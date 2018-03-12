@@ -12,6 +12,7 @@ export class LoginDialogComponent {
 
   private options: FormGroup;
   private hide: boolean;
+  private login: string;
   private usernameInput: FormControl;
   private passwordInput: FormControl;
 
@@ -50,15 +51,18 @@ export class LoginDialogComponent {
     this._userAuthentication
       .authenticate(username, password)
       .subscribe(res => {
-        console.info('confirmed');
+        if (res === 'true') {
+          this.dialogReference.close(true);
+        } else {
+          this.options.value.color = 'warn';
+        }
       },
       err => {
-        console.info('Denied!');
         this.options.value.color = 'warn';
       });
   }
 
   onNoClick(): void {
-    this.dialogReference.close();
+    this.dialogReference.close(false);
   }
 }

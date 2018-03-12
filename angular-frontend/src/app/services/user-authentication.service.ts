@@ -14,7 +14,16 @@ export class UserAuthenticationService {
         `http://localhost:3000/login`,
         {username, password},
         {responseType: 'text'},
-      )
+      );
+  }
+
+  logout() {
+    return this._http
+      .post(
+        `http://localhost:3000/logout`,
+        {},
+        {responseType: 'text'},
+      );
   }
 
 
