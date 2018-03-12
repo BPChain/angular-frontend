@@ -14,7 +14,8 @@ export class UserAuthenticationService {
         `http://localhost:3000/login`,
         {username, password},
         {responseType: 'text'},
-      );
+      )
+      .map(response => response === 'true');
   }
 
   logout() {

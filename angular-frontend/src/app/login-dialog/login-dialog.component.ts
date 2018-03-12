@@ -50,8 +50,8 @@ export class LoginDialogComponent {
   submitCredentials(username: string, password: string): void {
     this._userAuthentication
       .authenticate(username, password)
-      .subscribe(res => {
-        if (res === 'true') {
+      .subscribe(success => {
+        if (success) {
           this.dialogReference.close(true);
         } else {
           this.options.value.color = 'warn';

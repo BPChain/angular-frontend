@@ -3,8 +3,8 @@
     <mat-toolbar-row>
       <span>BPChain</span>
       <span class="spacer"></span>
-      <button *ngIf="!authenticated" mat-button (click)="openLoginDialog()">Login</button>
-      <button *ngIf="authenticated" mat-button (click)="triggerLogout()">Logout</button>
+      <button *ngIf="!isAuthenticated" mat-button (click)="openLoginDialog()">Login</button>
+      <button *ngIf="isAuthenticated" mat-button (click)="triggerLogout()">Logout</button>
       <a href="https://bpt.hpi.uni-potsdam.de/Public/LegalNotice">
         <button mat-button>Legal Notice</button>
       </a>
@@ -20,7 +20,7 @@
     </div>
     <mat-sidenav-container id="SideNavWithContent">
       <mat-sidenav #snavLeft mode='side' opened="true" position="start">
-        <app-selection-bar [authenticated]="authenticated"></app-selection-bar>
+        <app-selection-bar [isAuthenticated]="isAuthenticated"></app-selection-bar>
       </mat-sidenav>
 
       <mat-sidenav-content>

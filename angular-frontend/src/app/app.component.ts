@@ -14,7 +14,7 @@ import { UserAuthenticationService } from './services/user-authentication.servic
 export class AppComponent {
   public leftSliderIcon: string;
   public rightSliderIcon: string;
-  private authenticated: boolean;
+  private isAuthenticated: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -23,7 +23,7 @@ export class AppComponent {
   ) {
     this.leftSliderIcon = 'keyboard_arrow_left';
     this.rightSliderIcon = 'keyboard_arrow_left';
-    this.authenticated = false;
+    this.isAuthenticated = false;
   }
 
   getNewIcon(oldIcon: string) {
@@ -48,7 +48,7 @@ export class AppComponent {
     this._userAuthentication
       .logout()
       .subscribe(res => {
-        this.authenticated = false;
+        this.isAuthenticated = false;
         this.openSnackBar('Successfully logged out.');
       },
       err => {
@@ -70,7 +70,7 @@ export class AppComponent {
     dialogReference.afterClosed().subscribe(result => {
       if (result === true) {
         this.openSnackBar('Successfully logged in.');
-        this.authenticated = true;
+        this.isAuthenticated = true;
       }
     });
   }
