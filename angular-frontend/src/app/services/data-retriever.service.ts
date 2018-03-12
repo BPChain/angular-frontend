@@ -23,19 +23,15 @@ export class DataRetrieverService {
       .map(result => Object.assign(result, {access: 'private'}));
   }
 
-  getChainData(selectedChains){
+  getChainData(selectedChains) {
     //Todo remove any with real type declaration
-    const responses$ : Array<Observable<any>> = [];
+    const responses$: Array<Observable<any>> = [];
     selectedChains['private'].forEach(chain => {
       responses$.push(this.getPrivateChainApiData(chain));
     });
     selectedChains['public'].forEach(chain => {
       responses$.push(this.getPublicChainApiData(chain));
     });
-    console.log('vor return')
-    return Observable.forkJoin(...responses$)
+    return Observable.forkJoin(...responses$);
   }
 }
-
-
-//Komplette abfrage, einfach alle chains übergeben und dann wait auf all

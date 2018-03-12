@@ -124,12 +124,10 @@ export class LinechartComponent implements OnInit, OnChanges {
 
 
   public updateChart(dataset): void {
-    console.log(dataset);
-    let dataToDisplay = dataset.map(chain => ({
+    const dataToDisplay = dataset.map(chain => ({
       data: chain[this.selectedParameter],
       label: chain['access'].concat('-', chain['chainName'])
     }));
-    console.log(dataToDisplay);
     this.lineChart.data = dataToDisplay;
     this.refreshChart();
   }
@@ -150,7 +148,6 @@ export class LinechartComponent implements OnInit, OnChanges {
   }
 
   private updateDataAndChart() {
-    console.log(this.selectedChains, this.selectedParameter);
     if ((this.selectedChains['public'].length === 0) &&
       (this.selectedChains['private'].length === 0)) {
       this.displayEmptyChart();
