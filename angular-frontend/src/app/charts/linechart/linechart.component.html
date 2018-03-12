@@ -1,11 +1,11 @@
 <div style="display: block;" *ngIf="display">
   <canvas baseChart
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
+              [datasets]="lineChart.data"
+              [labels]="lineChart.labels"
+              [options]="lineChart.options"
+              [colors]="lineChart.colors"
+              [legend]="lineChart.showsLegend"
+              [chartType]="lineChart.type"
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)">
   </canvas>

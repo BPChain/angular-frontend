@@ -15,7 +15,6 @@ export class UserAuthenticationService {
         {username, password},
         {responseType: 'text'},
       )
-      .map(result => result);
   }
 
 
