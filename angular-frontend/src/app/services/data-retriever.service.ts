@@ -14,13 +14,13 @@ export class DataRetrieverService {
   getPublicChainApiData(chain) {
     return this._http
       .get(`http://localhost:3000/api/public/${chain.toLowerCase()}`)
-      .map(result => Object.assign(result, {access: 'public'}));
+      .map(result => Object.assign(result, {access: 'Public'}));
   }
 
   getPrivateChainApiData(chain) {
     return this._http
       .get(`http://localhost:3000/api/private/${chain.toLowerCase()}`)
-      .map(result => Object.assign(result, {access: 'private'}));
+      .map(result => Object.assign(result, {access: 'Private'}));
   }
 
   getChainData(selectedChains) {

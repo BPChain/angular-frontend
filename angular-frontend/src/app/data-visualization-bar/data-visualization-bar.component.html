@@ -1,11 +1,11 @@
 <mat-card>
-    <app-linechart [selectedChains]='selectedChains' [selectedParameter]='selectedParameter'></app-linechart>
-    <mat-button-toggle-group>
-      <mat-button-toggle (click)="changeDisplayedParameter('numberOfHosts')">Number of Hosts</mat-button-toggle>
-      <mat-button-toggle (click)="changeDisplayedParameter('numberOfMiners')">Number of Miners</mat-button-toggle>
-      <mat-button-toggle (click)="changeDisplayedParameter('avgHashrate')">Average Hashrate</mat-button-toggle>
-      <mat-button-toggle (click)="changeDisplayedParameter('avgBlocktime')">Average Blocktime</mat-button-toggle>
-      <mat-button-toggle (click)="changeDisplayedParameter('avgGasPrice')">Average Gas price</mat-button-toggle>
-      <mat-button-toggle (click)="changeDisplayedParameter('avgDifficulty')">Average Difficulty</mat-button-toggle>
+    <app-linechart [selectedChains]='selectedChains' [selectedParameter]=parameterSelection.value></app-linechart>
+    <mat-button-toggle-group #parameterSelection = "matButtonToggleGroup">
+      <mat-button-toggle [checked] = "true" value = 'numberOfHosts'>Number of Hosts</mat-button-toggle>
+      <mat-button-toggle value = 'numberOfMiners'>Number of Miners</mat-button-toggle>
+      <mat-button-toggle value = 'avgHashrate'>Average Hashrate</mat-button-toggle>
+      <mat-button-toggle value = 'avgBlocktime'>Average Blocktime</mat-button-toggle>
+      <mat-button-toggle value = 'avgGasPrice'>Average Gas price</mat-button-toggle>
+      <mat-button-toggle value = 'avgDifficulty'>Average Difficulty</mat-button-toggle>
     </mat-button-toggle-group>
 </mat-card>
