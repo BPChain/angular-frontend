@@ -122,25 +122,19 @@ export class LinechartComponent implements OnInit, OnChanges {
     };
   }
 
-  private alphabeticallyFirst(a, b): number {
-    if (a['label'] < b['label']) {
-      return -1;
-    }
-    if (a['label'] > b['label']) {
-      return 1;
-    }
-    return 0;
-  }
 
-
-  public updateChart(dataset: any): void {
+  public updateChart(dataset): void {
     console.log(dataset);
-    const dataToDisplay = dataset.map(chain => ({
+    let dataToDisplay = dataset.map(chain => ({
       data: chain[this.selectedParameter],
       label: chain['access'].concat('-', chain['chainName'])
     }));
     console.log(dataToDisplay);
     this.lineChart.data = dataToDisplay;
+    this.refreshChart();
+  }
+
+  private refreshChart() {
     if (this.refresh) {
       this.display = false;
       this.refresh = false;
@@ -150,9 +144,17 @@ export class LinechartComponent implements OnInit, OnChanges {
     }
   }
 
+  private displayEmptyChart() {
+    this.lineChart.data = this.defaultDataset();
+    this.refreshChart();
+  }
 
   private updateDataAndChart() {
     console.log(this.selectedChains, this.selectedParameter);
+    if ((this.selectedChains['public'].length === 0) &&
+      (this.selectedChains['private'].length === 0)) {
+      this.displayEmptyChart();
+    }
     const observable = this._dataRetriever.getChainData(this.selectedChains);
     observable.subscribe(x => this.updateChart(x));
   }
