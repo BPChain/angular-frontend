@@ -1,4 +1,4 @@
-export const chartColors =  [
+export const CHART_COLORS =  [
   { // blue
     backgroundColor: 'rgba(24, 108, 187, 0.2)',
     borderColor: 'rgb(24, 108, 187)',

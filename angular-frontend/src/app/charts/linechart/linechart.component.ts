@@ -1,6 +1,32 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {DataRetrieverService} from '../../services/data-retriever.service';
-import {chartColors} from './chart-colors';
+import {
+  DataRetrieverService,
+  ChainData
+} from '../../services/data-retriever.service';
+import {CHART_COLORS} from './chart-colors';
+import {ChainSelection} from '../../services/chain-selector.service';
+
+
+interface ChartItem {
+  label: string;
+  data: Array<number>;
+}
+
+class LineChart {
+  public options = {
+    responsive: true,
+    elements: {point: {radius: 0}},
+  };
+  public colors = CHART_COLORS;
+  public showsLegend = true;
+  public type = 'line';
+
+  constructor(public data: Array<ChartItem>,
+              public labels: Array<string> = [
+                '1', '2', '3', '4', '5', '6', '7', '8',
+                '9', '10', '11', '12', '13', '14', '15', ]) {
+  }
+}
 
 @Component({
   selector: 'app-linechart',
@@ -9,13 +35,13 @@ import {chartColors} from './chart-colors';
 })
 export class LinechartComponent implements OnInit, OnChanges {
 
-  @Input() selectedChains: object;
+  @Input() selectedChains: ChainSelection;
   @Input() selectedParameter: string;
 
 
   // Chart.js parameter
   private lineChart: {
-    data: Array<any>,
+    data: Array<ChartItem>,
     labels: Array<string>,
     options: object,
     colors: Array<any>,
@@ -29,7 +55,8 @@ export class LinechartComponent implements OnInit, OnChanges {
   private refresh: boolean;
 
   constructor(private _dataRetriever: DataRetrieverService) {
-    this.initializeChart();
+    this.lineChart = new LineChart(this.defaultDataset());
+
   }
 
   private initializeChart() {
@@ -43,25 +70,26 @@ export class LinechartComponent implements OnInit, OnChanges {
         responsive: true,
         elements: {point: {radius: 0}},
       },
-      colors: chartColors,
+      colors: CHART_COLORS,
       showsLegend: true,
       type: 'line',
     };
     this.refresh = false;
     this.display = true;
+    console.log('linechart', this.lineChart);
   }
 
 
-  public updateChart(dataset): void {
-    const dataToDisplay = dataset.map(chain => ({
+  public updateChart(dataset: Array<ChainData>): void {
+    this.lineChart = new LineChart(dataset.map(chain => ({
       data: chain[this.selectedParameter],
-      label: chain['access'].concat('-', chain['chainName'])
-    }));
-    this.lineChart.data = dataToDisplay;
-    this.refreshChart();
+      label: chain.access.concat('-', chain.chainName)
+    })));
+    this.refreshOnDemand();
   }
 
-  private refreshChart() {
+  private refreshOnDemand() {
+    // To show new data-lines the chart must be shortly removed.
     if (this.refresh) {
       this.display = false;
       this.refresh = false;
@@ -72,44 +100,44 @@ export class LinechartComponent implements OnInit, OnChanges {
   }
 
   private displayEmptyChart() {
-    this.lineChart.data = this.defaultDataset();
-    this.refreshChart();
+    this.lineChart = new LineChart(this.defaultDataset());
+    this.refreshOnDemand();
   }
 
   private updateDataAndChart() {
-    if ((this.selectedChains['public'].length === 0) &&
-      (this.selectedChains['private'].length === 0)) {
+    if (this.selectedChains.isEmpty()) {
       this.displayEmptyChart();
+      return;
     }
     const observable = this._dataRetriever.getChainData(this.selectedChains);
-    observable.subscribe(x => this.updateChart(x));
+    observable.subscribe(newChainData => this.updateChart(newChainData));
   }
 
   private updateChartPeriodically() {
     setInterval(() => {
-      console.log(this.lineChart);
       this.updateDataAndChart();
     }, 5000);
   }
 
-  private defaultDataset(): Array<object> {
+  private defaultDataset(): Array<ChartItem> {
     return [
       {
         data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        label: 'No chain selected'
+        label: 'No chain selected. Select Chains on the left.'
       }
     ];
   }
 
   // Initialize
   ngOnInit() {
-    console.log("init")
+    this.refresh = true;
+    this.refreshOnDemand();
     this.updateChartPeriodically();
   }
 
   // Selection updates
   ngOnChanges() {
-    console.log("changed")
+    console.log(this.lineChart);
     this.refresh = true;
     this.updateDataAndChart();
   }

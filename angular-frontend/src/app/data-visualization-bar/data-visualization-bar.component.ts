@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ChainSelectorService } from '../services/chain-selector.service';
-import { LinechartComponent } from '../charts/linechart/linechart.component';
-
+import {Component, OnInit} from '@angular/core';
+import {
+  ChainSelectorService,
+  ChainSelection
+} from '../services/chain-selector.service';
 
 @Component({
   selector: 'app-data-visualization-bar',
@@ -9,41 +10,19 @@ import { LinechartComponent } from '../charts/linechart/linechart.component';
   styleUrls: ['./data-visualization-bar.component.scss']
 })
 export class DataVisualizationBarComponent implements OnInit {
-  private selectedChains: object;
+  private selectedChains: ChainSelection;
 
   constructor(private _chainSelector: ChainSelectorService) {
-
-  }
-
-  private equalsSelection(selectionA, selectionB): boolean {
-    if (selectionA['private'].length === selectionB['private'].length) {
-      if (selectionA['public'].length === selectionB['public'].length) {
-        return true;
-      }
-    }
-    return false;
+    this.selectedChains = new ChainSelection([], []);
   }
 
   private trackSelectionUpdates(): void {
-    setInterval(() => {
-      const chainsToDisplay = Object.assign(
-        {},
-        (this._chainSelector.getSelectedChains()),
-      );
-      if (!(this.equalsSelection(this.selectedChains, chainsToDisplay))) {
-        this.selectedChains = chainsToDisplay;
-      }
-
-    }, 500);
+    this._chainSelector.selectedChains$.subscribe(
+      newChainSelection => this.selectedChains = newChainSelection
+    );
   }
-
-  private initDatasets(): object {
-    return {public: [], private: []};
-  }
-
 
   ngOnInit() {
-    this.selectedChains = this.initDatasets();
     this.trackSelectionUpdates();
   }
 }
