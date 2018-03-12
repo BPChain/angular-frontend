@@ -29,11 +29,10 @@ export class LinechartComponent implements OnInit, OnChanges {
   private refresh: boolean;
 
   constructor(private _dataRetriever: DataRetrieverService) {
+    this.initializeChart();
   }
 
   private initializeChart() {
-    this.display = true;
-    this.refresh = false;
     this.lineChart = {
       labels: [
         '1', '2', '3', '4', '5', '6', '7', '8',
@@ -48,6 +47,8 @@ export class LinechartComponent implements OnInit, OnChanges {
       showsLegend: true,
       type: 'line',
     };
+    this.refresh = false;
+    this.display = true;
   }
 
 
@@ -102,12 +103,13 @@ export class LinechartComponent implements OnInit, OnChanges {
 
   // Initialize
   ngOnInit() {
-    this.initializeChart();
+    console.log("init")
     this.updateChartPeriodically();
   }
 
   // Selection updates
   ngOnChanges() {
+    console.log("changed")
     this.refresh = true;
     this.updateDataAndChart();
   }
