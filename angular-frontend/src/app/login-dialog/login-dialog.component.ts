@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserAuthenticationService } from '../services/user-authentication.service';
 
@@ -20,7 +20,9 @@ export class LoginDialogComponent {
     public dialogReference: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     fb: FormBuilder,
-    private _userAuthentication: UserAuthenticationService) {
+    private _userAuthentication: UserAuthenticationService,
+    public snackBar: MatSnackBar,
+  ) {
     this.options = fb.group({
       'color': 'primary',
     });
@@ -47,6 +49,12 @@ export class LoginDialogComponent {
       : '';
   }
 
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+    });
+  }
+
   submitCredentials(username: string, password: string): void {
     this._userAuthentication
       .authenticate(username, password)
@@ -55,6 +63,7 @@ export class LoginDialogComponent {
           this.dialogReference.close(true);
         } else {
           this.options.value.color = 'warn';
+          this.openSnackBar('Invalid Credentials');
         }
       },
       err => {
