@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChainSelectorService } from '../services/chain-selector.service';
 import { DataRetrieverService } from '../services/data-retriever.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-selection-bar',
@@ -8,6 +10,9 @@ import { DataRetrieverService } from '../services/data-retriever.service';
   styleUrls: ['./selection-bar.component.scss']
 })
 export class SelectionBarComponent implements OnInit {
+
+  @Input() isAuthenticated: boolean;
+
   public privateChains: Array<object>;
   public publicChains: Array<object>;
   public selectedOptions: object;

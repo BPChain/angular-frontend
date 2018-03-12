@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { UserAuthenticationService } from './services/user-authentication.service';
 
 
 
@@ -13,10 +14,16 @@ import { MatDialog } from '@angular/material';
 export class AppComponent {
   public leftSliderIcon: string;
   public rightSliderIcon: string;
+  private isAuthenticated: boolean;
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private _userAuthentication: UserAuthenticationService,
+    public snackBar: MatSnackBar
+  ) {
     this.leftSliderIcon = 'keyboard_arrow_left';
     this.rightSliderIcon = 'keyboard_arrow_left';
+    this.isAuthenticated = false;
   }
 
   getNewIcon(oldIcon: string) {
@@ -37,9 +44,34 @@ export class AppComponent {
     snavRight.toggle();
   }
 
+  triggerLogout() {
+    this._userAuthentication
+      .logout()
+      .subscribe(res => {
+        this.isAuthenticated = false;
+        this.openSnackBar('Successfully logged out.');
+      },
+      err => {
+        this.openSnackBar('Logout was not successful.');
+      });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+    });
+  }
+
   openLoginDialog() {
     const dialogReference = this.dialog.open(LoginDialogComponent, {
       width: '350px',
+    });
+
+    dialogReference.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.openSnackBar('Successfully logged in.');
+        this.isAuthenticated = true;
+      }
     });
   }
 
