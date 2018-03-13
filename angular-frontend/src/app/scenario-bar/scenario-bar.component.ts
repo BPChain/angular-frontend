@@ -16,6 +16,11 @@ export class ScenarioBarComponent {
     this.scenarios = [
       {name: 'EVAPCoin', description: 'This is a description.'},
       {name: 'Scenario2', description: 'I like this coin.'},
+      {name: 'Scenario3', description: 'I like this coin.'},
+      {name: 'Scenario4', description: 'I like this coin.'},
+      {name: 'Scenario5', description: 'I like this coin.'},
+      {name: 'Scenario6', description: 'I like this coin.'},
+      {name: 'Scenario7', description: 'I like this coin.'},
     ];
     this.selectedScenario = '';
   }

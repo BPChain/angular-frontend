@@ -18,6 +18,16 @@ export class UserAuthenticationService {
       .map(response => response === 'true');
   }
 
+  checkAuthenticationStatus() {
+    return this._http
+      .post(
+        'http://localhost:3000/checkLogin',
+        {},
+        {responseType: 'text'}
+      )
+      .map(response => response === 'true');
+  }
+
   logout() {
     return this._http
       .post(
