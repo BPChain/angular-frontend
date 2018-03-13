@@ -1,15 +1,17 @@
 mat-card {
-  min-width: 300px
+  min-width: 300px;
 }
 
 mat-button-toggle-group {
+  margin-top: 10px;
+  margin-bottom: 10px;
   overflow: scroll;
   box-shadow: none;
-  justify-content: center;
 }
 
 mat-button-toggle {
   font-size: 14px;
+  margin: auto;
 }
 
 .mat-button-toggle-checked {
