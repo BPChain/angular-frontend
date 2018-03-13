@@ -1,7 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ChainSelectorService } from '../services/chain-selector.service';
-import { DataRetrieverService } from '../services/data-retriever.service';
 import { MatSnackBar } from '@angular/material';
+import {Component} from '@angular/core';
+import {
+  ChainSelectorService,
+  ChainSelection
+} from '../services/chain-selector.service';
+import { DataRetrieverService } from '../services/data-retriever.service';
 
 
 @Component({
@@ -10,27 +13,21 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./selection-bar.component.scss']
 })
 export class SelectionBarComponent implements OnInit {
-
-  @Input() isAuthenticated: boolean;
-
-  public privateChains: Array<object>;
-  public publicChains: Array<object>;
-  public selectedOptions: object;
+  public privateChains: Array<{ name: string, selected: boolean }>;
+  public publicChains: Array<{ name: string, selected: boolean }>;
+  public selectedOptions: ChainSelection;
 
   constructor(
     private _chainSelector: ChainSelectorService,
     private _dataRetriever: DataRetrieverService,
     public snackBar: MatSnackBar,
-  ) {  }
-
-  ngOnInit() {
+  ) {  
+  
     this.privateChains = [
       'Ethereum',
       'XAIN',
       'Multichain',
-    ].map(chain => {
-      return {name: chain, selected: false};
-    });
+    ].map(chain => ({name: chain, selected: false}));
 
     this.publicChains = [
       'Bitcoin',
@@ -39,10 +36,8 @@ export class SelectionBarComponent implements OnInit {
       'Vertcoin',
       'Lightcoin',
       'EVAPCoin',
-    ].map(chain => {
-      return {name: chain, selected: false};
-    });
-    this.selectedOptions = {public: [], private: []};
+    ].map(chain => ({name: chain, selected: false}));
+    this.selectedOptions = new ChainSelection([], []);
   }
 
   openSnackBar(message: string) {
@@ -77,14 +72,18 @@ export class SelectionBarComponent implements OnInit {
   }
 
   onSelectedPublicChainsChanged(list) {
-    this.selectedOptions['public'] = list.selectedOptions.selected
-      .map(item => item.value);
+    this.selectedOptions = new ChainSelection(
+      list.map(item => item.value),
+      this.selectedOptions._private
+    );
     this._chainSelector.setSelectedChains(this.selectedOptions);
   }
 
   onSelectedPrivateChainsChanged(list) {
-    this.selectedOptions['private'] = list.selectedOptions.selected
-      .map(item => item.value);
+    this.selectedOptions = new ChainSelection(
+      this.selectedOptions._public,
+      list.map(item => item.value)
+    );
     this._chainSelector.setSelectedChains(this.selectedOptions);
   }
 }

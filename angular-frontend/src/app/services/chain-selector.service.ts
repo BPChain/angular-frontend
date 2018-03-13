@@ -1,25 +1,23 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
+
+export class ChainSelection {
+  constructor(public _public: Array<string>, public _private: Array<string>) {
+  }
+
+  public isEmpty(): boolean {
+    return this._public.length + this._private.length === 0;
+  }
+}
 
 @Injectable()
-export class ChainSelectorService implements OnInit {
+export class ChainSelectorService {
+  public selectedChains$ = new BehaviorSubject<ChainSelection>(
+    new ChainSelection([], [])
+  );
 
-  public selectedChains: object;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.selectedChains = {public: [], private: []};
+  setSelectedChains(selectedChains: ChainSelection) {
+    this.selectedChains$.next(selectedChains);
   }
-
-  setSelectedChains(chainSelection: object): void {
-    this.selectedChains = chainSelection;
-  }
-
-  getSelectedChains(): object {
-    if (this.selectedChains) {
-      return this.selectedChains;
-    }
-    return {public: [], private: []};
-  }
-
 }
