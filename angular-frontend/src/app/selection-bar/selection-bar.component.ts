@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material';
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {
   ChainSelectorService,
   ChainSelection
@@ -12,7 +12,10 @@ import { DataRetrieverService } from '../services/data-retriever.service';
   templateUrl: './selection-bar.component.html',
   styleUrls: ['./selection-bar.component.scss']
 })
-export class SelectionBarComponent implements OnInit {
+export class SelectionBarComponent {
+
+  @Input() isAuthenticated: boolean;
+
   public privateChains: Array<{ name: string, selected: boolean }>;
   public publicChains: Array<{ name: string, selected: boolean }>;
   public selectedOptions: ChainSelection;
@@ -21,8 +24,7 @@ export class SelectionBarComponent implements OnInit {
     private _chainSelector: ChainSelectorService,
     private _dataRetriever: DataRetrieverService,
     public snackBar: MatSnackBar,
-  ) {  
-  
+  ) {
     this.privateChains = [
       'Ethereum',
       'XAIN',
