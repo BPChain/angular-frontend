@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$bpchain-app-primary: mat-palette($mat-indigo, 500);
+$bpchain-app-accent:  mat-palette($mat-cyan, A100);
+$bpchain-app-warn:    mat-palette($mat-red, A700);
+$bpchain-app-theme:   mat-light-theme($bpchain-app-primary, $bpchain-app-accent, $bpchain-app-warn);
+
+@include angular-material-theme($bpchain-app-theme);
