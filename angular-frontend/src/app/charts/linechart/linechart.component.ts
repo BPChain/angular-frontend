@@ -21,10 +21,7 @@ class LineChart {
   public showsLegend = true;
   public type = 'line';
 
-  constructor(public data: Array<ChartItem>,
-              public labels: Array<string> = [
-                '1', '2', '3', '4', '5', '6', '7', '8',
-                '9', '10', '11', '12', '13', '14', '15', ]) {
+  constructor(public data: Array<ChartItem>) {
   }
 }
 
@@ -42,12 +39,12 @@ export class LinechartComponent implements OnInit, OnChanges {
   // Chart.js parameter
   private lineChart: {
     data: Array<ChartItem>,
-    labels: Array<string>,
     options: object,
     colors: Array<any>,
     showsLegend: boolean,
     type: string
   };
+  private labels: Array<string>;
 
 
   // Controll chart reload
@@ -55,16 +52,12 @@ export class LinechartComponent implements OnInit, OnChanges {
   private refresh: boolean;
 
   constructor(private _dataRetriever: DataRetrieverService) {
+    this.labels = this.defaultLabelset();
     this.lineChart = new LineChart(this.defaultDataset());
-
   }
 
   private initializeChart() {
     this.lineChart = {
-      labels: [
-        '1', '2', '3', '4', '5', '6', '7', '8',
-        '9', '10', '11', '12', '13', '14', '15',
-      ],
       data: this.defaultDataset(),
       options: {
         responsive: true,
@@ -79,12 +72,19 @@ export class LinechartComponent implements OnInit, OnChanges {
     console.log('linechart', this.lineChart);
   }
 
+  private updateLabels(newLabels: Array<string>): void {
+    this.labels.length = 0;
+    this.labels.push(...newLabels.map(label => {
+      return new Date(label).toLocaleTimeString();
+    }));
+  }
 
   public updateChart(dataset: Array<ChainData>): void {
     this.lineChart = new LineChart(dataset.map(chain => ({
-      data: chain[this.selectedParameter],
-      label: chain.access.concat('-', chain.chainName)
-    })));
+        data: chain[this.selectedParameter],
+        label: chain.access.concat('-', chain.chainName)
+      })));
+    this.updateLabels(dataset[0]['timestamp']);
     this.refreshOnDemand();
   }
 
@@ -99,8 +99,10 @@ export class LinechartComponent implements OnInit, OnChanges {
     }
   }
 
+
   private displayEmptyChart() {
     this.lineChart = new LineChart(this.defaultDataset());
+    this.updateLabels(this.defaultLabelset());
     this.refreshOnDemand();
   }
 
@@ -122,10 +124,14 @@ export class LinechartComponent implements OnInit, OnChanges {
   private defaultDataset(): Array<ChartItem> {
     return [
       {
-        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        data: [0],
         label: 'No chain selected. Select Chains on the left.'
       }
     ];
+  }
+
+  private defaultLabelset(): Array<string> {
+    return ['0'];
   }
 
   // Initialize

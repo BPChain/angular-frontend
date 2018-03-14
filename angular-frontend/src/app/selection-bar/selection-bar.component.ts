@@ -1,5 +1,5 @@
 import { MatSnackBar } from '@angular/material';
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {
   ChainSelectorService,
   ChainSelection
@@ -12,13 +12,15 @@ import { DataRetrieverService } from '../services/data-retriever.service';
   templateUrl: './selection-bar.component.html',
   styleUrls: ['./selection-bar.component.scss']
 })
-export class SelectionBarComponent {
+export class SelectionBarComponent implements OnInit {
 
   @Input() isAuthenticated: boolean;
 
   public privateChains: Array<{ name: string, selected: boolean }>;
   public publicChains: Array<{ name: string, selected: boolean }>;
   public selectedOptions: ChainSelection;
+  public connectedNodes: Array<string>;
+  public selectedNode: string;
 
   constructor(
     private _chainSelector: ChainSelectorService,
@@ -39,7 +41,10 @@ export class SelectionBarComponent {
       'Lightcoin',
       'EVAPCoin',
     ].map(chain => ({name: chain, selected: false}));
+
     this.selectedOptions = new ChainSelection([], []);
+    this.connectedNodes = [];
+    this.selectedNode = '';
   }
 
   openSnackBar(message: string) {
@@ -57,6 +62,7 @@ export class SelectionBarComponent {
     if (this.isAuthenticated) {
       this._dataRetriever
         .setChainParameters({
+          target: this.selectedNode,
           numberOfHosts,
           numberOfMiners,
           initialDifficulty,
@@ -87,5 +93,11 @@ export class SelectionBarComponent {
       list.map(item => item.value)
     );
     this._chainSelector.setSelectedChains(this.selectedOptions);
+  }
+
+  ngOnInit() {
+    this._dataRetriever.getConnectedNodes().subscribe(result => {
+      this.connectedNodes = JSON.parse(result);
+    });
   }
 }

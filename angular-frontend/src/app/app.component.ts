@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { UserAuthenticationService } from './services/user-authentication.service';
@@ -11,7 +11,7 @@ import { UserAuthenticationService } from './services/user-authentication.servic
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   public leftSliderIcon: string;
   public rightSliderIcon: string;
   private isAuthenticated: boolean;
@@ -73,6 +73,16 @@ export class AppComponent {
         this.isAuthenticated = true;
       }
     });
+  }
+
+  ngOnInit() {
+    this._userAuthentication
+      .checkAuthenticationStatus()
+      .subscribe(result => {
+        if (result === true) {
+          this.isAuthenticated = true;
+        }
+      });
   }
 
 }

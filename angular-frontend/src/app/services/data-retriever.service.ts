@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/map';
 import {ChainSelection} from './chain-selector.service';
+import {CONFIG} from '../../config';
 
 export interface ChainData {
   access: string;
@@ -14,6 +15,7 @@ export interface ChainData {
   chainName: string;
   numberOfHosts: Array<number>;
   numberOfMiners: Array<number>;
+  timestamp: Array<string>;
 }
 
 
@@ -25,13 +27,13 @@ export class DataRetrieverService {
 
   getPublicChainApiData(chain: string): Observable<ChainData> {
     return this._http
-      .get(`http://localhost:3000/api/public/${chain.toLowerCase()}`)
+      .get(CONFIG.url.base + CONFIG.url.publicChain + chain.toLowerCase())
       .map(response => <ChainData>({...response, access: 'Public'}));
   }
 
   getPrivateChainApiData(chain: string): Observable<ChainData> {
     return this._http
-      .get(`http://localhost:3000/api/private/${chain.toLowerCase()}`)
+      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase())
       .map(response => <ChainData>({...response, access: 'Private'}));
   }
 
@@ -53,10 +55,19 @@ export class DataRetrieverService {
     return Observable.forkJoin(...responses$);
   }
 
-  setChainParameters(parameters: object) {
+  getConnectedNodes(): Observable<string> {
+    return this._http
+      .post(
+        CONFIG.url.base + CONFIG.url.connectedNodes,
+        {},
+        {responseType: 'text'},
+      );
+  }
+
+  setChainParameters(parameters: object): Observable<string> {
     return this._http
     .post(
-      `http://localhost:3000/changeParameters`,
+      CONFIG.url.base + CONFIG.url.changeParameter,
       parameters,
       {responseType: 'text'},
     );

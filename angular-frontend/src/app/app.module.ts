@@ -11,7 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
-import { DescriptionBarComponent } from './description-bar/description-bar.component';
+import { ScenarioBarComponent } from './scenario-bar/scenario-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { LinechartComponent } from './charts/linechart/linechart.component';
@@ -27,7 +27,7 @@ import { UserAuthenticationService } from './services/user-authentication.servic
   declarations: [
     AppComponent,
     SelectionBarComponent,
-    DescriptionBarComponent,
+    ScenarioBarComponent,
     DataVisualizationBarComponent,
     LoginDialogComponent,
     LinechartComponent,
