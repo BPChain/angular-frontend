@@ -74,7 +74,9 @@ export class LinechartComponent implements OnInit, OnChanges {
 
   private updateLabels(newLabels: Array<string>): void {
     this.labels.length = 0;
-    this.labels.push(...newLabels);
+    this.labels.push(...newLabels.map(label => {
+      return new Date(label).toLocaleTimeString();
+    }));
   }
 
   public updateChart(dataset: Array<ChainData>): void {

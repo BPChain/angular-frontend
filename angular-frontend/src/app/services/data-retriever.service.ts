@@ -55,7 +55,7 @@ export class DataRetrieverService {
     return Observable.forkJoin(...responses$);
   }
 
-  getConnectedNodes(chain: string): Observable<string> {
+  getConnectedNodes(): Observable<string> {
     return this._http
       .post(
         CONFIG.url.base + CONFIG.url.connectedNodes,

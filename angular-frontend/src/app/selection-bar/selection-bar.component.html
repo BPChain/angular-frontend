@@ -4,6 +4,14 @@
     <mat-card-content>
       <form>
         <mat-form-field>
+          <mat-select placeholder="Target system" [(value)]="selectedNode">
+            <mat-option *ngFor="let node of connectedNodes" [value]="node">
+              {{ node }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
           <input #numberOfHosts matInput placeholder="Number of hosts" type="number">
         </mat-form-field>
 
@@ -31,9 +39,8 @@
       <mat-tab-group>
         <mat-tab label="Private">
           <mat-selection-list #privateChainSelector>
-            <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected"
-                             (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
-                             [value]="chain.name">
+            <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
+              [value]="chain.name">
               {{ chain.name }}
             </mat-list-option>
           </mat-selection-list>
@@ -42,9 +49,8 @@
         <mat-tab label="Public">
 
           <mat-selection-list #publicChainSelector>
-            <mat-list-option *ngFor="let chain of publicChains" [selected]="chain.selected"
-                             (click)="onSelectedPublicChainsChanged(publicChainSelector.selectedOptions.selected)"
-                             [value]=" chain.name">
+            <mat-list-option *ngFor="let chain of publicChains" [selected]="chain.selected" (click)="onSelectedPublicChainsChanged(publicChainSelector.selectedOptions.selected)"
+              [value]=" chain.name">
               {{ chain.name }}
             </mat-list-option>
           </mat-selection-list>
