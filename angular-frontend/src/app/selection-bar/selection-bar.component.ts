@@ -21,6 +21,7 @@ export class SelectionBarComponent implements OnInit {
   public selectedOptions: ChainSelection;
   public connectedNodes: Array<string>;
   public selectedNode: string;
+  public selectedChain: string;
 
   constructor(
     private _chainSelector: ChainSelectorService,
@@ -45,6 +46,7 @@ export class SelectionBarComponent implements OnInit {
     this.selectedOptions = new ChainSelection([], []);
     this.connectedNodes = [];
     this.selectedNode = '';
+    this.selectedChain = '';
   }
 
   openSnackBar(message: string) {
