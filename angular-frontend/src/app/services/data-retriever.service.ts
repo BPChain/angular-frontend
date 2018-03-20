@@ -44,15 +44,13 @@ export class DataRetrieverService {
           observer.next([]);
           observer.complete();
         });
+    } else {
+      const responses$ = selectedChains._private.map(
+        chain => this.getPrivateChainApiData(chain))
+        .concat(selectedChains._public.map(
+          chain => this.getPublicChainApiData(chain)));
+      return Observable.forkJoin(...responses$);
     }
-    const responses$: Array<Observable<ChainData>> = [];
-    selectedChains._private.forEach(chain => {
-      responses$.push(this.getPrivateChainApiData(chain));
-    });
-    selectedChains._public.forEach(chain => {
-      responses$.push(this.getPublicChainApiData(chain));
-    });
-    return Observable.forkJoin(...responses$);
   }
 
   getConnectedNodes(): Observable<string> {
@@ -66,10 +64,10 @@ export class DataRetrieverService {
 
   setChainParameters(parameters: object): Observable<string> {
     return this._http
-    .post(
-      CONFIG.url.base + CONFIG.url.changeParameter,
-      parameters,
-      {responseType: 'text'},
-    );
+      .post(
+        CONFIG.url.base + CONFIG.url.changeParameter,
+        parameters,
+        {responseType: 'text'},
+      );
   }
 }
