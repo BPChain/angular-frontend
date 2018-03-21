@@ -19,6 +19,7 @@ export class ParameterSetterComponent implements OnChanges {
   public availableChains: Array<object>;
   public availableConfiguration: object;
   public chainSelector: Array<string>;
+  public configuration: object;
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
@@ -30,6 +31,12 @@ export class ParameterSetterComponent implements OnChanges {
     this.availableChains = [];
     this.availableConfiguration = {};
     this.chainSelector = [];
+    this.configuration = {
+      numberOfHosts: 0,
+      numberOfMiners: 0,
+      initialDifficulty: 0,
+      transactionsPerMin: 0,
+    };
   }
 
   openSnackBar(message: string) {
@@ -47,25 +54,16 @@ export class ParameterSetterComponent implements OnChanges {
   updateConfiguration() {
     this.availableConfiguration = this.availableChains
       .find(element => element['chain'].toLowerCase() === this.selectedChain.toLowerCase())['parameters'];
+    this.configuration = this.availableConfiguration;
   }
 
-  requestParameterChange(
-    numberOfHosts,
-    numberOfMiners,
-    initialDifficulty,
-    transactionsPerMin,
-  ) {
+  requestParameterChange() {
     if (this.isAuthenticated) {
       this._parameterConfigurator
         .setChainParameters({
           target: this.selectedNode,
           chain: this.selectedChain['name'],
-          parameters: {
-            numberOfHosts,
-            numberOfMiners,
-            initialDifficulty,
-            transactionsPerMin,
-          }
+          parameters: this.configuration,
         })
         .subscribe(result => {
           this.openSnackBar('Successfully changed parameters');
