@@ -1,76 +1,8 @@
 <div class="selection-container">
-  <mat-card *ngIf="isAuthenticated">
-    <h2>Parameter</h2>
-    <mat-card-content>
-      <form>
-        <mat-form-field>
-          <mat-select placeholder="Target system" [(value)]="selectedNode">
-            <mat-option *ngFor="let node of connectedNodes" [value]="node">
-              {{ node }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div *ngIf="selectedNode !== ''">
-          <mat-form-field>
-            <mat-select placeholder="Select a chain" [(value)]="selectedChain">
-              <mat-option>
-                All
-              </mat-option>
-              <mat-option *ngFor="let chain of privateChains" [value]="chain">
-                {{ chain.name }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <div *ngIf="selectedChain !== ''">
-            <mat-form-field>
-              <input #numberOfHosts matInput placeholder="Number of hosts" type="number">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #numberOfMiners matInput placeholder="Number of miners" type="number">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #initialDifficulty matInput placeholder="Initial difficulty" type="number">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #transactionsPerMin matInput placeholder="Transactions / min" type="number">
-            </mat-form-field>
-
-            <button mat-raised-button (click)="requestParameterChange(numberOfHosts.value, numberOfMiners.value, initialDifficulty.value, transactionsPerMin.value)">
-              Change Parameters
-            </button>
-          </div>
-        </div>
-      </form>
-
-    </mat-card-content>
-  </mat-card>
-  <mat-card>
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="Private">
-          <mat-selection-list #privateChainSelector>
-            <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
-              [value]="chain.name">
-              {{ chain.name }}
-            </mat-list-option>
-          </mat-selection-list>
-
-        </mat-tab>
-        <mat-tab label="Public">
-
-          <mat-selection-list #publicChainSelector>
-            <mat-list-option *ngFor="let chain of publicChains" [selected]="chain.selected" (click)="onSelectedPublicChainsChanged(publicChainSelector.selectedOptions.selected)"
-              [value]=" chain.name">
-              {{ chain.name }}
-            </mat-list-option>
-          </mat-selection-list>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card>
-
+  <div *ngIf="isAuthenticated">
+      <app-parameter-setter [chainInfo]="chainInfo" [isAuthenticated]="isAuthenticated">
+      </app-parameter-setter>
+  </div>
+  <app-chain-data-source-selector [chainInfo]="chainInfo">
+  </app-chain-data-source-selector>
 </div>

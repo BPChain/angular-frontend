@@ -7,7 +7,8 @@ export const CONFIG = {
     publicChain: 'api/public/',
     privateChain: 'api/private/',
     changeParameter: 'api/change',
-    connectedNodes: 'api/connectedNodes'
+    connectedNodes: 'api/connectedNodes',
+    chainInfo: 'api/chainInfo'
   }
 };
 

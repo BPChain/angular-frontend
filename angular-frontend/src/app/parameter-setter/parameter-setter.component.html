@@ -1,0 +1,46 @@
+<mat-card>
+  <h2>Parameter</h2>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <mat-select placeholder="Target system" [(value)]="selectedNode">
+          <mat-option *ngFor="let node of connectedNodes" [value]="node" (click)="updateChainSelection()">
+            {{ node }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="selectedNode !== ''">
+        <mat-form-field>
+          <mat-select placeholder="Select a chain" [(value)]="selectedChain">
+            <mat-option *ngFor="let chain of chainSelector" [value]="chain" (click)="updateConfiguration()">
+              {{ chain }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="selectedChain !== ''">
+          <mat-form-field>
+            <input #numberOfHosts matInput placeholder="Number of hosts" type="number">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input #numberOfMiners matInput placeholder="Number of miners" type="number">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input #initialDifficulty matInput placeholder="Initial difficulty" type="number">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input #transactionsPerMin matInput placeholder="Transactions / min" type="number">
+          </mat-form-field>
+
+          <button mat-raised-button (click)="requestParameterChange(numberOfHosts.value, numberOfMiners.value, initialDifficulty.value, transactionsPerMin.value)">
+            Change Parameters
+          </button>
+        </div>
+      </div>
+    </form>
+
+  </mat-card-content>
+</mat-card>

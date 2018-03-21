@@ -11,6 +11,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
+import { ChainDataSourceSelectorComponent } from './chain-data-source-selector/chain-data-source-selector.component';
+import { ParameterSetterComponent } from './parameter-setter/parameter-setter.component';
+
 import { ScenarioBarComponent } from './scenario-bar/scenario-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
@@ -20,6 +23,7 @@ import { BarchartComponent } from './charts/barchart/barchart.component';
 import { DataRetrieverService } from './services/data-retriever.service';
 import { ChainSelectorService } from './services/chain-selector.service';
 import { UserAuthenticationService } from './services/user-authentication.service';
+import { ParameterConfiguratorService } from './services/parameter-configurator.service';
 
 
 
@@ -32,6 +36,8 @@ import { UserAuthenticationService } from './services/user-authentication.servic
     LoginDialogComponent,
     LinechartComponent,
     BarchartComponent,
+    ChainDataSourceSelectorComponent,
+    ParameterSetterComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +52,7 @@ import { UserAuthenticationService } from './services/user-authentication.servic
     DataRetrieverService,
     ChainSelectorService,
     UserAuthenticationService,
+    ParameterConfiguratorService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent],

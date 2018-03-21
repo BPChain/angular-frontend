@@ -62,6 +62,14 @@ export class DataRetrieverService {
       );
   }
 
+  chainInfo(): Observable<string> {
+    return this._http
+      .get(
+        CONFIG.url.base + CONFIG.url.chainInfo,
+        {responseType: 'text'},
+      );
+  }
+
   setChainParameters(parameters: object): Observable<string> {
     return this._http
       .post(
