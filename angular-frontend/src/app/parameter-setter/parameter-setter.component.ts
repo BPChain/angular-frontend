@@ -17,9 +17,9 @@ export class ParameterSetterComponent implements OnChanges {
   public selectedNode: string;
   public selectedChain: string;
   public availableChains: Array<object>;
-  public availableConfiguration: object;
   public chainSelector: Array<string>;
   public configuration: object;
+  public chainIsActive: Boolean;
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
@@ -29,7 +29,6 @@ export class ParameterSetterComponent implements OnChanges {
     this.selectedChain = '';
     this.selectedNode = '';
     this.availableChains = [];
-    this.availableConfiguration = {};
     this.chainSelector = [];
     this.configuration = {
       numberOfHosts: 0,
@@ -37,6 +36,7 @@ export class ParameterSetterComponent implements OnChanges {
       initialDifficulty: 0,
       transactionsPerMin: 0,
     };
+    this.chainIsActive = false;
   }
 
   openSnackBar(message: string) {
@@ -49,12 +49,14 @@ export class ParameterSetterComponent implements OnChanges {
     this.availableChains = this.chains
         .filter(element => element['target'] === this.selectedNode);
     this.chainSelector = this.availableChains.map(element => element['chain']);
+    this.selectedChain = '';
   }
 
   updateConfiguration() {
-    this.availableConfiguration = this.availableChains
-      .find(element => element['chain'].toLowerCase() === this.selectedChain.toLowerCase())['parameters'];
-    this.configuration = this.availableConfiguration;
+    const selectedChainInfo = this.availableChains
+      .find(element => element['chain'].toLowerCase() === this.selectedChain.toLowerCase());
+    this.configuration = selectedChainInfo['parameters'];
+    this.chainIsActive = selectedChainInfo['active'];
   }
 
   requestParameterChange() {
@@ -62,7 +64,7 @@ export class ParameterSetterComponent implements OnChanges {
       this._parameterConfigurator
         .setChainParameters({
           target: this.selectedNode,
-          chain: this.selectedChain['name'],
+          chain: this.selectedChain,
           parameters: this.configuration,
         })
         .subscribe(result => {
@@ -74,6 +76,14 @@ export class ParameterSetterComponent implements OnChanges {
     } else {
       this.openSnackBar('You are not authorized to change parameters');
     }
+  }
+
+  startSelectedChain() {
+    console.info(`Start ${this.selectedChain} on ${this.selectedNode}`);
+  }
+
+  stopSelectedChain() {
+    console.info(`Stop ${this.selectedChain} on ${this.selectedNode}`);
   }
 
   ngOnChanges() {
