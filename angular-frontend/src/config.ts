@@ -1,6 +1,6 @@
 export const CONFIG = {
   url: {
-    base: 'http://localhost:3000/',
+    base: 'https://bpt-lab.org/bp2017w1-bpchain/',
     login: 'login',
     logout: 'logout',
     checkLogin: 'checkLogin',

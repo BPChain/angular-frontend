@@ -26,7 +26,7 @@ export class SelectionBarComponent implements OnInit {
       try {
         this.chainInfo = JSON.parse(result);
       } catch (error) {
-        console.error(error);
+        console.error('Could not parse JSON:', error);
       }
   });
   }

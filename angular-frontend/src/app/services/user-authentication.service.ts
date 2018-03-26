@@ -14,17 +14,16 @@ export class UserAuthenticationService {
       .post(
         CONFIG.url.base + CONFIG.url.login,
         {username, password},
-        {responseType: 'text'},
+        {responseType: 'text', withCredentials: true},
       )
       .map(response => response === 'true');
   }
 
   checkAuthenticationStatus() {
     return this._http
-      .post(
+      .get(
         CONFIG.url.base + CONFIG.url.checkLogin,
-        {},
-        {responseType: 'text'}
+        {responseType: 'text', withCredentials: true}
       )
       .map(response => response === 'true');
   }
@@ -34,7 +33,7 @@ export class UserAuthenticationService {
       .post(
         CONFIG.url.base + CONFIG.url.logout,
         {},
-        {responseType: 'text'},
+        {responseType: 'text', withCredentials: true},
       );
   }
 

@@ -82,6 +82,9 @@ export class AppComponent implements OnInit {
         if (result === true) {
           this.isAuthenticated = true;
         }
+      },
+      error => {
+        console.info('You have no running session.');
       });
   }
 
