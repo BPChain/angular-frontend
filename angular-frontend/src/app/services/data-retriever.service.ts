@@ -66,7 +66,7 @@ export class DataRetrieverService {
     return this._http
       .get(
         CONFIG.url.base + CONFIG.url.chainInfo,
-        {responseType: 'text'},
+        {responseType: 'text', withCredentials: true},
       );
   }
 
