@@ -79,11 +79,10 @@ export class AppComponent implements OnInit {
     this._userAuthentication
       .checkAuthenticationStatus()
       .subscribe(result => {
-        if (result === true) {
-          this.isAuthenticated = true;
-        }
+        this.isAuthenticated = true;
       },
       error => {
+        this.isAuthenticated = false;
         console.info('You have no running session.');
       });
   }

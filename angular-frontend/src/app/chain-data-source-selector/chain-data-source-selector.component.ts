@@ -39,12 +39,12 @@ export class ChainDataSourceSelectorComponent implements OnChanges {
     this.privateChains = this.chainInfo
       .filter(element => element['accessability'] === 'private')
       .map(element => {
-        return {name: element['chain'], target: element['target']};
+        return {name: element['chainName'], target: element['target']};
       });
     this.publicChains = this.chainInfo
       .filter(element => element['accessability'] === 'public')
       .map(element => {
-        return {name: element['chain'], target: element['target']};
+        return {name: element['chainName'], target: element['target']};
       });
   }
 

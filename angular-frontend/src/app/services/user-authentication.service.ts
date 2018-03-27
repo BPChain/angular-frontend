@@ -24,8 +24,7 @@ export class UserAuthenticationService {
       .get(
         CONFIG.url.base + CONFIG.url.checkLogin,
         {responseType: 'text', withCredentials: true}
-      )
-      .map(response => response === 'true');
+      );
   }
 
   logout() {
