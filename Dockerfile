@@ -13,6 +13,7 @@ COPY protractor.conf.js protractor.conf.js
 COPY karma.conf.js karma.conf.js
 COPY .angular-cli.json .angular-cli.json
 
+COPY resources resources
 COPY e2e e2e
 COPY src src
 
