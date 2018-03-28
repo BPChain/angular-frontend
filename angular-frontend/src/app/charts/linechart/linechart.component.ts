@@ -84,7 +84,7 @@ export class LinechartComponent implements OnInit, OnChanges {
         data: chain[this.selectedParameter],
         label: chain.access.concat('-', chain.chainName)
       })));
-    this.updateLabels(dataset[0]['timestamp']);
+    this.updateLabels(dataset[0]['timeStamp']);
     this.refreshOnDemand();
   }
 

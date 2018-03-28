@@ -48,13 +48,13 @@ export class ParameterSetterComponent implements OnChanges {
   updateChainSelection() {
     this.availableChains = this.chains
         .filter(element => element['target'] === this.selectedNode);
-    this.chainSelector = this.availableChains.map(element => element['chain']);
+    this.chainSelector = this.availableChains.map(element => element['chainName']);
     this.selectedChain = '';
   }
 
   updateConfiguration() {
     const selectedChainInfo = this.availableChains
-      .find(element => element['chain'].toLowerCase() === this.selectedChain.toLowerCase());
+      .find(element => element['chainName'].toLowerCase() === this.selectedChain.toLowerCase());
     this.configuration = selectedChainInfo['parameters'];
     this.chainIsActive = selectedChainInfo['active'];
   }

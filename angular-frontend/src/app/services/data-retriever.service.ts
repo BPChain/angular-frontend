@@ -27,13 +27,13 @@ export class DataRetrieverService {
 
   getPublicChainApiData(chain: string): Observable<ChainData> {
     return this._http
-      .get(CONFIG.url.base + CONFIG.url.publicChain + chain.toLowerCase())
+      .get(CONFIG.url.base + CONFIG.url.publicChain + chain.toLowerCase() + '?numberOfItems=100')
       .map(response => <ChainData>({...response, access: 'Public'}));
   }
 
   getPrivateChainApiData(chain: string): Observable<ChainData> {
     return this._http
-      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase())
+      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase() + '?numberOfItems=100')
       .map(response => <ChainData>({...response, access: 'Private'}));
   }
 
