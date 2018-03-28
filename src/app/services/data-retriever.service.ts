@@ -53,15 +53,6 @@ export class DataRetrieverService {
     }
   }
 
-  getConnectedNodes(): Observable<string> {
-    return this._http
-      .post(
-        CONFIG.url.base + CONFIG.url.connectedNodes,
-        {},
-        {responseType: 'text'},
-      );
-  }
-
   chainInfo(): Observable<string> {
     return this._http
       .get(
