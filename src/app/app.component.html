@@ -1,9 +1,47 @@
-<div class="page-wrap">
-  <app-header></app-header>
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
-  <footer>
-    <app-footer></app-footer>
-  </footer>
+<div id="page-wrapper">
+  <mat-toolbar color="primary" class="header">
+    <mat-toolbar-row>
+      <span>BPChain</span>
+      <span class="spacer"></span>
+      <button *ngIf="!isAuthenticated" mat-button (click)="openLoginDialog()">Login</button>
+      <button *ngIf="isAuthenticated" mat-button (click)="triggerLogout()">Logout</button>
+      <a href="https://bpt.hpi.uni-potsdam.de/Public/LegalNotice">
+        <button mat-button>Legal Notice</button>
+      </a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <div id="content-with-arrow-buttons">
+    <div class="button-container">
+      <button class="arrow-button" mat-icon-button (click)="leftSliderOnClick(snavLeft)">
+        <mat-icon>{{leftSliderIcon}}</mat-icon>
+      </button>
+    </div>
+    <mat-sidenav-container id="SideNavWithContent">
+      <mat-sidenav #snavLeft mode='side' opened="true" position="start">
+        <app-selection-bar [isAuthenticated]="isAuthenticated"></app-selection-bar>
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <app-data-visualization-bar></app-data-visualization-bar>
+      </mat-sidenav-content>
+
+      <mat-sidenav #snavRight mode='side' position="end">
+        <app-scenario-bar [isAuthenticated]="isAuthenticated"></app-scenario-bar>
+      </mat-sidenav>
+
+    </mat-sidenav-container>
+    <div class="button-container">
+      <button class="arrow-button" mat-icon-button (click)="rightSliderOnClick(snavRight)">
+        <mat-icon>{{rightSliderIcon}}</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+
+  <mat-toolbar color="primary" class="footer">
+
+  </mat-toolbar>
 </div>
