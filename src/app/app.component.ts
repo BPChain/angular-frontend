@@ -14,7 +14,7 @@ import { UserAuthenticationService } from './services/user-authentication.servic
 export class AppComponent implements OnInit {
   public leftSliderIcon: string;
   public rightSliderIcon: string;
-  private isAuthenticated: boolean;
+  public isAuthenticated: boolean;
 
   constructor(
     public dialog: MatDialog,

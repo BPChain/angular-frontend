@@ -10,11 +10,11 @@ import { UserAuthenticationService } from '../services/user-authentication.servi
 })
 export class LoginDialogComponent {
 
-  private options: FormGroup;
-  private hide: boolean;
-  private login: string;
-  private usernameInput: FormControl;
-  private passwordInput: FormControl;
+  public options: FormGroup;
+  public hide: boolean;
+  public login: string;
+  public usernameInput: FormControl;
+  public passwordInput: FormControl;
 
   constructor(
     public dialogReference: MatDialogRef<LoginDialogComponent>,

@@ -11,11 +11,11 @@ export class BarchartComponent implements OnInit, OnChanges {
   @Input() max: number;
   @Input() statistics: any;
 
-  private barChartType: string;
-  private barChartLegend: boolean;
-  private barChartOptions: any;
-  private barChartLabels: string[];
-  private barChartData: any[];
+  public barChartType: string;
+  public barChartLegend: boolean;
+  public barChartOptions: any;
+  public barChartLabels: string[];
+  public barChartData: any[];
 
   ngOnInit() {
     this.barChartType = 'bar';

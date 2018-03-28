@@ -48,7 +48,7 @@ export class LinechartComponent implements OnInit, OnChanges {
 
 
   // Controll chart reload
-  private display: boolean;
+  public display: boolean;
   private refresh: boolean;
 
   constructor(private _dataRetriever: DataRetrieverService) {

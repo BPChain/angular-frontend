@@ -10,7 +10,7 @@ import {
   styleUrls: ['./data-visualization-bar.component.scss']
 })
 export class DataVisualizationBarComponent implements OnInit {
-  private selectedChains: ChainSelection;
+  public selectedChains: ChainSelection;
 
   constructor(private _chainSelector: ChainSelectorService) {
     this.selectedChains = new ChainSelection([], []);

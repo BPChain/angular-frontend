@@ -1,0 +1,7 @@
+version: "3.3"
+services:
+  angular-frontend:
+    build: .
+    container_name: angular-frontend
+    ports:
+      - "4200:4200"

@@ -9,8 +9,8 @@ import { MatSnackBar } from '@angular/material';
 export class ScenarioBarComponent {
 
   @Input() isAuthenticated: boolean;
-  private scenarios: Array<Object>;
-  private selectedScenario: string;
+  public scenarios: Array<Object>;
+  public selectedScenario: string;
 
   constructor(public snackBar: MatSnackBar) {
     this.scenarios = [
