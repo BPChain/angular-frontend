@@ -3,13 +3,13 @@
   <mat-card-content>
     <form>
       <mat-form-field>
-        <mat-select placeholder="Target system" [(value)]="selectedNode">
+        <mat-select placeholder="Target system" [(value)]="selectedTarget">
           <mat-option *ngFor="let node of connectedNodes" [value]="node" (click)="updateChainSelection()">
             {{ node }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div *ngIf="selectedNode !== ''">
+      <div *ngIf="selectedTarget !== ''">
         <mat-form-field>
           <mat-select placeholder="Select a chain" [(value)]="selectedChain">
             <mat-option *ngFor="let chain of chainSelector" [value]="chain" (click)="updateConfiguration()">
@@ -20,21 +20,11 @@
 
         <div *ngIf="selectedChain !== ''">
           <div *ngIf="chainIsActive">
-           <mat-form-field>
-              <input #numberOfHosts matInput placeholder="Number of hosts" type="number" [(value)]="configuration['numberOfHosts']">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #numberOfMiners matInput placeholder="Number of miners" type="number" [(value)]="configuration['numberOfMiners']">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #initialDifficulty matInput placeholder="Initial difficulty" type="number" [(value)]="configuration['initialDifficulty']">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #transactionsPerMin matInput placeholder="Transactions / min" type="number" [(value)]="configuration['transactionsPerMin']">
-            </mat-form-field>
+            <div *ngFor="let parameter of configuration">
+              <mat-form-field>
+                <input matInput placeholder="{{parameter['name']}}" type="number" [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
+              </mat-form-field>
+            </div>
 
             <button mat-raised-button (click)="requestParameterChange()">
               Change Parameters
