@@ -4,4 +4,4 @@ services:
     build: .
     container_name: angular-frontend
     ports:
-      - "4200:4200"
+      - "4200:80"
