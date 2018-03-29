@@ -19,7 +19,7 @@ export class SelectionBarComponent implements OnInit {
     this.chainInfo = [];
   }
 
-  ngOnInit() {
+  requestUpdate() {
     this._dataRetriever
     .chainInfo()
     .subscribe(result => {
@@ -28,6 +28,10 @@ export class SelectionBarComponent implements OnInit {
       } catch (error) {
         console.error('Could not parse JSON:', error);
       }
-  });
+    });
+  }
+
+  ngOnInit() {
+    this.requestUpdate();
   }
 }

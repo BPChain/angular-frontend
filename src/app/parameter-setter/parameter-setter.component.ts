@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -11,15 +11,18 @@ export class ParameterSetterComponent implements OnChanges {
 
   @Input() chainInfo: Array<object>;
   @Input() isAuthenticated: Boolean;
+  @Output() requestUpdate: EventEmitter<boolean>;
 
   public connectedNodes: Array<string>;
   public chains: Array<object>;
-  public selectedNode: string;
+  public selectedTarget: string;
   public selectedChain: string;
   public availableChains: Array<object>;
   public chainSelector: Array<string>;
-  public configuration: object;
+  public configurationStore: object;
+  public configuration: Array<object>;
   public chainIsActive: Boolean;
+
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
@@ -27,15 +30,11 @@ export class ParameterSetterComponent implements OnChanges {
   ) {
     this.connectedNodes = [];
     this.selectedChain = '';
-    this.selectedNode = '';
+    this.selectedTarget = '';
     this.availableChains = [];
     this.chainSelector = [];
-    this.configuration = {
-      numberOfHosts: 0,
-      numberOfMiners: 0,
-      initialDifficulty: 0,
-      transactionsPerMin: 0,
-    };
+    this.configurationStore = {};
+    this.configuration = [];
     this.chainIsActive = false;
   }
 
@@ -47,7 +46,7 @@ export class ParameterSetterComponent implements OnChanges {
 
   updateChainSelection() {
     this.availableChains = this.chains
-        .filter(element => element['target'] === this.selectedNode);
+        .filter(element => element['target'] === this.selectedTarget);
     this.chainSelector = this.availableChains.map(element => element['chainName']);
     this.selectedChain = '';
   }
@@ -55,7 +54,10 @@ export class ParameterSetterComponent implements OnChanges {
   updateConfiguration() {
     const selectedChainInfo = this.availableChains
       .find(element => element['chainName'].toLowerCase() === this.selectedChain.toLowerCase());
-    this.configuration = selectedChainInfo['parameters'];
+    this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
+    this.configurationStore = this.configuration.reduce((parameters, parameter) => {
+      return Object.assign(parameters, {[parameter['selector']]: 0});
+    }, {});
     this.chainIsActive = selectedChainInfo['active'];
   }
 
@@ -63,12 +65,13 @@ export class ParameterSetterComponent implements OnChanges {
     if (this.isAuthenticated) {
       this._parameterConfigurator
         .setChainParameters({
-          target: this.selectedNode,
+          target: this.selectedTarget,
           chain: this.selectedChain,
-          parameters: this.configuration,
+          parameters: this.configurationStore,
         })
         .subscribe(result => {
           this.openSnackBar('Successfully changed parameters');
+          this.requestUpdate.emit();
         },
         error => {
           this.openSnackBar('Parameter change was not successful');
@@ -79,11 +82,27 @@ export class ParameterSetterComponent implements OnChanges {
   }
 
   startSelectedChain() {
-    console.info(`Start ${this.selectedChain} on ${this.selectedNode}`);
+    this._parameterConfigurator
+      .startChain(this.selectedChain, this.selectedTarget)
+      .subscribe(result => {
+        this.requestUpdate.emit();
+        this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
+      },
+      error => {
+        this.openSnackBar(`Could not start ${this.selectedChain} on ${this.selectedTarget}`);
+      });
   }
 
   stopSelectedChain() {
-    console.info(`Stop ${this.selectedChain} on ${this.selectedNode}`);
+    this._parameterConfigurator
+      .stopChain(this.selectedChain, this.selectedTarget)
+      .subscribe(result => {
+        this.requestUpdate.emit();
+        this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
+      },
+      error => {
+        this.openSnackBar(`Could not start ${this.selectedChain} on ${this.selectedTarget}`);
+      });
   }
 
   ngOnChanges() {
@@ -91,7 +110,7 @@ export class ParameterSetterComponent implements OnChanges {
     this.connectedNodes = this.chains
       .map(element => element['target'])
       .reduce((x, y) => x && x.includes(y) ? x : [...x, y], []);
-    if (this.selectedNode !== '') {
+    if (this.selectedTarget !== '') {
       this.updateChainSelection();
       if (this.selectedChain !== '') {
         this.updateConfiguration();
