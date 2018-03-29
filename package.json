@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --prod --deploy-url=/bp2017w1-frontend/ --base-href=/bp2017w1-frontend/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
