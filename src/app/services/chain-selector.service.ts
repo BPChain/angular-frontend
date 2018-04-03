@@ -3,7 +3,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 
 export class ChainSelection {
-  constructor(public _public: Array<string>, public _private: Array<string>) {
+  constructor(public _public: Array<object>, public _private: Array<object>) {
   }
 
   public isEmpty(): boolean {

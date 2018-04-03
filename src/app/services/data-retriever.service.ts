@@ -31,9 +31,9 @@ export class DataRetrieverService {
       .map(response => <ChainData>({...response, access: 'Public'}));
   }
 
-  getPrivateChainApiData(chain: string): Observable<ChainData> {
+  getPrivateChainApiData(chain: string, target: string): Observable<ChainData> {
     return this._http
-      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase() + '?numberOfItems=100')
+      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase() + `?target=${target}&numberOfItems=100`)
       .map(response => <ChainData>({...response, access: 'Private'}));
   }
 
@@ -46,9 +46,9 @@ export class DataRetrieverService {
         });
     } else {
       const responses$ = selectedChains._private.map(
-        chain => this.getPrivateChainApiData(chain))
+        chain => this.getPrivateChainApiData(chain['name'], chain['target']))
         .concat(selectedChains._public.map(
-          chain => this.getPublicChainApiData(chain)));
+          chain => this.getPublicChainApiData(chain['name'])));
       return Observable.forkJoin(...responses$);
     }
   }
