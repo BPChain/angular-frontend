@@ -26,16 +26,16 @@
               </mat-form-field>
             </div>
 
-            <button mat-raised-button (click)="requestParameterChange()">
+            <button mat-raised-button color="primary" (click)="requestParameterChange()">
               Change Parameters
             </button>
-            <button mat-raised-button (click)="stopSelectedChain()">
+            <button mat-raised-button color="warn" (click)="stopSelectedChain()">
                 Stop chain
             </button>
           </div>
 
           <div *ngIf="!chainIsActive">
-            <button mat-raised-button (click)="startSelectedChain()">
+            <button mat-raised-button color="primary" (click)="startSelectedChain()">
               Start chain
             </button>
           </div>

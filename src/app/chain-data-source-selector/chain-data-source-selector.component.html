@@ -5,9 +5,13 @@
         <mat-selection-list #privateChainSelector>
           <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
             [value]="chain">
-            {{ chain.name }}
+            <h4>
+              {{ chain.name }}
+            </h4>
             <br />
-            ({{ chain.target }})
+            <p class="description">
+              {{ chain.target }}
+            </p>
           </mat-list-option>
         </mat-selection-list>
 
