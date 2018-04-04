@@ -15,12 +15,20 @@ export class ScenarioBarComponent {
   constructor(public snackBar: MatSnackBar) {
     this.scenarios = [
       {name: 'EVAPCoin', description: 'This is a description.'},
-      {name: 'Scenario2', description: 'I like this coin.'},
-      {name: 'Scenario3', description: 'I like this coin.'},
-      {name: 'Scenario4', description: 'I like this coin.'},
-      {name: 'Scenario5', description: 'I like this coin.'},
-      {name: 'Scenario6', description: 'I like this coin.'},
-      {name: 'Scenario7', description: 'I like this coin.'},
+      {name: 'OwnerChain', description: `Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Integer id dui sodales,
+        vestibulum eros vel, vestibulum ante. Praesent ornare lorem posuere,
+        dapibus erat eu, commodo nisi. Mauris tempus ultrices feugiat.
+        Vestibulum euismod metus turpis, vitae sagittis leo iaculis sed.
+        Pellentesque sit amet augue luctus turpis posuere fermentum a ullamcorper nisl.`},
+      {name: 'Grading', description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Integer id dui sodales, vestibulum eros vel, vestibulum ante.
+        Praesent ornare lorem posuere, dapibus erat eu, commodo nisi.
+        Mauris tempus ultrices feugiat. Vestibulum euismod metus turpis,
+        vitae sagittis leo iaculis sed. Pellentesque sit amet augue luctus
+        turpis posuere fermentum a ullamcorper nisl.`},
+      {name: 'Fridge', description: 'This is a description.'},
+      {name: 'MediXAIN', description: 'This is a description.'},
     ];
     this.selectedScenario = '';
   }
@@ -31,7 +39,7 @@ export class ScenarioBarComponent {
     });
   }
 
-  selectScenario(scenario) {
+  toggleScenario(scenario) {
     if (this.isAuthenticated) {
       if (this.selectedScenario === scenario) {
         this.selectedScenario = '';

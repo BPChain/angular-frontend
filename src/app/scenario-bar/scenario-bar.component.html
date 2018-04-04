@@ -6,17 +6,18 @@
         <mat-expansion-panel *ngFor="let scenario of scenarios">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon *ngIf="scenario.name !== selectedScenario" matListIcon>play_circle_outline</mat-icon>
-              <mat-icon *ngIf="scenario.name === selectedScenario" matListIcon>pause_circle_outline</mat-icon>
               {{ scenario["name"] }}
             </mat-panel-title>
+            <mat-panel-description>
+                <mat-icon *ngIf="scenario.name === selectedScenario" matListIcon>play_arrow</mat-icon>
+            </mat-panel-description>
           </mat-expansion-panel-header>
           {{ scenario["description"] }}
           <div *ngIf="isAuthenticated">
-            <button *ngIf="scenario.name !== selectedScenario" mat-button (click)="selectScenario(scenario.name)">
+            <button *ngIf="scenario.name !== selectedScenario" mat-raised-button color="primary" (click)="toggleScenario(scenario.name)">
               Start
             </button>
-            <button *ngIf="scenario.name === selectedScenario" mat-button (click)="selectScenario(scenario.name)">
+            <button *ngIf="scenario.name === selectedScenario" mat-raised-button color="warn" (click)="toggleScenario(scenario.name)">
               Stop
             </button>
           </div>
