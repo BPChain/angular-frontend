@@ -22,3 +22,11 @@ button {
 mat-card {
   padding: 0px !important;
 }
+
+p {
+  &.description {
+    margin: 0px;
+    hyphens: auto;
+    text-align: justify
+  }
+}
