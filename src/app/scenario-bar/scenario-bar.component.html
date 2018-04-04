@@ -2,29 +2,28 @@
   <mat-card>
     <h2>Scenarios</h2>
     <mat-card-content>
-      <mat-list>
-        <mat-list-item *ngFor="let scenario of scenarios">
-          <span matTooltip={{scenario.description}}>
-            <button mat-button (click)="selectScenario(scenario.name)">
-              <div class="scenario-label" *ngIf="isAuthenticated">
-                <mat-icon *ngIf="scenario.name !== selectedScenario" matListIcon>play_circle_outline</mat-icon>
-                <mat-icon *ngIf="scenario.name === selectedScenario" matListIcon>pause_circle_outline</mat-icon>
-                {{ scenario["name"] }}
-              </div>
-              <div *ngIf="!isAuthenticated">
-                {{ scenario["name"] }}
-              </div>
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let scenario of scenarios">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon *ngIf="scenario.name !== selectedScenario" matListIcon>play_circle_outline</mat-icon>
+              <mat-icon *ngIf="scenario.name === selectedScenario" matListIcon>pause_circle_outline</mat-icon>
+              {{ scenario["name"] }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          {{ scenario["description"] }}
+          <div *ngIf="isAuthenticated">
+            <button *ngIf="scenario.name !== selectedScenario" mat-button (click)="selectScenario(scenario.name)">
+              Start
             </button>
-          </span>
+            <button *ngIf="scenario.name === selectedScenario" mat-button (click)="selectScenario(scenario.name)">
+              Stop
+            </button>
+          </div>
+        </mat-expansion-panel>
 
-        </mat-list-item>
-        <mat-list-item *ngIf="isAuthenticated">
-          <button mat-button>
-            <mat-icon matListIcon>add_circle_outline</mat-icon>
-            Add scenario
-          </button>
-        </mat-list-item>
-      </mat-list>
+
+      </mat-accordion>
     </mat-card-content>
   </mat-card>
 </div>
