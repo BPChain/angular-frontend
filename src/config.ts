@@ -6,7 +6,7 @@ export const CONFIG = {
     checkLogin: 'checkLogin',
     publicChain: 'api/public/',
     privateChain: 'api/private/',
-    changeParameter: 'api/change',
+    changeParameter: 'api/setParameters',
     connectedNodes: 'api/connectedNodes',
     chainInfo: 'api/getChainInfo'
   }
