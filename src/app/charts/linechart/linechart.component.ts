@@ -62,6 +62,14 @@ export class LinechartComponent implements OnInit, OnChanges {
       options: {
         responsive: true,
         elements: {point: {radius: 0}},
+        scales: {
+          yAxes: [{
+              display: true,
+              ticks: {
+                  beginAtZero: true,
+              }
+          }]
+        },
       },
       colors: CHART_COLORS,
       showsLegend: true,

@@ -1,49 +1,47 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-barchart',
   templateUrl: './barchart.component.html',
-  styleUrls: ['./barchart.component.css']
+  styleUrls: ['./barchart.component.scss'],
 })
-export class BarchartComponent implements OnInit, OnChanges {
 
-  @Input() labels: string[];
-  @Input() max: number;
-  @Input() statistics: any;
+export class BarchartComponent implements OnChanges {
 
-  public barChartType: string;
-  public barChartLegend: boolean;
+  @Input() metricData: Array<object>;
+  @Input() label: string;
+
   public barChartOptions: any;
-  public barChartLabels: string[];
-  public barChartData: any[];
+  private dataBuffer: Array<object>;
+  public barChartData: Array<object>;
 
-  ngOnInit() {
-    this.barChartType = 'bar';
-    this.barChartLegend = false;
+  private service: object;
 
+  constructor () {
     this.barChartOptions = {
-      scaleShowVerticalLines: true,
+      scaleShowVerticalLines: false,
       responsive: true,
       scales: {
         yAxes: [{
-          ticks: {
-            beginAtZero: true,
-            max: this.max,
-          }
-        }]
-      }
+            display: true,
+            ticks: {
+                beginAtZero: true   // minimum value will be 0.
+            }
+      }]
+    }
     };
-
-    this.barChartLabels = this.labels;
+    this.barChartData = [];
   }
 
-  ngOnChanges() {
-    this.barChartData = [];
-    for (let i = 0; i < this.labels.length; i++) {
-      this.barChartData.push(
-        {data: [this.statistics[this.labels[i]]], label: this.labels[i]}
-      );
-    }
+  public update() {
+    const dataBuffer = [];
+    this.metricData[this.label].forEach(entry => {
+      dataBuffer.push({
+        data: [entry['data']],
+        label: entry['label']
+      });
+    });
+    this.barChartData = dataBuffer;
   }
 
   // events
@@ -55,4 +53,7 @@ export class BarchartComponent implements OnInit, OnChanges {
     console.log(e);
   }
 
+  ngOnChanges() {
+    this.update();
+  }
 }
