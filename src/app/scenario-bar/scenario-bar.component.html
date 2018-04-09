@@ -3,6 +3,48 @@
     <h2>Scenarios</h2>
     <mat-card-content>
       <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Custom contract
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="description">
+            Simulate a generic contract interaction by configuring the transaction frequency and payload size.
+          </p>
+          <br/>
+          Frequency: {{transactionFrequency}} / s
+          <br />
+          <mat-slider
+            [disabled]="('Custom' === selectedScenario || !isAuthenticated)"
+            [max]="10"
+            [step]="0.1"
+            [min]="0"
+            [thumb-label]="true"
+            [(ngModel)]="transactionFrequency" >
+          </mat-slider>
+          <br />
+          Payload size:
+            <span *ngIf="payloadSize >= 1000"> {{payloadSize / 1000}} MB </span>
+            <span *ngIf="payloadSize < 1000"> {{payloadSize}} kB </span>
+          <br />
+          <mat-slider
+            [disabled]="('Custom' === selectedScenario || !isAuthenticated)"
+            [max]="10000"
+            [min]="0"
+            [step]="100"
+            [thumb-label]="true"
+            [(ngModel)]="payloadSize" >
+          </mat-slider>
+          <div *ngIf="isAuthenticated">
+            <button *ngIf="'Custom' !== selectedScenario" mat-raised-button color="primary" (click)="toggleScenario('Custom')">
+              Start
+            </button>
+            <button *ngIf="'Custom' === selectedScenario" mat-raised-button color="warn" (click)="toggleScenario('Custom')">
+              Stop
+            </button>
+          </div>
+        </mat-expansion-panel>
         <mat-expansion-panel *ngFor="let scenario of scenarios">
           <mat-expansion-panel-header>
             <mat-panel-title>

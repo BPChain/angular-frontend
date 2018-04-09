@@ -98,10 +98,10 @@ export class ParameterSetterComponent implements OnChanges {
       .stopChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
         // this.requestUpdate.emit();
-        this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
+        this.openSnackBar(`Successfully stopped ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
-        this.openSnackBar(`Could not start ${this.selectedChain} on ${this.selectedTarget}`);
+        this.openSnackBar(`Could not stop ${this.selectedChain} on ${this.selectedTarget}`);
       });
   }
 
