@@ -16,6 +16,7 @@ import { ParameterSetterComponent } from './parameter-setter/parameter-setter.co
 
 import { ScenarioBarComponent } from './scenario-bar/scenario-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
+import { MetricsVisualizationComponent} from './metrics-visualization/metrics-visualization.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { LinechartComponent } from './charts/linechart/linechart.component';
 import { BarchartComponent } from './charts/barchart/barchart.component';
@@ -33,6 +34,7 @@ import { ParameterConfiguratorService } from './services/parameter-configurator.
     SelectionBarComponent,
     ScenarioBarComponent,
     DataVisualizationBarComponent,
+    MetricsVisualizationComponent,
     LoginDialogComponent,
     LinechartComponent,
     BarchartComponent,
