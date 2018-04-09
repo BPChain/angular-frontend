@@ -11,6 +11,8 @@ export class ScenarioBarComponent {
   @Input() isAuthenticated: boolean;
   public scenarios: Array<Object>;
   public selectedScenario: string;
+  public transactionFrequency: number;
+  public payloadSize: number;
 
   constructor(public snackBar: MatSnackBar) {
     this.scenarios = [
@@ -30,6 +32,8 @@ export class ScenarioBarComponent {
       {name: 'Fridge', description: 'This is a description.'},
       {name: 'MediXAIN', description: 'This is a description.'},
     ];
+    this.transactionFrequency = 0;
+    this.payloadSize = 0;
     this.selectedScenario = '';
   }
 

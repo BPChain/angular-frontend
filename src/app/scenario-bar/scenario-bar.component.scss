@@ -27,6 +27,11 @@ p {
   &.description {
     margin: 0px;
     hyphens: auto;
-    text-align: justify
+    text-align: justify;
+    color: #666666;
   }
+}
+
+mat-slider {
+  width: 100%;
 }
