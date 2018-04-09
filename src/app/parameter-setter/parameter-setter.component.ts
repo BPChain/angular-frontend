@@ -66,12 +66,12 @@ export class ParameterSetterComponent implements OnChanges {
       this._parameterConfigurator
         .setChainParameters({
           target: this.selectedTarget,
-          chain: this.selectedChain,
+          chainName: this.selectedChain,
           parameters: this.configurationStore,
         })
         .subscribe(result => {
           this.openSnackBar('Successfully changed parameters');
-          this.requestUpdate.emit();
+          // this.requestUpdate.emit();
         },
         error => {
           this.openSnackBar('Parameter change was not successful');
@@ -85,7 +85,7 @@ export class ParameterSetterComponent implements OnChanges {
     this._parameterConfigurator
       .startChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
-        this.requestUpdate.emit();
+        // this.requestUpdate.emit();
         this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
@@ -97,7 +97,7 @@ export class ParameterSetterComponent implements OnChanges {
     this._parameterConfigurator
       .stopChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
-        this.requestUpdate.emit();
+        // this.requestUpdate.emit();
         this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
