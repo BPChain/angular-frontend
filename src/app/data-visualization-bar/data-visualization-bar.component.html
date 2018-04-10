@@ -1,17 +1,41 @@
 <mat-card>
 
-  <app-linechart  [selectedChains]='selectedChains'
-                  [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'>
+  <app-linechart [selectedChains]='selectedChains' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'>
   </app-linechart>
-  <mat-button-toggle-group #parameterSelection = "matButtonToggleGroup" value = 'numberOfHosts'>
-    <mat-button-toggle value = 'numberOfHosts' >Number of Hosts</mat-button-toggle>
-    <mat-button-toggle value = 'numberOfMiners'>Number of Miners</mat-button-toggle>
-    <mat-button-toggle value = 'avgHashrate'>Average Hashrate</mat-button-toggle>
-    <mat-button-toggle value = 'avgBlocktime'>Average Blocktime</mat-button-toggle>
-    <mat-button-toggle value = 'avgGasPrice'>Average Gas price</mat-button-toggle>
-    <mat-button-toggle value = 'avgDifficulty'>Average Difficulty</mat-button-toggle>
+  <mat-button-toggle-group #parameterSelection="matButtonToggleGroup" value='numberOfHosts'>
+    <mat-button-toggle value='numberOfHosts'>Number of Hosts</mat-button-toggle>
+    <mat-button-toggle value='numberOfMiners'>Number of Miners</mat-button-toggle>
+    <mat-button-toggle value='avgHashrate'>Average Hashrate</mat-button-toggle>
+    <mat-button-toggle value='avgBlocktime'>Average Blocktime</mat-button-toggle>
+    <mat-button-toggle value='avgGasPrice'>Average Gas price</mat-button-toggle>
+    <mat-button-toggle value='avgDifficulty'>Average Difficulty</mat-button-toggle>
   </mat-button-toggle-group>
-
- <app-metrics-visualization [selectedChains]='selectedChains'>
- </app-metrics-visualization>
 </mat-card>
+
+<div class="container">
+  <mat-card class="item small">
+    Mining Time
+    <app-barchart [data]="metricData['miningTime']">
+    </app-barchart>
+  </mat-card>
+  <mat-card class="item small">
+    Stability
+    <app-barchart [data]="metricData['stability']">
+    </app-barchart>
+  </mat-card>
+  <mat-card class="item small">
+    Throughput
+    <app-barchart [data]="metricData['throughput']">
+    </app-barchart>
+  </mat-card>
+  <mat-card class="item small">
+    Energy Consumption
+    <app-barchart [data]="metricData['energyConsumption']">
+    </app-barchart>
+  </mat-card>
+  <mat-card class="item small">
+    Latency
+    <app-barchart [data]="metricData['latency']">
+    </app-barchart>
+  </mat-card>
+</div>
