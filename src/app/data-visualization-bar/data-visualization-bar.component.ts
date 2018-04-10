@@ -11,9 +11,32 @@ import {
 })
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
+  public metricData = {
+    miningTime: [
+      {data: 20, label: 'ethereum'},
+      {data: 23, label: 'xain'},
+    ],
+    stability: [
+      {data: 240, label: 'ethereum'},
+      {data: 211, label: 'xain'},
+    ],
+    latency: [
+      {data: 9, label: 'ethereum'},
+      {data: 23, label: 'xain'},
+    ],
+    energyConsumption: [
+      {data: 233, label: 'ethereum'},
+      {data: 23, label: 'xain'},
+    ],
+    throughput: [
+      {data: 202, label: 'ethereum'},
+      {data: 232, label: 'xain'},
+    ],
+  };
 
   constructor(private _chainSelector: ChainSelectorService) {
     this.selectedChains = new ChainSelection([], []);
+    console.info(this.metricData)
   }
 
   private trackSelectionUpdates(): void {

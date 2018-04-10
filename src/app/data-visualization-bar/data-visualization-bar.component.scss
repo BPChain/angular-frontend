@@ -1,9 +1,19 @@
 @import "~@angular/material/theming";
 
+div {
+  &.container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 mat-card {
   min-width: 300px;
 
-
+  &.small {
+    min-width: 200px;
+    width: 29%;
+  }
 }
 
 mat-button-toggle-group {

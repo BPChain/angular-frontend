@@ -8,8 +8,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 
 export class BarchartComponent implements OnChanges {
 
-  @Input() metricData: Array<object>;
-  @Input() label: string;
+  @Input() data: Array<object>;
 
   public barChartOptions: any;
   private dataBuffer: Array<object>;
@@ -35,7 +34,7 @@ export class BarchartComponent implements OnChanges {
 
   public update() {
     const dataBuffer = [];
-    this.metricData[this.label].forEach(entry => {
+    this.data.forEach(entry => {
       dataBuffer.push({
         data: [entry['data']],
         label: entry['label']
