@@ -8,6 +8,9 @@
             <mat-panel-title>
               Custom contract
             </mat-panel-title>
+            <mat-panel-description>
+              <mat-icon *ngIf="scenario.name === selectedScenario" matListIcon>play_arrow</mat-icon>
+            </mat-panel-description>
           </mat-expansion-panel-header>
           <p class="description">
             Simulate a generic contract interaction by configuring the transaction frequency and payload size.
