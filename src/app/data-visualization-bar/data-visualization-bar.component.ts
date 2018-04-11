@@ -58,12 +58,13 @@ export class DataVisualizationBarComponent implements OnInit {
 
   private calculateMiningTime(entry): number {
     const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-    const sum = stats.sum(parameter);
-    return sum / parameter.length;
+    const sum = stats.sum(parameter) ;
+    return (sum / parameter.length) || 0;
   }
 
   private calculateStability(entry): number {
-    return stats.stdev(entry['avgBlocktime']);
+    const result = stats.stdev(entry['avgBlocktime']) || 0;
+    return result;
   }
 
   private calculateLatency(entry): number {
@@ -74,13 +75,9 @@ export class DataVisualizationBarComponent implements OnInit {
     const costsPerHash = 0.098;
     const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
     const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
-    if (hashrateParameter.length > 0 && numberOfMinersParameter > 0) {
-      const avgHashrate = stats.sum(hashrateParameter) / hashrateParameter.length;
-      const avgNumberOfMiners = stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length;
-      return avgHashrate * avgNumberOfMiners * costsPerHash;
-    } else {
-      return 0;
-    }
+    const avgHashrate = (stats.sum(hashrateParameter) / hashrateParameter.length) || 0;
+    const avgNumberOfMiners = (stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length) || 0;
+    return avgHashrate * avgNumberOfMiners * costsPerHash;
   }
 
   private calculateThroughput(entry): number {
