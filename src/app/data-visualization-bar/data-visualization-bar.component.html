@@ -1,6 +1,6 @@
 <mat-card>
 
-  <app-linechart [selectedChains]='selectedChains' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'>
+  <app-linechart #linechart [dataset]='dataset' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'>
   </app-linechart>
   <mat-button-toggle-group #parameterSelection="matButtonToggleGroup" value='numberOfHosts'>
     <mat-button-toggle value='numberOfHosts'>Number of Hosts</mat-button-toggle>
@@ -12,30 +12,30 @@
   </mat-button-toggle-group>
 </mat-card>
 
-<div class="container">
+<div class="container" *ngIf='displayMetrics'>
   <mat-card class="item small">
     Mining Time
-    <app-barchart [data]="metricData['miningTime']">
+    <app-barchart [data]="metrics['miningTime']">
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
     Stability
-    <app-barchart [data]="metricData['stability']">
+    <app-barchart [data]="metrics['stability']">
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
     Throughput
-    <app-barchart [data]="metricData['throughput']">
+    <app-barchart [data]="metrics['throughput']">
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
     Energy Consumption
-    <app-barchart [data]="metricData['energyConsumption']">
+    <app-barchart [data]="metrics['energyConsumption']">
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
     Latency
-    <app-barchart [data]="metricData['latency']">
+    <app-barchart [data]="metrics['latency']">
     </app-barchart>
   </mat-card>
 </div>
