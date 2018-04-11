@@ -65,8 +65,8 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateStability(entry): number {
-    const result = stats.stdev(entry['avgBlocktime']) || 0;
-    return result;
+    const parameter = entry['avgBlocktime'].filter(item => item !== 0);
+    return stats.stdev(parameter) || 0;
   }
 
   private calculateLatency(entry): number {
