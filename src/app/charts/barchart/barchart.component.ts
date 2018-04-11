@@ -37,7 +37,7 @@ export class BarchartComponent implements OnChanges {
     this.data.forEach(entry => {
       dataBuffer.push({
         data: [entry['data']],
-        label: entry['label']
+        label: entry['label'],
       });
     });
     this.barChartData = dataBuffer;
