@@ -14,12 +14,12 @@
 
 <div class="container" *ngIf='displayMetrics'>
   <mat-card class="item small">
-    Mining Time
+    Mining Time (s)
     <app-barchart [data]="metrics['miningTime']">
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
-    Stability
+    Stability (Deviation in s)
     <app-barchart [data]="metrics['stability']">
     </app-barchart>
   </mat-card>
@@ -29,7 +29,7 @@
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
-    Energy Consumption
+    Energy Consumption (µJ)
     <app-barchart [data]="metrics['energyConsumption']">
     </app-barchart>
   </mat-card>
