@@ -4,6 +4,7 @@ import {
   ChainSelection
 } from '../services/chain-selector.service';
 import { DataRetrieverService, ChainData } from '../services/data-retriever.service';
+import * as stats from 'stats-lite';
 
 @Component({
   selector: 'app-data-visualization-bar',
@@ -55,14 +56,45 @@ export class DataVisualizationBarComponent implements OnInit {
     };
   }
 
+  private calculateMiningTime(entry): number {
+    const parameter = entry['avgBlocktime'].filter(item => item !== 0);
+    const sum = stats.sum(parameter);
+    return sum / parameter.length;
+  }
+
+  private calculateStability(entry): number {
+    return stats.stdev(entry['avgBlocktime']);
+  }
+
+  private calculateLatency(entry): number {
+    return Math.random();
+  }
+
+  private calculateEnergyConsumption(entry): number {
+    const costsPerHash = 0.098;
+    const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
+    const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
+    if (hashrateParameter.length > 0 && numberOfMinersParameter > 0) {
+      const avgHashrate = stats.sum(hashrateParameter) / hashrateParameter.length;
+      const avgNumberOfMiners = stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length;
+      return avgHashrate * avgNumberOfMiners * costsPerHash;
+    } else {
+      return 0;
+    }
+  }
+
+  private calculateThroughput(entry): number {
+    return Math.random();
+  }
+
   private calculateMetrics(chainData: Array<ChainData>): void {
     const metricBuffer = this.emptyMetricDataset();
     chainData.forEach(entry => {
-      metricBuffer['miningTime'].push({data: Math.random(), label: entry['chainName']});
-      metricBuffer['stability'].push({data: Math.random(), label: entry['chainName']});
-      metricBuffer['latency'].push({data: Math.random(), label: entry['chainName']});
-      metricBuffer['energyConsumption'].push({data: Math.random(), label: entry['chainName']});
-      metricBuffer['throughput'].push({data: Math.random(), label: entry['chainName']});
+      metricBuffer['miningTime'].push({data: this.calculateMiningTime(entry), label: entry['chainName']});
+      metricBuffer['stability'].push({data: this.calculateStability(entry), label: entry['chainName']});
+      metricBuffer['latency'].push({data: this.calculateLatency(entry), label: entry['chainName']});
+      metricBuffer['energyConsumption'].push({data: this.calculateEnergyConsumption(entry), label: entry['chainName']});
+      metricBuffer['throughput'].push({data: this.calculateThroughput(entry), label: entry['chainName']});
     });
     this.metrics = metricBuffer;
   }

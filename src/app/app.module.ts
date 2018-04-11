@@ -9,7 +9,6 @@ import { HttpClientModule, HttpClient} from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
 import { ChainDataSourceSelectorComponent } from './chain-data-source-selector/chain-data-source-selector.component';
 import { ParameterSetterComponent } from './parameter-setter/parameter-setter.component';
