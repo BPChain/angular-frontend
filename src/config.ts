@@ -9,6 +9,7 @@ export const CONFIG = {
     changeParameter: 'api/setParameters',
     connectedNodes: 'api/connectedNodes',
     chainInfo: 'api/getChainInfo'
-  }
+  },
+  refreshTime: 15000,
 };
 

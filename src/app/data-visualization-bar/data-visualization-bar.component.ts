@@ -5,6 +5,8 @@ import {
 } from '../services/chain-selector.service';
 import { DataRetrieverService, ChainData } from '../services/data-retriever.service';
 import * as stats from 'stats-lite';
+import {CONFIG} from '../../config';
+
 
 @Component({
   selector: 'app-data-visualization-bar',
@@ -139,7 +141,7 @@ export class DataVisualizationBarComponent implements OnInit {
       () => {
         this.updateDatasets(false);
       },
-      5000
+      CONFIG.refreshTime
     );
   }
 }
