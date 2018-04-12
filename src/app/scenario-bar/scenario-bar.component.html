@@ -19,7 +19,7 @@
           Frequency: {{round(transactionFrequency)}} / s
           <br />
           <mat-slider
-            [disabled]="('Custom' === selectedScenario || !isAuthenticated)"
+            [disabled]="!isAuthenticated"
             [max]="10"
             [step]="0.1"
             [min]="0"
