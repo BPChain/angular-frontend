@@ -92,12 +92,9 @@ export class DataVisualizationBarComponent implements OnInit {
     const blocksizeParameter = entry['avgBlockSize'].filter(item => item !== 0);
     const startTime = entry['timeStamp'][0];
     const endTime = entry['timeStamp'][entry['timeStamp'].length - 1];
-    const blocksizeSum = stats.sum(blocksizeParameter) / blocksizeParameter.length;
-    console.info(blocksizeSum);
-    console.info(startTime);
-    console.info(endTime);
-    console.info(Date.parse(endTime) - Date.parse(startTime));
-    return Math.random();
+    const blocksizeSum = stats.sum(blocksizeParameter);
+    const timeSpan = Date.parse(endTime) - Date.parse(startTime);
+    return blocksizeSum / timeSpan || 0;
   }
 
   private calculateMetrics(chainData: Array<ChainData>): void {
