@@ -45,6 +45,7 @@ export class DataVisualizationBarComponent implements OnInit {
       latency: [{data: 0, label: 'no chain selected'}],
       energyConsumption: [{data: 0, label: 'no chain selected'}],
       throughput: [{data: 0, label: 'no chain selected'}],
+      dataTransfer: [{data: 0, label: 'no chain selected'}],
     };
   }
 
@@ -55,6 +56,7 @@ export class DataVisualizationBarComponent implements OnInit {
       latency: [],
       energyConsumption: [],
       throughput: [],
+      dataTransfer: [],
     };
   }
 
@@ -86,6 +88,18 @@ export class DataVisualizationBarComponent implements OnInit {
     return Math.random();
   }
 
+  private calculateDataTransfer(entry): number {
+    const blocksizeParameter = entry['blocksize'].filter(item => item !== 0);
+    const startTime = entry['timeStamp'][0];
+    const endTime = entry['timeStamp'][entry['timeStamp'].length - 1];
+    const blocksizeSum = stats.sum(blocksizeParameter) / blocksizeParameter.length;
+    console.info(blocksizeSum);
+    console.info(startTime);
+    console.info(endTime);
+    console.info(Date.parse(endTime) - Date.parse(startTime));
+    return Math.random();
+  }
+
   private calculateMetrics(chainData: Array<ChainData>): void {
     const metricBuffer = this.emptyMetricDataset();
     chainData.forEach(entry => {
@@ -94,6 +108,7 @@ export class DataVisualizationBarComponent implements OnInit {
       metricBuffer['latency'].push({data: this.calculateLatency(entry), label: entry['chainName']});
       metricBuffer['energyConsumption'].push({data: this.calculateEnergyConsumption(entry), label: entry['chainName']});
       metricBuffer['throughput'].push({data: this.calculateThroughput(entry), label: entry['chainName']});
+      metricBuffer['dataTransfer'].push({data: this.calculateDataTransfer(entry), label: entry['chainName']});
     });
     this.metrics = metricBuffer;
   }
