@@ -89,7 +89,7 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateDataTransfer(entry): number {
-    const blocksizeParameter = entry['blocksize'].filter(item => item !== 0);
+    const blocksizeParameter = entry['blockSize'].filter(item => item !== 0);
     const startTime = entry['timeStamp'][0];
     const endTime = entry['timeStamp'][entry['timeStamp'].length - 1];
     const blocksizeSum = stats.sum(blocksizeParameter) / blocksizeParameter.length;
