@@ -11,7 +11,7 @@ export class ParameterSetterComponent implements OnChanges {
 
   @Input() chainInfo: Array<object>;
   @Input() isAuthenticated: Boolean;
-  @Output() requestUpdate: EventEmitter<boolean>;
+  @Output() update: EventEmitter<any> = new EventEmitter();
 
   public connectedNodes: Array<string>;
   public chains: Array<object>;
@@ -71,7 +71,7 @@ export class ParameterSetterComponent implements OnChanges {
         })
         .subscribe(result => {
           this.openSnackBar('Successfully changed parameters');
-          // this.requestUpdate.emit();
+          this.update.emit(null);
         },
         error => {
           this.openSnackBar('Parameter change was not successful');
@@ -85,7 +85,7 @@ export class ParameterSetterComponent implements OnChanges {
     this._parameterConfigurator
       .startChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
-        // this.requestUpdate.emit();
+        this.update.emit(null);
         this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
@@ -97,7 +97,7 @@ export class ParameterSetterComponent implements OnChanges {
     this._parameterConfigurator
       .stopChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
-        // this.requestUpdate.emit();
+        this.update.emit(null);
         this.openSnackBar(`Successfully stopped ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
