@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
+import {CHART_COLORS} from '../chart-colors';
 
 @Component({
   selector: 'app-barchart',
@@ -13,8 +14,7 @@ export class BarchartComponent implements OnChanges {
   public barChartOptions: any;
   private dataBuffer: Array<object>;
   public barChartData: Array<object>;
-
-  private service: object;
+  public colors: object;
 
   constructor () {
     this.barChartOptions = {
@@ -30,6 +30,8 @@ export class BarchartComponent implements OnChanges {
     }
     };
     this.barChartData = [];
+    this.colors = CHART_COLORS;
+
   }
 
   public update() {
@@ -37,7 +39,7 @@ export class BarchartComponent implements OnChanges {
     this.data.forEach(entry => {
       dataBuffer.push({
         data: [entry['data']],
-        label: entry['label'],
+        label: `${entry['access']} ${entry['label']}`,
       });
     });
     this.barChartData = dataBuffer;
