@@ -22,12 +22,12 @@ export class BarchartComponent implements OnChanges {
       responsive: true,
       scales: {
         yAxes: [{
-            display: true,
-            ticks: {
-                beginAtZero: true   // minimum value will be 0.
-            }
-      }]
-    }
+          display: true,
+          ticks: {
+            beginAtZero: true,
+          }
+        }]
+      }
     };
     this.barChartData = [];
     this.colors = CHART_COLORS;
@@ -39,7 +39,7 @@ export class BarchartComponent implements OnChanges {
     this.data.forEach(entry => {
       dataBuffer.push({
         data: [entry['data']],
-        label: `${entry['access']}-${entry['label']}`,
+        label: entry['label'],
       });
     });
     this.barChartData = dataBuffer;
