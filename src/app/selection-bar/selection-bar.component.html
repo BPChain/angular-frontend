@@ -1,6 +1,6 @@
 <div class="selection-container">
   <div *ngIf="isAuthenticated">
-      <app-parameter-setter [chainInfo]="chainInfo" [isAuthenticated]="isAuthenticated">
+      <app-parameter-setter [chainInfo]="chainInfo" [isAuthenticated]="isAuthenticated" (update)="requestUpdate()">
       </app-parameter-setter>
   </div>
   <app-chain-data-source-selector [chainInfo]="chainInfo">
