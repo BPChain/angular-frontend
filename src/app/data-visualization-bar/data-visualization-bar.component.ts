@@ -79,9 +79,12 @@ export class DataVisualizationBarComponent implements OnInit {
     const costsPerHash = 0.098; // nJ / H
     const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
     const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
+    const startTime = entry['timeStamp'][0];
+    const endTime = entry['timeStamp'][entry['timeStamp'].length - 1];
+    const timeSpan = Date.parse(endTime) - Date.parse(startTime);
     const avgHashrate = (stats.sum(hashrateParameter) / hashrateParameter.length) || 0;
     const avgNumberOfMiners = (stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length) || 0;
-    return avgHashrate * avgNumberOfMiners * costsPerHash / 1000;
+    return (avgHashrate * avgNumberOfMiners * costsPerHash / 1000) / timeSpan;
   }
 
   private calculateThroughput(entry): number {
@@ -89,12 +92,14 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateDataTransfer(entry): number {
+    const numberOfHostsParameter = entry['numberOfHosts'].filter(item => item !== 0);
+    const avgNumberOfHosts = stats.sum(numberOfHostsParameter) / numberOfHostsParameter.length;
     const blocksizeParameter = entry['avgBlockSize'].filter(item => item !== 0);
-    const startTime = entry['timeStamp'][0];
-    const endTime = entry['timeStamp'][entry['timeStamp'].length - 1];
-    const blocksizeSum = stats.sum(blocksizeParameter);
-    const timeSpan = Date.parse(endTime) - Date.parse(startTime);
-    return blocksizeSum / timeSpan || 0;
+    const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
+    const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
+    const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
+
+    return (blocksizeAvg / blocktimeAvg) * avgNumberOfHosts || 0;
   }
 
   private calculateMetrics(chainData: Array<ChainData>): void {
