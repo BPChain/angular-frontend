@@ -88,8 +88,8 @@ export class DataVisualizationBarComponent implements OnInit {
     console.info(avgHashrate);
     console.info(avgNumberOfMiners);
     console.info(costsPerHash);
-    console.info(timeSpan);
-    return (avgHashrate * avgNumberOfMiners * costsPerHash / 1000) / (timeSpan * 1000);
+    console.info((avgHashrate * avgNumberOfMiners * costsPerHash / 1000) / (timeSpan / 1000));
+    return (avgHashrate * avgNumberOfMiners * costsPerHash / 1000) / (timeSpan / 1000);
   }
 
   private calculateThroughput(entry): number {
