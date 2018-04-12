@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import {CHART_COLORS} from '../chart-colors';
+import {CHART_COLORS} from './chart-colors';
 
 @Component({
   selector: 'app-barchart',

@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ChainData} from '../../services/data-retriever.service';
-import {CHART_COLORS} from '../chart-colors';
+import {CHART_COLORS} from './chart-colors';
 
 
 interface ChartItem {
