@@ -16,7 +16,7 @@
             Simulate a generic contract interaction by configuring the transaction frequency and payload size.
           </p>
           <br/>
-          Frequency: {{transactionFrequency}} / s
+          Frequency: {{round(transactionFrequency)}} / s
           <br />
           <mat-slider
             [disabled]="('Custom' === selectedScenario || !isAuthenticated)"
@@ -28,24 +28,28 @@
           </mat-slider>
           <br />
           Payload size:
-            <span *ngIf="payloadSize >= 1000"> {{payloadSize / 1000}} MB </span>
-            <span *ngIf="payloadSize < 1000"> {{payloadSize}} kB </span>
+            <span> {{payloadSize}} kB </span>
           <br />
           <mat-slider
-            [disabled]="('Custom' === selectedScenario || !isAuthenticated)"
-            [max]="10000"
+            [disabled]="!isAuthenticated"
+            [max]="1000"
             [min]="0"
-            [step]="100"
+            [step]="10"
             [thumb-label]="true"
             [(ngModel)]="payloadSize" >
           </mat-slider>
           <div *ngIf="isAuthenticated">
-            <button *ngIf="'Custom' !== selectedScenario" mat-raised-button color="primary" (click)="toggleScenario('Custom')">
+            <button *ngIf="'Custom' !== selectedScenario" mat-raised-button color="primary" (click)="updateScenario('Custom')">
               Start
             </button>
-            <button *ngIf="'Custom' === selectedScenario" mat-raised-button color="warn" (click)="toggleScenario('Custom')">
-              Stop
-            </button>
+            <div *ngIf="'Custom' === selectedScenario">
+              <button mat-raised-button color="primary" (click)="updateScenario('Custom')">
+                Update
+              </button>
+              <button mat-raised-button color="warn" (click)="updateScenario('Custom')">
+                Stop
+              </button>
+            </div>
           </div>
         </mat-expansion-panel>
         <mat-expansion-panel *ngFor="let scenario of scenarios">

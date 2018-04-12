@@ -12,6 +12,13 @@ class LineChart {
   public options = {
     responsive: true,
     elements: {point: {radius: 0}},
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
   };
   public colors = CHART_COLORS;
   public showsLegend = true;

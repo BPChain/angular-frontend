@@ -43,7 +43,11 @@ export class ScenarioBarComponent {
     });
   }
 
-  toggleScenario(scenario) {
+  round(float: number) {
+    return Math.round(float * 10) / 10;
+  }
+
+  updateScenario(scenario) {
     if (this.isAuthenticated) {
       if (this.selectedScenario === scenario) {
         this.selectedScenario = '';
