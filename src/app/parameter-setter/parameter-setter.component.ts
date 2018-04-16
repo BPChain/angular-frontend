@@ -42,18 +42,46 @@ export class ParameterSetterComponent implements OnChanges {
     this.chainIsActive = false;
     this.transactionInterval = 10;
     this.payloadSize = 10;
-    this.selectedScenario = {};
+    this.selectedScenario = {
+      name: 'No scenario',
+      payloadSize: 1,
+      period: 60,
+    },
 
     this.scenarios = [
-      {name: 'No scenario'},
-      {name: 'Custom', description: 'Configure the scenario properties manually.'},
-      {name: 'EVAPCoin', description: `The EVAPCoin is the blockchain based solution
+      {
+        name: 'No scenario',
+        payloadSize: 1,
+        period: 60,
+      },
+      {
+        name: 'Custom',
+        description: 'Configure the scenario properties manually.',
+        payloadSize: this.payloadSize,
+        period: this.round(this.transactionInterval),
+      },
+      {
+        name: 'EVAPCoin',
+        description: `The EVAPCoin is the blockchain based solution
         to distribute and manage HPI-Sommerfest chips.
-        During the Sommerfest we have many small transactions.`},
-      {name: 'OwnerChain', description: `The OwnerChain stores important information about properties.
-        The property state changes infrequently but contains many data.`},
-      {name: 'Key distribution', description: `The key distribution service controlls the access rights to protected files.
-        The assignment of permissions takes place not too often with an average key size.`},
+        During the Sommerfest we have many small transactions.`,
+        period: 7,
+        payloadSize: 8,
+      },
+      {
+        name: 'OwnerChain',
+        description: `The OwnerChain stores important information about properties.
+        The property state changes infrequently but contains many data.`,
+        period: 30,
+        payloadSize: 700,
+      },
+      {
+        name: 'Key distribution',
+        description: `The key distribution service controlls the access rights to protected files.
+        The assignment of permissions takes place not too often with an average key size.`,
+        period: 20,
+        payloadSize: 50
+      },
     ];
   }
 
@@ -84,55 +112,7 @@ export class ParameterSetterComponent implements OnChanges {
     this.chainIsActive = selectedChainInfo['active'];
   }
 
-  dispatchScenario(scenarioName: string): object {
-    switch (scenarioName) {
-      case 'EVAPCoin':
-        return {
-          name: 'EVAPCoin',
-          period: 7,
-          payloadSize: 8,
-        };
-      case 'Key distribution':
-        return {
-          name: 'Key distribution',
-          period: 20,
-          payloadSize: 50,
-        };
-      case 'OwnerChain':
-        return {
-          name: 'OwnerChain',
-          period: 30,
-          payloadSize: 700,
-        };
-      default:
-        return {
-          name: 'No scenario',
-          payloadSize: 1,
-          period: 60,
-        };
-    }
-  }
-
-  getScenarioConfiguration(): object {
-    if (this.selectedScenario['name'] === 'Custom') {
-      return {
-        name: 'Custom',
-        payloadSize: this.payloadSize,
-        period: this.transactionInterval,
-      };
-    } else if (this.selectedScenario['name'] === 'No scenario') {
-      return {
-        name: 'No scenario',
-        payloadSize: 1,
-        period: 60,
-      };
-    } else {
-      return this.dispatchScenario(this.selectedScenario['name']);
-    }
-  }
-
   requestParameterChange() {
-    const scenario = this.getScenarioConfiguration();
     if (this.isAuthenticated) {
       this._parameterConfigurator
         .setChainParameters({
@@ -140,7 +120,13 @@ export class ParameterSetterComponent implements OnChanges {
           chainName: this.selectedChain,
           parameters: Object.assign(
             this.configurationStore,
-            {scenario},
+            {
+              scenario: {
+                name: this.selectedScenario['name'],
+                period: this.transactionInterval,
+                payloadSize: this.payloadSize,
+              }
+            },
           ),
         })
         .subscribe(result => {
