@@ -30,7 +30,7 @@
           <div *ngIf="chainIsActive">
             <div *ngFor="let parameter of configuration">
               <mat-form-field>
-                <input matInput placeholder="{{parameter['name']}}" type="number" [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
+                <input matInput placeholder="{{parameter['name']}}" min="1" type="number" [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
               </mat-form-field>
             </div>
 
