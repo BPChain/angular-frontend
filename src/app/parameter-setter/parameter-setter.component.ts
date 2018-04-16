@@ -22,6 +22,10 @@ export class ParameterSetterComponent implements OnChanges {
   public configurationStore: object;
   public configuration: Array<object>;
   public chainIsActive: Boolean;
+  public transactionInterval: number;
+  public payloadSize: number;
+  public scenarios: Array<object>;
+  public selectedScenario: object;
 
 
   constructor(
@@ -36,12 +40,38 @@ export class ParameterSetterComponent implements OnChanges {
     this.configurationStore = {};
     this.configuration = [];
     this.chainIsActive = false;
+    this.transactionInterval = 10;
+    this.payloadSize = 1;
+    this.selectedScenario = {};
+
+    this.scenarios = [
+      {name: 'Custom', description: 'Configure the scenario properties manually.'}
+      {name: 'EVAPCoin', description: 'This is a description.'},
+      {name: 'OwnerChain', description: `Lorem ipsum dolor sit amet,
+        consectetur adipiscing elit. Integer id dui sodales,
+        vestibulum eros vel, vestibulum ante. Praesent ornare lorem posuere,
+        dapibus erat eu, commodo nisi. Mauris tempus ultrices feugiat.
+        Vestibulum euismod metus turpis, vitae sagittis leo iaculis sed.
+        Pellentesque sit amet augue luctus turpis posuere fermentum a ullamcorper nisl.`},
+      {name: 'Grading', description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Integer id dui sodales, vestibulum eros vel, vestibulum ante.
+        Praesent ornare lorem posuere, dapibus erat eu, commodo nisi.
+        Mauris tempus ultrices feugiat. Vestibulum euismod metus turpis,
+        vitae sagittis leo iaculis sed. Pellentesque sit amet augue luctus
+        turpis posuere fermentum a ullamcorper nisl.`},
+      {name: 'Fridge', description: 'This is a description.'},
+      {name: 'MediXAIN', description: 'This is a description.'},
+    ];
   }
 
   openSnackBar(message: string) {
     this._snackBar.open(message, 'Close', {
       duration: 2000,
     });
+  }
+
+  round(float: number) {
+    return Math.round(float * 10) / 10;
   }
 
   updateChainSelection() {

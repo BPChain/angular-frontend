@@ -1,6 +1,14 @@
 <mat-card>
-  <h2>Parameter</h2>
+  <div class='container'>
+    <div class='left'>
+      <h2>Configurator</h2>
+    </div>
+    <div class='right'>
+      <mat-icon matListIcon (click)='update.emit(null)'>autorenew</mat-icon>
+    </div>
+  </div>
   <mat-card-content>
+    <h3>Chain configuration</h3>
     <form>
       <mat-form-field>
         <mat-select placeholder="Target system" [(value)]="selectedTarget">
@@ -26,11 +34,38 @@
               </mat-form-field>
             </div>
 
+            <h3>
+              Scenario configuration
+            </h3>
+            <div matTooltip="{{selectedScenario['description']}}" [matTooltipPosition]="'after'">
+              <mat-form-field>
+                <mat-select placeholder="Select a scenario" [(value)]="selectedScenario">
+                  <mat-option *ngFor="let scenario of scenarios" [value]="scenario" (click)="updateConfiguration()">
+                    {{ scenario['name'] }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div *ngIf='selectedScenario["name"] === "Custom"'>
+              Transaction interval: ~ {{round(transactionInterval)}} s
+              <br />
+              <mat-slider [disabled]="!isAuthenticated" [max]="30" [step]="0.1" [min]="5" [thumb-label]="true" [(ngModel)]="transactionInterval"
+                name='transactionInterval'>
+              </mat-slider>
+              <br /> Payload size:
+              <span> {{payloadSize}} Byte </span>
+              <br />
+              <mat-slider [disabled]="!isAuthenticated" [max]="1000" [min]="1" [step]="10" [thumb-label]="true" [(ngModel)]="payloadSize"
+                name='payloadSize'>
+              </mat-slider>
+            </div>
+
+
             <button mat-raised-button color="primary" (click)="requestParameterChange()">
-              Change Parameters
+              Update configuration
             </button>
             <button mat-raised-button color="warn" (click)="stopSelectedChain()">
-                Stop chain
+              Stop chain
             </button>
           </div>
 
