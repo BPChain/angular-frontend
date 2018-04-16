@@ -47,12 +47,13 @@ export class ParameterSetterComponent implements OnChanges {
     this.scenarios = [
       {name: 'No scenario'},
       {name: 'Custom', description: 'Configure the scenario properties manually.'},
-      {name: 'EVAPCoin', description: 'This is a description.'},
-      {name: 'OwnerChain', description: `Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit. Integer id dui sodales,
-        vestibulum eros vel, vestibulum ante. Praesent ornare lorem posuere,
-        dapibus erat eu, commodo nisi. Mauris tempus ultrices feugiat.`},
-      {name: 'MediXAIN', description: 'This is a description.'},
+      {name: 'EVAPCoin', description: `The EVAPCoin is the blockchain based solution
+        to distribute and manage HPI-Sommerfest chips.
+        During the Sommerfest we have many small transactions.`},
+      {name: 'OwnerChain', description: `The OwnerChain stores important information about properties.
+        The property state changes infrequently but contains many data.`},
+      {name: 'Key distribution', description: `The key distribution service controlls the access rights to protected files.
+        The assignment of permissions takes place not too often with an average key size.`},
     ];
   }
 
@@ -88,20 +89,20 @@ export class ParameterSetterComponent implements OnChanges {
       case 'EVAPCoin':
         return {
           name: 'EVAPCoin',
+          period: 7,
+          payloadSize: 8,
+        };
+      case 'Key distribution':
+        return {
+          name: 'Key distribution',
           period: 20,
           payloadSize: 50,
-        };
-      case 'MediXAIN':
-        return {
-          name: 'MediXAIN',
-          period: 20,
-          payloadSize: 700,
         };
       case 'OwnerChain':
         return {
           name: 'OwnerChain',
-          period: 5,
-          payloadSize: 70,
+          period: 30,
+          payloadSize: 700,
         };
       default:
         return {
@@ -132,7 +133,6 @@ export class ParameterSetterComponent implements OnChanges {
 
   requestParameterChange() {
     const scenario = this.getScenarioConfiguration();
-    console.info(scenario)
     if (this.isAuthenticated) {
       this._parameterConfigurator
         .setChainParameters({
