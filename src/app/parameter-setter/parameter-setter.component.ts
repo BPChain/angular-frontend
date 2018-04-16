@@ -41,25 +41,17 @@ export class ParameterSetterComponent implements OnChanges {
     this.configuration = [];
     this.chainIsActive = false;
     this.transactionInterval = 10;
-    this.payloadSize = 1;
+    this.payloadSize = 10;
     this.selectedScenario = {};
 
     this.scenarios = [
-      {name: 'Custom', description: 'Configure the scenario properties manually.'}
+      {name: 'No scenario'},
+      {name: 'Custom', description: 'Configure the scenario properties manually.'},
       {name: 'EVAPCoin', description: 'This is a description.'},
       {name: 'OwnerChain', description: `Lorem ipsum dolor sit amet,
         consectetur adipiscing elit. Integer id dui sodales,
         vestibulum eros vel, vestibulum ante. Praesent ornare lorem posuere,
-        dapibus erat eu, commodo nisi. Mauris tempus ultrices feugiat.
-        Vestibulum euismod metus turpis, vitae sagittis leo iaculis sed.
-        Pellentesque sit amet augue luctus turpis posuere fermentum a ullamcorper nisl.`},
-      {name: 'Grading', description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Integer id dui sodales, vestibulum eros vel, vestibulum ante.
-        Praesent ornare lorem posuere, dapibus erat eu, commodo nisi.
-        Mauris tempus ultrices feugiat. Vestibulum euismod metus turpis,
-        vitae sagittis leo iaculis sed. Pellentesque sit amet augue luctus
-        turpis posuere fermentum a ullamcorper nisl.`},
-      {name: 'Fridge', description: 'This is a description.'},
+        dapibus erat eu, commodo nisi. Mauris tempus ultrices feugiat.`},
       {name: 'MediXAIN', description: 'This is a description.'},
     ];
   }
@@ -91,13 +83,65 @@ export class ParameterSetterComponent implements OnChanges {
     this.chainIsActive = selectedChainInfo['active'];
   }
 
+  dispatchScenario(scenarioName: string): object {
+    switch (scenarioName) {
+      case 'EVAPCoin':
+        return {
+          name: 'EVAPCoin',
+          period: 20,
+          payloadSize: 50,
+        };
+      case 'MediXAIN':
+        return {
+          name: 'MediXAIN',
+          period: 20,
+          payloadSize: 700,
+        };
+      case 'OwnerChain':
+        return {
+          name: 'OwnerChain',
+          period: 5,
+          payloadSize: 70,
+        };
+      default:
+        return {
+          name: 'No scenario',
+          payloadSize: 1,
+          period: 60,
+        };
+    }
+  }
+
+  getScenarioConfiguration(): object {
+    if (this.selectedScenario['name'] === 'Custom') {
+      return {
+        name: 'Custom',
+        payloadSize: this.payloadSize,
+        period: this.transactionInterval,
+      };
+    } else if (this.selectedScenario['name'] === 'No scenario') {
+      return {
+        name: 'No scenario',
+        payloadSize: 1,
+        period: 60,
+      };
+    } else {
+      return this.dispatchScenario(this.selectedScenario['name']);
+    }
+  }
+
   requestParameterChange() {
+    const scenario = this.getScenarioConfiguration();
+    console.info(scenario)
     if (this.isAuthenticated) {
       this._parameterConfigurator
         .setChainParameters({
           target: this.selectedTarget,
           chainName: this.selectedChain,
-          parameters: this.configurationStore,
+          parameters: Object.assign(
+            this.configurationStore,
+            {scenario},
+          ),
         })
         .subscribe(result => {
           this.openSnackBar('Successfully changed parameters');
