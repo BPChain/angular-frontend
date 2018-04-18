@@ -2,6 +2,7 @@
 
 html {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -10,4 +11,5 @@ body {
   min-width: 500px;
   background-color: rgb(250, 250, 250);
   font-family: 'Lato', serif;
+  overflow: hidden;
 }
