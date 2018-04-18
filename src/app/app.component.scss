@@ -25,14 +25,14 @@
     }
 
     &.footer {
-      height: 30px;
+      min-height: 32px;
       bottom: 30px;
     }
   }
 
   #content-with-arrow-buttons {
     display: flex;
-    height: 100%;
+    overflow-y: scroll;
 
     mat-sidenav-container {
       width: 100%;
