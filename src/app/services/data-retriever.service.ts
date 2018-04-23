@@ -16,6 +16,7 @@ export interface ChainData {
   numberOfHosts: Array<number>;
   numberOfMiners: Array<number>;
   timestamp: Array<string>;
+  target: string;
 }
 
 
@@ -34,7 +35,7 @@ export class DataRetrieverService {
   getPrivateChainApiData(chain: string, target: string): Observable<ChainData> {
     return this._http
       .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase() + `?target=${target}&numberOfItems=100`)
-      .map(response => <ChainData>({...response, access: 'Private'}));
+      .map(response => <ChainData>({...response, access: 'Private', target: target}));
   }
 
   getChainData(selectedChains: ChainSelection): Observable<Array<ChainData>> {

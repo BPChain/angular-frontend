@@ -73,7 +73,7 @@ export class LinechartComponent implements OnChanges, OnInit {
     }
     this.lineChart = new LineChart(this.dataset.map(chain => ({
         data: chain[this.selectedParameter],
-        label: chain['access'].concat('-', chain.chainName)
+        label: ''.concat(chain.chainName, '-', chain.target)
       })));
     this.updateLabels(this.dataset[0]['timeStamp']);
   }
