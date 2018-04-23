@@ -10,14 +10,6 @@ import { MatSnackBar } from '@angular/material';
 
 export class ParameterSetterComponent implements OnChanges, OnInit {
 
-  ngOnInit(): void {
-    setInterval(
-      () => {
-        this.ngOnChanges()
-      },
-      5000
-    );
-  }
 
   @Input() chainInfo: Array<object>;
   @Input() isAuthenticated: Boolean;
@@ -94,7 +86,14 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
       },
     ];
   }
-
+  ngOnInit(): void {
+    setInterval(
+      () => {
+        this.update.emit(null)
+      },
+      5000
+    );
+  }
 
   openSnackBar(message: string) {
     this._snackBar.open(message, 'Close', {
