@@ -28,8 +28,6 @@ export class ChainDataSourceSelectorComponent implements OnChanges {
   }
 
   onSelectedPrivateChainsChanged(list) {
-    console.log(list)
-    console.log("Onselected")
     this.selectedOptions = new ChainSelection(
       this.selectedOptions._public,
       list.map(item => ({isSelected: true, target: item.value.target, name: item.value.name}))
