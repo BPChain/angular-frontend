@@ -15,36 +15,45 @@ export class ChainDataSourceSelectorComponent implements OnChanges {
   public publicChains: Array<object>;
   public selectedOptions: ChainSelection;
 
-  constructor(private _chainSelector: ChainSelectorService) {
+  constructor(private chainSelectorService: ChainSelectorService) {
     this.selectedOptions = new ChainSelection([], []);
   }
 
   onSelectedPublicChainsChanged(list) {
     this.selectedOptions = new ChainSelection(
-      list.map(item => item.value),
+      list.map(item => ({isSelected: true, target: item.value.target, name: item.value.name})),
       this.selectedOptions._private
     );
-    this._chainSelector.setSelectedChains(this.selectedOptions);
+    this.chainSelectorService.setSelectedChains(this.selectedOptions);
   }
 
   onSelectedPrivateChainsChanged(list) {
+    console.log(list)
+    console.log("Onselected")
     this.selectedOptions = new ChainSelection(
       this.selectedOptions._public,
-      list.map(item => item.value)
+      list.map(item => ({isSelected: true, target: item.value.target, name: item.value.name}))
     );
-    this._chainSelector.setSelectedChains(this.selectedOptions);
+    this.chainSelectorService.setSelectedChains(this.selectedOptions);
   }
 
   ngOnChanges() {
+    console.log("onChange")
+
     this.privateChains = this.chainInfo
       .filter(element => element['accessability'] === 'private')
       .map(element => {
-        return {name: element['chainName'], target: element['target']};
+        const chain = this.selectedOptions._private.find(selected => (selected.name === element['chainName'] &&
+          selected.target === element['target'])) || {name: element['chainName'], target: element['target'], isSelected: false}
+        return chain
       });
+
     this.publicChains = this.chainInfo
       .filter(element => element['accessability'] === 'public')
       .map(element => {
-        return {name: element['chainName'], target: element['target']};
+        const chain = this.selectedOptions._public.find(selected => selected.name === element['chainName'] &&
+          selected.target === element['target']) || {name: element['chainName'], target: element['target'], isSelected: false}
+        return chain
       });
   }
 

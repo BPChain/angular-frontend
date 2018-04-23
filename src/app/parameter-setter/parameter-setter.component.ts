@@ -1,4 +1,4 @@
-import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnChanges, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -7,7 +7,17 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './parameter-setter.component.html',
   styleUrls: ['./parameter-setter.component.scss']
 })
-export class ParameterSetterComponent implements OnChanges {
+
+export class ParameterSetterComponent implements OnChanges, OnInit {
+
+  ngOnInit(): void {
+    setInterval(
+      () => {
+        this.ngOnChanges()
+      },
+      5000
+    );
+  }
 
   @Input() chainInfo: Array<object>;
   @Input() isAuthenticated: Boolean;
@@ -26,7 +36,7 @@ export class ParameterSetterComponent implements OnChanges {
   public payloadSize: number;
   public scenarios: Array<object>;
   public selectedScenario: object;
-
+  public currentNumber: object;
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
@@ -85,6 +95,7 @@ export class ParameterSetterComponent implements OnChanges {
     ];
   }
 
+
   openSnackBar(message: string) {
     this._snackBar.open(message, 'Close', {
       duration: 2000,
@@ -99,7 +110,9 @@ export class ParameterSetterComponent implements OnChanges {
     this.availableChains = this.chains
         .filter(element => element['target'] === this.selectedTarget);
     this.chainSelector = this.availableChains.map(element => element['chainName']);
-    this.selectedChain = '';
+    if (!this.chainSelector.includes(this.selectedChain)) {
+      this.selectedChain = '';
+    }
   }
 
   updateConfiguration() {
@@ -163,7 +176,9 @@ export class ParameterSetterComponent implements OnChanges {
       error => {
         this.openSnackBar(`Could not stop ${this.selectedChain} on ${this.selectedTarget}`);
       });
+
   }
+
 
   ngOnChanges() {
     this.chains = this.chainInfo.filter(element => element['accessability'] === 'private');
