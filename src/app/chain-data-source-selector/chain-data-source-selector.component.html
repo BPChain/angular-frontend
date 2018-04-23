@@ -3,7 +3,7 @@
     <mat-tab-group>
       <mat-tab label="Private">
         <mat-selection-list #privateChainSelector>
-          <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
+          <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.isSelected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
             [value]="chain">
               {{ chain.name }}
             <p class="description">

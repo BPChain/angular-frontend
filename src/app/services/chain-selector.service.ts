@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+interface ChainItem{
+  name,
+  target
+}
 
 export class ChainSelection {
-  constructor(public _public: Array<object>, public _private: Array<object>) {
+  constructor(public _public: Array<ChainItem>, public _private: Array<ChainItem>) {
   }
 
   public isEmpty(): boolean {
