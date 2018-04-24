@@ -119,6 +119,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
       .find(element => element['chainName'].toLowerCase() === this.selectedChain.toLowerCase());
     this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
     this.chainIsActive = selectedChainInfo['active'];
+
   }
 
   requestParameterChange() {
@@ -177,6 +178,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
 
 
   ngOnChanges() {
+    console.log(this.chainInfo)
     this.chains = this.chainInfo.filter(element => element['accessability'] === 'private');
     this.connectedNodes = this.chains
       .map(element => element['target'])
