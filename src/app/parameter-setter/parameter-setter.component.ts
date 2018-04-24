@@ -118,9 +118,6 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
     const selectedChainInfo = this.availableChains
       .find(element => element['chainName'].toLowerCase() === this.selectedChain.toLowerCase());
     this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
-    this.configurationStore = this.configuration.reduce((parameters, parameter) => {
-      return Object.assign(parameters, {[parameter['selector']]: 1});
-    }, {});
     this.chainIsActive = selectedChainInfo['active'];
   }
 
