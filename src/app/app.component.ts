@@ -76,15 +76,21 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._userAuthentication
-      .checkAuthenticationStatus()
-      .subscribe(result => {
-        this.isAuthenticated = true;
+    setInterval(
+      () => {
+        this._userAuthentication
+          .checkAuthenticationStatus()
+          .subscribe(result => {
+              this.isAuthenticated = true;
+            },
+            error => {
+              this.isAuthenticated = false;
+              console.info('You have no running session.');
+            });
       },
-      error => {
-        this.isAuthenticated = false;
-        console.info('You have no running session.');
-      });
+      5000
+    );
+
   }
 
 }
