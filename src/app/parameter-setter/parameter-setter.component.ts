@@ -1,6 +1,7 @@
 import {Component, OnChanges, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
 import { MatSnackBar } from '@angular/material';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-parameter-setter',
@@ -22,6 +23,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
   public availableChains: Array<object>;
   public chainSelector: Array<string>;
   public configurationStore: object;
+  public currentConfigStore: object;
   public configuration: Array<object>;
   public chainIsActive: Boolean;
   public transactionInterval: number;
@@ -40,6 +42,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
     this.availableChains = [];
     this.chainSelector = [];
     this.configurationStore = {};
+    this.currentConfigStore = {};
     this.configuration = [];
     this.chainIsActive = false;
     this.transactionInterval = 10;
@@ -117,9 +120,23 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
   updateConfiguration() {
     const selectedChainInfo = this.availableChains
       .find(element => element['chainName'].toLowerCase() === this.selectedChain.toLowerCase());
+    this.currentConfigStore = selectedChainInfo['state'];
+    this.convertjson();
     this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
     this.chainIsActive = selectedChainInfo['active'];
+    this.configurationStore = this.configuration.reduce((parameters, parameter) => {
+      return Object.assign(parameters, {[parameter['selector']]: this.configurationStore[parameter['selector']]});
+    }, {});
 
+  }
+
+  convertjson() {
+    if(!isUndefined(this.currentConfigStore['miners'])) {
+      this.currentConfigStore['numberOfMiners'] = this.currentConfigStore['miners'];
+    }
+    if(!isUndefined(this.currentConfigStore['hosts'])) {
+      this.currentConfigStore['numberOfHosts'] = this.currentConfigStore['hosts'];
+    }
   }
 
   requestParameterChange() {
