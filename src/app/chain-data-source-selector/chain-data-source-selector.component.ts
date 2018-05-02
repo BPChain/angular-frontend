@@ -35,6 +35,7 @@ export class ChainDataSourceSelectorComponent implements OnChanges {
     this.chainSelectorService.setSelectedChains(this.selectedOptions);
   }
 
+
   ngOnChanges() {
     console.log("onChange")
 

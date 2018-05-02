@@ -5,4 +5,7 @@
   </div>
   <app-chain-data-source-selector [chainInfo]="chainInfo">
   </app-chain-data-source-selector>
+  <div *ngIf="isAuthenticated">
+  <app-chain-recorder [isAuthenticated]="isAuthenticated" (update)="requestUpdate()"></app-chain-recorder>
+  </div>
 </div>
