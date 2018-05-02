@@ -18,6 +18,7 @@ import { DataVisualizationBarComponent } from './data-visualization-bar/data-vis
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { LinechartComponent } from './charts/linechart/linechart.component';
 import { BarchartComponent } from './charts/barchart/barchart.component';
+import { ChainRecorderComponent} from "./chain-recorder/chain-recorder.component";
 
 import { DataRetrieverService } from './services/data-retriever.service';
 import { ChainSelectorService } from './services/chain-selector.service';
@@ -37,6 +38,7 @@ import { ParameterConfiguratorService } from './services/parameter-configurator.
     BarchartComponent,
     ChainDataSourceSelectorComponent,
     ParameterSetterComponent,
+    ChainRecorderComponent
   ],
   imports: [
     BrowserModule,
