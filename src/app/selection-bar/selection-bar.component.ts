@@ -12,11 +12,13 @@ export class SelectionBarComponent implements OnInit {
   @Input() isAuthenticated: boolean;
 
   public chainInfo: Array<object>;
+  public allRecordings: Array<object>;
 
   constructor(
     private _dataRetriever: DataRetrieverService,
   ) {
     this.chainInfo = [];
+    this.allRecordings = [];
   }
 
   requestUpdate() {
@@ -29,6 +31,15 @@ export class SelectionBarComponent implements OnInit {
         console.error('Could not parse JSON:', error);
       }
     });
+    this._dataRetriever
+      .allRecordings()
+      .subscribe(result => {
+        try {
+          this.allRecordings = JSON.parse(result);
+        } catch (error) {
+          console.error('Could not parse JSON:', error);
+        }
+      });
   }
 
   ngOnInit() {

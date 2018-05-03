@@ -8,4 +8,7 @@
   <div *ngIf="isAuthenticated">
   <app-chain-recorder [isAuthenticated]="isAuthenticated" (update)="requestUpdate()"></app-chain-recorder>
   </div>
+  <div *ngIf="isAuthenticated">
+  <app-chain-recorder-display [allRecordings] = "allRecordings"></app-chain-recorder-display>
+  </div>
 </div>
