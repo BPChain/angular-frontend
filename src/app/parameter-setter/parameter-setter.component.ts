@@ -195,7 +195,6 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
 
 
   ngOnChanges() {
-    console.log(this.chainInfo)
     this.chains = this.chainInfo.filter(element => element['accessability'] === 'private');
     this.connectedNodes = this.chains
       .map(element => element['target'])

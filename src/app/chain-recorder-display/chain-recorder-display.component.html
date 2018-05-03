@@ -1,0 +1,12 @@
+<mat-card>
+  <mat-card-content>
+    <h2>Recordings</h2>
+    <mat-select multiple placeholder="Recording List" [(ngModel)]="selectedRecordings">
+      <mat-option *ngFor ="let recording of allRecordings" >
+        {{recording._id}}
+      </mat-option>
+    </mat-select>
+  </mat-card-content>
+</mat-card>
+
+

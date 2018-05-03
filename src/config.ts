@@ -8,7 +8,8 @@ export const CONFIG = {
     privateChain: 'api/private/',
     changeParameter: 'api/setParameters',
     connectedNodes: 'api/connectedNodes',
-    chainInfo: 'api/getChainInfo'
+    chainInfo: 'api/getChainInfo',
+    allRecordings: 'api/getAllRecordings'
   },
   refreshTime: 15000,
 };

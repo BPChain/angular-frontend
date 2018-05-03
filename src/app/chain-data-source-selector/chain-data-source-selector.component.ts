@@ -37,8 +37,6 @@ export class ChainDataSourceSelectorComponent implements OnChanges {
 
 
   ngOnChanges() {
-    console.log("onChange")
-
     this.privateChains = this.chainInfo
       .filter(element => element['accessability'] === 'private')
       .map(element => {
