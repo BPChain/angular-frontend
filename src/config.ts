@@ -9,7 +9,8 @@ export const CONFIG = {
     changeParameter: 'api/setParameters',
     connectedNodes: 'api/connectedNodes',
     chainInfo: 'api/getChainInfo',
-    allRecordings: 'api/getAllRecordings'
+    allRecordings: 'api/getAllRecordings',
+    upload: 'api/upload',
   },
   refreshTime: 15000,
 };

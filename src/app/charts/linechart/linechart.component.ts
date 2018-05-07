@@ -71,6 +71,7 @@ export class LinechartComponent implements OnChanges, OnInit {
       this.displayEmptyChart();
       return;
     }
+
     this.lineChart = new LineChart(this.dataset.map(chain => ({
         data: chain[this.selectedParameter],
         label: ''.concat(chain.chainName, '-', chain.target)

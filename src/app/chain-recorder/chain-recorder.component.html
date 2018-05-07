@@ -1,7 +1,9 @@
 <mat-card>
   <mat-card-content>
     <h2>Recording Control</h2>
-    <input matInput placeholder="File name" type="text" (input)="fileName = $event.target.value">
+    <mat-form-field>
+      <input matInput placeholder="File name" type="text" (input)="fileName = $event.target.value">
+    </mat-form-field>
     <button  *ngIf="!isRecording"  mat-raised-button color="primary" (click)="onStartedRecording(chain)"><i class="material-icons">fiber_manual_record</i></button>
     <button  *ngIf="isRecording"  mat-raised-button color="warn" (click)="onStoppedRecording(chain)"><i class="material-icons">stop</i></button>
   </mat-card-content>
