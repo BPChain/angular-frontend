@@ -18,7 +18,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
   ngOnChanges() {
-    console.log(this.selectedValue._id)
+    console.log(this.selectedValue['_id']);
   }
 
 }

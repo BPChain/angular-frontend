@@ -1,14 +1,13 @@
 <div class="selection-container">
   <div *ngIf="isAuthenticated">
-      <app-parameter-setter [chainInfo]="chainInfo" [isAuthenticated]="isAuthenticated" (update)="requestUpdate()">
-      </app-parameter-setter>
+    <app-parameter-setter [chainInfo]="chainInfo" [isAuthenticated]="isAuthenticated" (update)="requestUpdate()">
+    </app-parameter-setter>
   </div>
   <app-chain-data-source-selector [chainInfo]="chainInfo">
   </app-chain-data-source-selector>
   <div *ngIf="isAuthenticated">
-  <app-chain-recorder [isAuthenticated]="isAuthenticated" (update)="requestUpdate()"></app-chain-recorder>
-  </div>
-  <div *ngIf="isAuthenticated">
-  <app-chain-recorder-display [allRecordings] = "allRecordings"></app-chain-recorder-display>
+    <app-chain-recorder [isAuthenticated]="isAuthenticated" (update)="requestUpdate()"></app-chain-recorder>
+    <app-chain-recorder-display [allRecordings]="allRecordings"></app-chain-recorder-display>
+    <app-file-reader></app-file-reader>
   </div>
 </div>

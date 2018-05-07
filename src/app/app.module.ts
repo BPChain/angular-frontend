@@ -8,6 +8,7 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule, HttpClient} from '@angular/common/http';
 import { ChartsModule } from 'ng2-charts';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CONFIG} from '../config';
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
 import { ChainDataSourceSelectorComponent } from './chain-data-source-selector/chain-data-source-selector.component';
@@ -18,14 +19,15 @@ import { DataVisualizationBarComponent } from './data-visualization-bar/data-vis
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { LinechartComponent } from './charts/linechart/linechart.component';
 import { BarchartComponent } from './charts/barchart/barchart.component';
-import { ChainRecorderComponent} from "./chain-recorder/chain-recorder.component";
-import { ChainRecorderDisplayComponent} from "./chain-recorder-display/chain-recorder-display.component";
+import { ChainRecorderComponent} from './chain-recorder/chain-recorder.component';
+import { ChainRecorderDisplayComponent} from './chain-recorder-display/chain-recorder-display.component';
+import { FileReaderComponent } from './file-reader/file-reader.component';
 
 import { DataRetrieverService } from './services/data-retriever.service';
 import { ChainSelectorService } from './services/chain-selector.service';
 import { UserAuthenticationService } from './services/user-authentication.service';
 import { ParameterConfiguratorService } from './services/parameter-configurator.service';
-
+import {ScenarioUploadService } from './services/scenario-upload.service';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { ParameterConfiguratorService } from './services/parameter-configurator.
     ChainDataSourceSelectorComponent,
     ParameterSetterComponent,
     ChainRecorderComponent,
-    ChainRecorderDisplayComponent
+    ChainRecorderDisplayComponent,
+    FileReaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,7 @@ import { ParameterConfiguratorService } from './services/parameter-configurator.
     ChainSelectorService,
     UserAuthenticationService,
     ParameterConfiguratorService,
+    ScenarioUploadService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent],
