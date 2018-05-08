@@ -62,7 +62,7 @@ export class DataRetrieverService {
       );
   }
 
-  allRecordings(): Observable<Array<object>> {
+  allRecordings(): Observable<any> {
     return this._http
       .get(
         CONFIG.url.base + CONFIG.url.allRecordings,
