@@ -28,7 +28,6 @@ export class ChainRecorderComponent implements OnInit {
           this.isRecording = true;
           this.creationDate = Date.now();
         }
-        console.info(result);
       });
   }
 
@@ -39,7 +38,6 @@ export class ChainRecorderComponent implements OnInit {
           this.isRecording = false;
           this.creationDate = null;
         }
-        console.info(result);
       });
   }
 
@@ -47,7 +45,6 @@ export class ChainRecorderComponent implements OnInit {
   ngOnInit() {
     this._recorder.isRecording()
       .subscribe(result => {
-        console.info(result);
           this.isRecording = result['isRecording'];
           if (this.isRecording) {
             this.creationDate = result['creationDate'];
@@ -55,7 +52,6 @@ export class ChainRecorderComponent implements OnInit {
           } else {
             this.creationDate = null;
           }
-          console.info(this.isRecording);
       });
     this.calculateTime();
   }
