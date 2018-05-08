@@ -14,12 +14,11 @@ export class FileReaderComponent {
   fileSrc = '';
   displayedFileName: string;
   file: File;
+  scenarioName: '';
 
   constructor (private _scenarioUpload: ScenarioUploadService) {
 
   }
-
-
 
   handleDragEnter() {
     this.dragging = true;
@@ -37,29 +36,28 @@ export class FileReaderComponent {
 
 
   handleInputChange(e) {
-    this.file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    this.loaded = true;
-    /*const reader = new FileReader();
+    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    const reader = new FileReader();
 
     if (file) {
       this.loaded = false;
       reader.onload = this._handleReaderLoaded.bind(this);
       reader.readAsText(file);
       this.displayedFileName = file.name;
-
     }
-    */
   }
-  /*
+
   _handleReaderLoaded(e) {
     const reader = e.target;
     this.fileSrc = reader.result;
     this.loaded = true;
   }
-  */
 
   uploadFile() {
-    this._scenarioUpload.upload(this.file)
+    this._scenarioUpload.upload({
+      name: this.scenarioName,
+      script: this.fileSrc,
+    })
     .subscribe(result => console.info(result));
   }
 }

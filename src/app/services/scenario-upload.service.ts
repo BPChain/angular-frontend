@@ -9,11 +9,11 @@ export class ScenarioUploadService {
   constructor(private _http: HttpClient) { }
 
 
-  upload(file: File) {
+  upload(script: Object) {
     return this._http
       .post(
         CONFIG.url.base + CONFIG.url.upload,
-        file,
+        script,
         {responseType: 'text', withCredentials: true},
       );
   }

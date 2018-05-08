@@ -2,7 +2,10 @@
   <h2>
     Scenario upload
   </h2>
-  <input type="file" [name]="'Upload Scylla log'" [accept]="xes"
+  <mat-form-field>
+    <input matInput placeholder="Scenario name" type="text" (input)="scenarioName = $event.target.value">
+  </mat-form-field>
+  <input type="file" [name]="'Upload Scylla log'" [accept]="'.xes'"
          (change)="handleInputChange($event)" class="inputfile" />
   <label [for]="data" ondragover="return false;"
          [class.loaded]="loaded"
@@ -16,7 +19,10 @@
         Upload Scylla log (.xes)
       </span>
   </label>
-  <button mat-raised-button color="primary" (click)="uploadFile()">
+  <button *ngIf='!loaded || !scenarioName' mat-raised-button disabled>
+    Upload
+  </button>
+  <button *ngIf='loaded && scenarioName' mat-raised-button color="primary" (click)="uploadFile()">
     Upload
   </button>
 </mat-card>
