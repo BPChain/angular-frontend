@@ -62,11 +62,11 @@ export class DataRetrieverService {
       );
   }
 
-  allRecordings(): Observable<string> {
+  allRecordings(): Observable<Array<object>> {
     return this._http
       .get(
         CONFIG.url.base + CONFIG.url.allRecordings,
-        {responseType: 'text', withCredentials: true},
+        {responseType: 'json', withCredentials: true},
       );
   }
 

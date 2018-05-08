@@ -4,7 +4,7 @@
     <mat-form-field>
       <mat-select placeholder="Recordings" [(ngModel)]="selectedValue" >
         <mat-option *ngFor="let recording of allRecordings" [value]="recording">
-          {{recording['_id']}}
+          {{recording['recordingName']}}
         </mat-option>
       </mat-select>
     </mat-form-field>
