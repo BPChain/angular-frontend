@@ -28,6 +28,7 @@ import { ChainSelectorService } from './services/chain-selector.service';
 import { UserAuthenticationService } from './services/user-authentication.service';
 import { ParameterConfiguratorService } from './services/parameter-configurator.service';
 import {ScenarioUploadService } from './services/scenario-upload.service';
+import { RecordingService } from './services/recording.service';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import {ScenarioUploadService } from './services/scenario-upload.service';
     UserAuthenticationService,
     ParameterConfiguratorService,
     ScenarioUploadService,
+    RecordingService
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent],
