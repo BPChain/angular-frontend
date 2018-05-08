@@ -5,13 +5,19 @@
   <mat-form-field>
     <input matInput placeholder="Scenario name" type="text" (input)="scenarioName = $event.target.value">
   </mat-form-field>
-  <input type="file" [name]="'Upload Scylla log'" [accept]="'.xes'"
-         (change)="handleInputChange($event)" class="inputfile" />
-  <label [for]="data" ondragover="return false;"
-         [class.loaded]="loaded"
-         (dragenter)="handleDragEnter()"
-         (dragleave)="handleDragLeave()"
-         (drop)="handleDrop($event)">
+  <input
+    type="file"
+    [name]="'Upload Scylla log'"
+    [accept]="'.xes'"
+    (change)="handleInputChange($event)"
+    class="inputfile" />
+  <label
+    [for]="data"
+    ondragover="return false;"
+    [class.loaded]="loaded"
+    (dragenter)="handleDragEnter()"
+    (dragleave)="handleDragLeave()"
+    (drop)="handleDrop($event)">
       <span *ngIf="loaded">
         {{displayedFileName}}
       </span>

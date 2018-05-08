@@ -54,9 +54,11 @@ export class FileReaderComponent {
   }
 
   uploadFile() {
+    console.info(this.fileSrc.toString().length * 8 / 1000000);
     this._scenarioUpload.upload({
+
       name: this.scenarioName,
-      script: this.fileSrc,
+      script: this.fileSrc.toString(),
     })
     .subscribe(result => console.info(result));
   }
