@@ -7,7 +7,7 @@
   </app-chain-data-source-selector>
   <div *ngIf="isAuthenticated">
     <app-chain-recorder [isAuthenticated]="isAuthenticated" (update)="requestUpdate()"></app-chain-recorder>
-    <app-chain-recorder-display [allRecordings]="allRecordings"></app-chain-recorder-display>
+    <app-chain-recorder-display></app-chain-recorder-display>
     <app-file-reader></app-file-reader>
   </div>
 </div>
