@@ -2,11 +2,21 @@
   <mat-card-content>
     <h2>Recording Control</h2>
     <mat-form-field>
-      <input matInput placeholder="File name" type="text" (input)="fileName = $event.target.value">
+      <input matInput *ngIf="isRecording" disabled type="text" [value]="recordingName">
+      <input matInput *ngIf="!isRecording" placeholder="Recording name" type="text" (input)="recordingName = $event.target.value">
     </mat-form-field>
-    <button  *ngIf="!isRecording && !fileName"  disabled mat-raised-button color="primary"><i class="material-icons">fiber_manual_record</i></button>
-    <button  *ngIf="!isRecording && fileName"  mat-raised-button color="primary" (click)="onStartedRecording(chain)"><i class="material-icons">fiber_manual_record</i></button>
-    <button  *ngIf="isRecording"  mat-raised-button color="warn" (click)="onStoppedRecording(chain)"><i class="material-icons">stop</i></button>
+    <button  *ngIf="!isRecording && !recordingName"  disabled mat-raised-button color="primary"><i class="material-icons">fiber_manual_record</i></button>
+    <button  *ngIf="!isRecording && recordingName"  mat-raised-button color="primary" (click)="onStartedRecording()"><i class="material-icons">fiber_manual_record</i></button>
+    <button  *ngIf="isRecording"  mat-raised-button color="warn" (click)="onStoppedRecording()"><i class="material-icons">stop</i></button>
+    <span *ngIf="creationDate && isRecording" class="timer">
+      <div>
+        {{recordingTime['hours']}}
+      :
+      <span *ngIf="recordingTime['minutes'] < 10">0</span>{{recordingTime['minutes']}}
+      :
+      <span *ngIf="recordingTime['seconds'] < 10">0</span>{{recordingTime['seconds']}}
+      </div>
+    </span>
   </mat-card-content>
 </mat-card>
 
