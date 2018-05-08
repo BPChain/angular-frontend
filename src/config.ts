@@ -9,8 +9,12 @@ export const CONFIG = {
     changeParameter: 'api/setParameters',
     connectedNodes: 'api/connectedNodes',
     chainInfo: 'api/getChainInfo',
-    allRecordings: 'api/getAllRecordings',
+    allRecordings: 'api/recordings',
     upload: 'api/upload',
+    startRecording: 'api/recordings/start',
+    stopRecording: 'api/recordings/stop',
+    recording: 'api/recordings/',
+    isRecording: 'api/recordings/'
   },
   refreshTime: 15000,
 };

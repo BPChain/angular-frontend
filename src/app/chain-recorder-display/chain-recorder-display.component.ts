@@ -5,7 +5,7 @@ import {FormControl} from '@angular/forms';
   templateUrl: './chain-recorder-display.component.html',
   styleUrls: ['./chain-recorder-display.component.scss']
 })
-export class ChainRecorderDisplayComponent implements OnInit, OnChanges {
+export class ChainRecorderDisplayComponent {
 
 
   @Input() allRecordings: Array<object>;
@@ -13,12 +13,6 @@ export class ChainRecorderDisplayComponent implements OnInit, OnChanges {
 
 
   constructor() {
-  }
-
-  ngOnInit() {
-  }
-  ngOnChanges() {
-    console.log(this.selectedValue['_id']);
   }
 
 }
