@@ -37,6 +37,11 @@ export class ChainRecorderComponent implements OnInit {
 
 
   ngOnInit() {
+    this._recorder.isRecording()
+      .subscribe(result => {
+          this.isRecording = result === 'true';
+          console.info(this.isRecording);
+      });
   }
 
 }

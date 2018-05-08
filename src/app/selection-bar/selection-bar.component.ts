@@ -31,17 +31,6 @@ export class SelectionBarComponent implements OnInit {
         console.error('Could not parse JSON:', error);
       }
     });
-    if (this.isAuthenticated) {
-      this._dataRetriever
-        .allRecordings()
-        .subscribe(result => {
-          try {
-            this.allRecordings = JSON.parse(result);
-          } catch (error) {
-            console.error('Could not parse JSON:', error);
-          }
-        });
-    }
   }
 
   ngOnInit() {
