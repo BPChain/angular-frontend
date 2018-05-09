@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CONFIG} from '../../config';
+import {Observable} from 'rxjs/Observable';
+import {ChainData} from './data-retriever.service';
 
 
 @Injectable()
@@ -33,4 +35,16 @@ export class RecordingService {
         CONFIG.url.base + CONFIG.url.isRecording,
         {responseType: 'json', withCredentials: true},
       );  }
+
+  allRecordings(): Observable<any> {
+    return this._http
+      .get(
+        CONFIG.url.base + CONFIG.url.allRecordings,
+        {responseType: 'json', withCredentials: true},
+      );
+  }
+
+  getRecordingData(id: String) {
+    return ('Hier könnte ihre Recording Data stehen: ' + id);
+  }
 }

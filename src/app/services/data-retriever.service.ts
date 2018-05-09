@@ -62,14 +62,6 @@ export class DataRetrieverService {
       );
   }
 
-  allRecordings(): Observable<any> {
-    return this._http
-      .get(
-        CONFIG.url.base + CONFIG.url.allRecordings,
-        {responseType: 'json', withCredentials: true},
-      );
-  }
-
   setChainParameters(parameters: object): Observable<string> {
     return this._http
       .post(

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {RecordingService} from '../services/recording.service';
 
 @Component({

@@ -2,12 +2,15 @@
   <mat-card-content>
     <h2>Recordings</h2>
     <mat-form-field>
-      <mat-select placeholder="Recordings" [(ngModel)]="selectedValue" >
+      <mat-select placeholder="Recordings" [(ngModel)]="selectedRecording" [disabled]="isReplaying">
         <mat-option *ngFor="let recording of allRecordings" [value]="recording">
-          {{recording['recordingName']}}
+            {{recording['recordingName']}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <button  *ngIf="!selectedRecording && !isReplaying"  mat-raised-button color="primary" disabled><i class="material-icons">play_circle_fill</i></button>
+    <button  *ngIf="selectedRecording && !isReplaying"  mat-raised-button color="primary" (click)="startReplay()"><i class="material-icons">play_circle_fill</i></button>
+    <button  *ngIf="isReplaying"  mat-raised-button color="warn" (click)="stopReplay()"><i class="material-icons">stop</i></button>
   </mat-card-content>
 </mat-card>
 
