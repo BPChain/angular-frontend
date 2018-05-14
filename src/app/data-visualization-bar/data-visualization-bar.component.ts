@@ -79,12 +79,11 @@ export class DataVisualizationBarComponent implements OnInit {
     const costsPerHash = 0.005746; // J / H
     const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
     const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
-    const startTime = entry['timeStamp'][0];
-    const endTime = entry['timeStamp'][entry['timeStamp'].length - 1];
-    const timeSpan = Date.parse(endTime) - Date.parse(startTime);
     const avgHashrate = (stats.sum(hashrateParameter) / hashrateParameter.length) || 0;
     const avgNumberOfMiners = (stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length) || 0;
-    return (avgHashrate * avgNumberOfMiners * costsPerHash) / (timeSpan / 1000);
+    console.info('hr', avgHashrate);
+    console.info('nom', avgNumberOfMiners);
+    return (avgHashrate * avgNumberOfMiners * costsPerHash);
   }
 
   private calculateThroughput(entry): number {
