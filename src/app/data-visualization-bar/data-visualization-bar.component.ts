@@ -76,7 +76,7 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateEnergyConsumption(entry): number {
-    const costsPerHash = 0.005746; // mJ / H
+    const costsPerHash = 0.005746; // J / H
     const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
     const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
     const startTime = entry['timeStamp'][0];
@@ -84,7 +84,7 @@ export class DataVisualizationBarComponent implements OnInit {
     const timeSpan = Date.parse(endTime) - Date.parse(startTime);
     const avgHashrate = (stats.sum(hashrateParameter) / hashrateParameter.length) || 0;
     const avgNumberOfMiners = (stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length) || 0;
-    return ((avgHashrate * avgNumberOfMiners * costsPerHash) / (timeSpan / 1000) / 1000);
+    return (avgHashrate * avgNumberOfMiners * costsPerHash) / (timeSpan / 1000);
   }
 
   private calculateThroughput(entry): number {
