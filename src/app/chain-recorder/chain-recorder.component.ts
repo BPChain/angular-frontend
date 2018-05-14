@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {RecordingService} from '../services/recording.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-chain-recorder',
@@ -19,14 +20,25 @@ export class ChainRecorderComponent implements OnInit {
   public recordingName: String;
   @Input() isAuthenticated: Boolean;
 
-  constructor(private _recorder: RecordingService) { }
+  constructor(private _recorder: RecordingService, public snackBar: MatSnackBar) {}
 
   onStartedRecording() {
-    this._recorder.startRecording(this.recordingName)
-      .subscribe(result => {
-        if (result === 'OK') {
-          this.isRecording = true;
-          this.creationDate = Date.now();
+    this._recorder.isRecording()
+      .subscribe(recording => {
+        this.isRecording = recording['isRecording'];
+        if (!this.isRecording) {
+          this._recorder.startRecording(this.recordingName)
+            .subscribe(result => {
+              if (result === 'OK') {
+                this.isRecording = true;
+                this.creationDate = Date.now();
+                this.openSnackBar('Started recording successfully');
+              }
+            });
+        } else {
+          this.openSnackBar('Sorry, someone else in currently recording');
+          this.creationDate = recording['creationDate'];
+          this.recordingName = recording['recordingName'];
         }
       });
   }
@@ -37,6 +49,7 @@ export class ChainRecorderComponent implements OnInit {
         if (result === 'OK') {
           this.isRecording = false;
           this.creationDate = null;
+          this.openSnackBar('Stopped recording successfully');
         }
       });
   }
@@ -45,15 +58,14 @@ export class ChainRecorderComponent implements OnInit {
   ngOnInit() {
     this._recorder.isRecording()
       .subscribe(result => {
-          this.isRecording = result['isRecording'];
-          if (this.isRecording) {
-            this.creationDate = result['creationDate'];
-            this.recordingName = result['recordingName'];
-          } else {
-            this.creationDate = null;
-          }
-      });
-    this.calculateTime();
+        this.isRecording = result['isRecording'];
+        if (this.isRecording) {
+          this.creationDate = result['creationDate'];
+          this.recordingName = result['recordingName'];
+        } else {
+          this.creationDate = null;
+        }
+      });    this.calculateTime();
   }
 
   calculateTime() {
@@ -66,6 +78,12 @@ export class ChainRecorderComponent implements OnInit {
       this.recordingTime['seconds'] = Math.floor(timeDelta);
 
     }}, 1000);
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+    });
   }
 
 }

@@ -10,7 +10,6 @@ export class RecordingService {
 
   constructor(private _http: HttpClient) { }
 
-
   startRecording(name: String) {
     return this._http
       .post(
