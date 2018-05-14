@@ -67,7 +67,8 @@ export class LoginDialogComponent {
         }
       },
       err => {
-        this.options.value.color = 'warn';
+          this.openSnackBar('Server error occured');
+          this.options.value.color = 'warn';
       });
   }
 
