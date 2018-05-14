@@ -18,6 +18,7 @@ import {
   MatTooltipModule,
   MatSelectModule,
   MatSliderModule,
+  MatProgressSpinnerModule,
 } from '@angular/material';
 
 const modules = [
@@ -38,6 +39,7 @@ const modules = [
   MatTooltipModule,
   MatSelectModule,
   MatSliderModule,
+  MatProgressSpinnerModule,
 ];
 
 

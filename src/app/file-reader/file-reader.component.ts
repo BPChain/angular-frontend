@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import {ScenarioUploadService} from '../services/scenario-upload.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-file-reader',
@@ -11,13 +12,13 @@ export class FileReaderComponent {
 
   dragging = false;
   loaded = false;
-  fileSrc = '';
+  uploading = false;
   displayedFileName: string;
   file: File;
-  scenarioName: '';
+  scenarioName: string;
 
-  constructor (private _scenarioUpload: ScenarioUploadService) {
-
+  constructor (private _scenarioUpload: ScenarioUploadService, public snackBar: MatSnackBar,) {
+    this.scenarioName = '';
   }
 
   handleDragEnter() {
@@ -28,38 +29,49 @@ export class FileReaderComponent {
     this.dragging = false;
   }
 
-  handleDrop(e) {
-    e.preventDefault();
+  handleDrop(event) {
+    event.preventDefault();
     this.dragging = false;
-    this.handleInputChange(e);
+    this.handleInputChange(event);
   }
 
 
-  handleInputChange(e) {
-    const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    const reader = new FileReader();
-
-    if (file) {
-      this.loaded = false;
-      reader.onload = this._handleReaderLoaded.bind(this);
-      reader.readAsText(file);
-      this.displayedFileName = file.name;
+  handleInputChange(event) {
+    this.file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    if (this.file) {
+      this.loaded = true;
+      this.displayedFileName = this.file.name;
     }
   }
 
   _handleReaderLoaded(e) {
     const reader = e.target;
-    this.fileSrc = reader.result;
     this.loaded = true;
   }
 
-  uploadFile() {
-    console.info(this.fileSrc.toString().length * 8 / 1000000);
-    this._scenarioUpload.upload({
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+    });
+  }
 
-      name: this.scenarioName,
-      script: this.fileSrc.toString(),
+  uploadFile() {
+    this.uploading = true;
+    this._scenarioUpload.upload({
+      file: this.file,
+      scenarioName: this.scenarioName,
     })
-    .subscribe(result => console.info(result));
+    .subscribe(result => {
+      this.uploading = false;
+      this.openSnackBar(`Successfully uploaded: '${this.scenarioName}'`);
+      this.scenarioName = '';
+      this.file = undefined;
+      this.displayedFileName = '';
+      this.loaded = false;
+    }, error => {
+      this.uploading = false;
+      this.openSnackBar(`Uploading file: '${this.scenarioName}' failed`);
+      console.error(error);
+    });
   }
 }
