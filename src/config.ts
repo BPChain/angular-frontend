@@ -14,7 +14,8 @@ export const CONFIG = {
     startRecording: 'api/recordings/start',
     stopRecording: 'api/recordings/stop',
     recording: 'api/recordings/',
-    isRecording: 'api/recordings/isRecording'
+    isRecording: 'api/recordings/isRecording',
+    scenarios: 'api/scenarios',
   },
   refreshTime: 15000,
 };

@@ -24,13 +24,14 @@
         </mat-form-field>
 
         <div *ngIf="selectedChain !== ''">
-          <div *ngIf="chainIsActive">
+          <div *ngIf="!chainIsActive">
             <div *ngFor="let parameter of configuration">
               <mat-label>
                 Current {{parameter['name']}}: {{currentConfigStore[parameter['selector']]}}
               </mat-label>
               <mat-form-field>
-                <input matInput placeholder="Desired {{parameter['name']}}" min="1" type="number" [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
+                <input *ngIf='selectedScenario["logName"] !== "Create"' matInput placeholder="Desired {{parameter['name']}}" min="1" type="number" [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
+                <input *ngIf='selectedScenario["logName"] === "Create"' disabled matInput placeholder="Desired {{parameter['name']}}" type="number" [value]="configurationStore[parameter['selector']]">
               </mat-form-field>
 
             </div>
@@ -38,16 +39,27 @@
             <h3>
               Scenario configuration
             </h3>
-            <div matTooltip="{{selectedScenario['description']}}" [matTooltipPosition]="'after'">
+            <div [matTooltip]="selectedScenario['description']" [matTooltipPosition]="'after'">
               <mat-form-field>
                 <mat-select placeholder="Select a scenario" [(value)]="selectedScenario">
                   <mat-option *ngFor="let scenario of scenarios" [value]="scenario" (click)="updateConfiguration()">
-                    {{ scenario['name'] }}
+                    {{ scenario['logName'] }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <div *ngIf='selectedScenario["name"] === "Custom"'>
+
+            <div *ngIf='selectedScenario["logName"] === "Create"'>
+              <mat-form-field>
+                <input matInput placeholder="Scenario name" type="text" [value]="scenarioName" (input)="scenarioName = $event.target.value">
+              </mat-form-field>
+              <mat-form-field>
+                <textarea matInput placeholder="Scenario description" type="text" [value]="scenarioDescription" (input)="scenarioDescription = $event.target.value">
+                </textarea>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Number of nodes" min="1" type="number" [value]="scenarioNumberOfNodes" (input)="scenarioNumberOfNodes = $event.target.value">
+              </mat-form-field>
               Transaction interval: ~ {{round(transactionInterval)}} s
               <br />
               <mat-slider [disabled]="!isAuthenticated" [max]="30" [step]="0.1" [min]="5" [thumb-label]="true" [(ngModel)]="transactionInterval"
@@ -59,10 +71,13 @@
               <mat-slider [disabled]="!isAuthenticated" [max]="1000" [min]="1" [step]="10" [thumb-label]="true" [(ngModel)]="payloadSize"
                 name='payloadSize'>
               </mat-slider>
+              <button mat-raised-button color="primary" (click)="createScenario()">
+                Create scenario
+              </button>
             </div>
 
 
-            <button mat-raised-button color="primary" (click)="requestParameterChange()">
+            <button *ngIf='selectedScenario["logName"] !== "Create"' mat-raised-button color="primary" (click)="requestParameterChange()">
               Update configuration
             </button>
             <button mat-raised-button color="warn" (click)="stopSelectedChain()">
