@@ -41,16 +41,16 @@ export class ChainDataSourceSelectorComponent implements OnChanges {
       .filter(element => element['accessability'] === 'private')
       .map(element => {
         const chain = this.selectedOptions._private.find(selected => (selected.name === element['chainName'] &&
-          selected.target === element['target'])) || {name: element['chainName'], target: element['target'], isSelected: false}
-        return chain
+          selected.target === element['target'])) || {name: element['chainName'], target: element['target'], isSelected: false};
+        return chain;
       });
 
     this.publicChains = this.chainInfo
       .filter(element => element['accessability'] === 'public')
       .map(element => {
         const chain = this.selectedOptions._public.find(selected => selected.name === element['chainName'] &&
-          selected.target === element['target']) || {name: element['chainName'], target: element['target'], isSelected: false}
-        return chain
+          selected.target === element['target']) || {name: element['chainName'], target: element['target'], isSelected: false};
+        return chain;
       });
   }
 

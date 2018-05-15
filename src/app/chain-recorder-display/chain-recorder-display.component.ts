@@ -14,7 +14,9 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
   allRecordings: Array<object> = [];
   selectedRecording: object;
   isReplaying: Boolean = false;
-  private interval;
+  recordedChains: Array<object> = [];
+  selectedChains: any;
+    private interval;
 
 
   constructor(private _recordingService: RecordingService, private _replayService: ReplayService, public snackBar: MatSnackBar) {
@@ -43,13 +45,18 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
   startReplay() {
     this.isReplaying = true;
     const selectedRecordingData = this.allRecordings.find(recording => recording['_id'] === this.selectedRecording['_id']);
-    this._replayService.setReplaying(this.isReplaying, selectedRecordingData);
+    this.recordedChains = this.selectedRecording['chains'];
+    const startTime = this.selectedRecording['startTime'];
+    const endTime = this.selectedRecording['endTime'];
+    this._replayService.setReplaying(this.isReplaying, {startTime: startTime, endTime: endTime});
     this.openSnackBar('Replay starting...');
   }
 
   stopReplay() {
     this.isReplaying = false;
-    this._replayService.setReplaying(this.isReplaying, null);
+    this._replayService.setReplaying(this.isReplaying, {startTime: '', endTime: ''});
+    this.selectedChains = [{name: '', target: ''}];
+    this._replayService.setSelectedChains(this.selectedChains);
     this.openSnackBar('Stop replaying');
   }
 
@@ -64,5 +71,11 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
       duration: 2000,
     });
   }
+
+  updateSelectedChains() {
+    this._replayService.setSelectedChains(this.selectedChains);
+  }
+
+
 
 }

@@ -50,8 +50,34 @@ export class DataRetrieverService {
         chain => this.getPrivateChainApiData(chain['name'], chain['target']))
         .concat(selectedChains._public.map(
           chain => this.getPublicChainApiData(chain['name'])));
+      console.log('blubber');
+      console.log(Observable.forkJoin(...responses$));
       return Observable.forkJoin(...responses$);
     }
+  }
+
+  getReplayData(selectedChains: Array<object>, recordingTimes: object): Observable<Array<ChainData>> {
+    if (!selectedChains.length) {
+      console.log(selectedChains);
+      return Observable.create(
+        observer => {
+          observer.next([]);
+          observer.complete();
+        });
+    } else {
+      console.log('ich mach ne abfrage');
+      const responses$ = selectedChains.map(
+        chain => this.getReplayApiData(chain['name'], chain['target'], recordingTimes['startTime'], recordingTimes['endTime']));
+      console.log(Observable.forkJoin(...responses$));
+      return Observable.forkJoin(...responses$);
+    }
+  }
+
+  getReplayApiData(chain: string, target: string, startTime: string, endTime: string) {
+    return this._http
+      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase()
+        + `?target=${target}&startTime=${startTime}&endTime=${endTime}&numberOfItems=100`)
+      .map(response => <ChainData>({...response, access: 'Private', target: target}));
   }
 
   chainInfo(): Observable<string> {

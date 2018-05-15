@@ -6,6 +6,7 @@ import {
 import { DataRetrieverService, ChainData } from '../services/data-retriever.service';
 import * as stats from 'stats-lite';
 import {CONFIG} from '../../config';
+import {ReplayService} from '../services/replay.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ import {CONFIG} from '../../config';
 })
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
+  public selectedReplayChains: Array<object>;
   public dataset: Array<ChainData>;
   public update: Boolean;
   public metrics: Object;
@@ -25,8 +27,10 @@ export class DataVisualizationBarComponent implements OnInit {
   constructor(
     private _chainSelector: ChainSelectorService,
     private _dataRetriever: DataRetrieverService,
+    private _replayRetriever: ReplayService,
   ) {
     this.selectedChains = new ChainSelection([], []);
+    this.selectedReplayChains = new Array({name: '', target: ''});
     this.displayMetrics = true;
     this.dataset = [];
     this.metrics = {
@@ -128,23 +132,46 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private updateDatasets(redraw: Boolean): void {
-    if (!this.selectedChains.isEmpty()) {
-      const observable = this._dataRetriever.getChainData(this.selectedChains);
-      observable.subscribe(newChainData => {
-        if (!this.selectedChains.isEmpty()) {
+    if (this._replayRetriever.isReplaying()) {
+      if (!(this.selectedReplayChains.length === 0)) {
+        const observable = this._dataRetriever.getReplayData(this.selectedReplayChains, this._replayRetriever.recordingTimes);
+        observable.subscribe(newChainData => {
           this.dataset = newChainData;
           this.calculateMetrics(newChainData);
+          console.log('IF' + this.dataset);
           if (redraw) {
+            console.log('hallo i bims');
             this.linechart.redraw();
             this.redrawBarcharts();
           }
-        }
-      });
-    } else if (redraw) {
-      this.dataset = [];
-      this.metrics = this.initMetricDataset();
-      this.linechart.redraw();
-      this.redrawBarcharts();
+
+        });
+      } else if (redraw) {
+        this.dataset = [];
+        this.metrics = this.initMetricDataset();
+        this.linechart.redraw();
+        this.redrawBarcharts();
+      }
+    } else {
+      if (!this.selectedChains.isEmpty()) {
+        const observable = this._dataRetriever.getChainData(this.selectedChains);
+        observable.subscribe(newChainData => {
+          if (!this.selectedChains.isEmpty()) {
+            this.dataset = newChainData;
+            this.calculateMetrics(newChainData);
+            console.log('ELSE' + this.dataset);
+            if (redraw) {
+              this.linechart.redraw();
+              this.redrawBarcharts();
+            }
+          }
+        });
+      } else if (redraw) {
+        this.dataset = [];
+        this.metrics = this.initMetricDataset();
+        this.linechart.redraw();
+        this.redrawBarcharts();
+      }
     }
   }
 
@@ -157,8 +184,18 @@ export class DataVisualizationBarComponent implements OnInit {
       });
   }
 
+  private trackReplaySelection() {
+    this.update = true;
+    this._replayRetriever.selectedChains$.subscribe(
+      newChainSelection => {
+        this.selectedReplayChains = newChainSelection;
+        this.updateDatasets(true);
+      });
+  }
+
   ngOnInit() {
     this.trackSelectionUpdates();
+    this.trackReplaySelection();
     setInterval(
       () => {
         this.updateDatasets(false);
