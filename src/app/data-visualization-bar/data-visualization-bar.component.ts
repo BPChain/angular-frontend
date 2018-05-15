@@ -76,13 +76,20 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateEnergyConsumption(entry): number {
+    const minConsumption = 105;
+    const maxConsumption = 130;
+    const consumptionDiff = maxConsumption - minConsumption;
+    const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0);
+    const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
+    return minConsumption + consumptionDiff * avgCpuUsage / 100;
+    /*
     const costsPerHash = 0.005746; // J / H with maximum capacity
     const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
     const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
     const avgHashrate = (stats.sum(hashrateParameter) / hashrateParameter.length) || 0;
     const avgNumberOfMiners = (stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length) || 0;
     return (avgHashrate * avgNumberOfMiners * costsPerHash);
-
+    */
   }
 
   private calculateThroughput(entry): number {
