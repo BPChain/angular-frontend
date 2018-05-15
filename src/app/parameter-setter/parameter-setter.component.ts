@@ -78,7 +78,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
 
 
 
-  updateScenarios() {
+  updateScenarios () {
     this._scenarioUpload
     .getScenarios()
     .subscribe(
