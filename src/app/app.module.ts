@@ -29,6 +29,7 @@ import { UserAuthenticationService } from './services/user-authentication.servic
 import { ParameterConfiguratorService } from './services/parameter-configurator.service';
 import {ScenarioUploadService } from './services/scenario-upload.service';
 import { RecordingService } from './services/recording.service';
+import {ReplayService} from './services/replay.service';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { RecordingService } from './services/recording.service';
     UserAuthenticationService,
     ParameterConfiguratorService,
     ScenarioUploadService,
-    RecordingService
+    RecordingService,
+    ReplayService
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent],

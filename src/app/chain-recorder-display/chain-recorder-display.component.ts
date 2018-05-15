@@ -1,6 +1,8 @@
 import {Component, OnInit, Input, OnChanges, OnDestroy} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {RecordingService} from '../services/recording.service';
+import {ReplayService} from '../services/replay.service';
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-chain-recorder-display',
   templateUrl: './chain-recorder-display.component.html',
@@ -15,7 +17,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
   private interval;
 
 
-  constructor(private _recordingService: RecordingService) {
+  constructor(private _recordingService: RecordingService, private _replayService: ReplayService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -40,20 +42,27 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
 
   startReplay() {
     this.isReplaying = true;
-    console.log('Start replaying');
-    console.log(this._recordingService.getRecordingData(this.selectedRecording['_id']));
-    console.log(this.selectedRecording['_id'], this.selectedRecording['recordingName']);
+    const selectedRecordingData = this.allRecordings.find(recording => recording['_id'] === this.selectedRecording['_id']);
+    this._replayService.setReplaying(this.isReplaying, selectedRecordingData);
+    this.openSnackBar('Replay starting...');
   }
 
   stopReplay() {
     this.isReplaying = false;
-    console.log('Stop replaying');
+    this._replayService.setReplaying(this.isReplaying, null);
+    this.openSnackBar('Stop replaying');
   }
 
   ngOnDestroy() {
     if (this.interval) {
       clearInterval(this.interval);
     }
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 2000,
+    });
   }
 
 }
