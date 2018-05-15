@@ -2,6 +2,7 @@ import {Component, OnChanges, Input, Output, EventEmitter, OnInit} from '@angula
 import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
 import { MatSnackBar } from '@angular/material';
 import {isUndefined} from "util";
+import { ScenarioUploadService } from '../services/scenario-upload.service';
 
 @Component({
   selector: 'app-parameter-setter',
@@ -30,10 +31,15 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
   public payloadSize: number;
   public scenarios: Array<object>;
   public selectedScenario: object;
+  public baseScenarios: Array<object>;
   public currentNumber: object;
+  public scenarioName: string;
+  public scenarioDescription: string;
+  public scenarioNumberOfNodes: number;
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
+    private _scenarioUpload: ScenarioUploadService,
     private _snackBar: MatSnackBar,
   ) {
     this.connectedNodes = [];
@@ -47,52 +53,56 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
     this.chainIsActive = false;
     this.transactionInterval = 10;
     this.payloadSize = 10;
+    this.scenarioName = '',
+    this.scenarioDescription = '',
+    this.scenarioNumberOfNodes = 1,
     this.selectedScenario = {
       name: 'No scenario',
       payloadSize: 1,
       period: 60,
     },
 
-    this.scenarios = [
+    this.baseScenarios = [
       {
-        name: 'No scenario',
-        payloadSize: 1,
-        period: 60,
+        logName: 'Create',
+        description: 'Create a new scenario',
       },
       {
-        name: 'Custom',
-        description: 'Configure the scenario properties manually.',
-        payloadSize: this.payloadSize,
-        period: this.round(this.transactionInterval),
-      },
-      {
-        name: 'EVAPCoin',
-        description: `The EVAPCoin is the blockchain based solution
-        to distribute and manage HPI-Sommerfest chips.
-        During the Sommerfest we have many small transactions.`,
-        period: 7,
-        payloadSize: 8,
-      },
-      {
-        name: 'OwnerChain',
-        description: `The OwnerChain stores important information about properties.
-        The property state changes infrequently but contains many data.`,
-        period: 30,
-        payloadSize: 700,
-      },
-      {
-        name: 'Key distribution',
-        description: `The key distribution service controlls the access rights to protected files.
-        The assignment of permissions takes place not too often with an average key size.`,
-        period: 20,
-        payloadSize: 50
+        logName: 'No scenario',
+        description: 'Run the blockchain without a scenario',
       },
     ];
+
+    this.scenarios = [];
   }
+
+
+
+  updateScenarios() {
+    this._scenarioUpload
+    .getScenarios()
+    .subscribe(
+      result => {
+        const newScenarios = this.baseScenarios.concat(result);
+        if (JSON.stringify(this.scenarios) !== JSON.stringify(newScenarios)) {
+          this.scenarios = newScenarios;
+        }
+      },
+      error => {
+        this.scenarios = this.baseScenarios;
+        console.error(error);
+      },
+    );
+  }
+
   ngOnInit(): void {
+
+    this.updateScenarios();
+
     setInterval(
       () => {
-        this.update.emit(null)
+        this.updateScenarios();
+        this.update.emit(null);
       },
       5000
     );
@@ -131,29 +141,56 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
   }
 
   convertjson() {
-    if(!isUndefined(this.currentConfigStore['miners'])) {
+    if (!isUndefined(this.currentConfigStore['miners'])) {
       this.currentConfigStore['numberOfMiners'] = this.currentConfigStore['miners'];
     }
-    if(!isUndefined(this.currentConfigStore['hosts'])) {
+    if (!isUndefined(this.currentConfigStore['hosts'])) {
       this.currentConfigStore['numberOfHosts'] = this.currentConfigStore['hosts'];
+    }
+  }
+
+  createScenario() {
+    if (this.scenarioName.length > 0 && this.scenarioDescription.length > 0) {
+      this._scenarioUpload.createScenario({
+        name: this.scenarioName,
+        description: this.scenarioDescription,
+        payloadSize: this.payloadSize,
+        period: this.transactionInterval,
+        numberOfNodes: this.scenarioNumberOfNodes,
+      }).subscribe(
+        result => {
+          this.openSnackBar(`Created scenario: ${this.scenarioName}`);
+          this.scenarioName = '';
+          this.scenarioDescription = '';
+          this.scenarioNumberOfNodes = 1;
+          this.updateScenarios();
+          this.selectedScenario = this.baseScenarios[1];
+        },
+        error => {
+          this.openSnackBar(`Error occured creating scenario: ${this.scenarioName}`);
+          console.error(error);
+        },
+      );
     }
   }
 
   requestParameterChange() {
     if (this.isAuthenticated) {
+      const payload = this.selectedScenario['logName'] === 'No scenario'
+        ? {}
+        : {
+          scenario: {
+            name: this.selectedScenario['_id'],
+          }
+        };
+
       this._parameterConfigurator
         .setChainParameters({
           target: this.selectedTarget,
           chainName: this.selectedChain,
           parameters: Object.assign(
             this.configurationStore,
-            {
-              scenario: {
-                name: this.selectedScenario['name'],
-                period: this.transactionInterval,
-                payloadSize: this.payloadSize,
-              }
-            },
+            payload,
           ),
         })
         .subscribe(result => {
