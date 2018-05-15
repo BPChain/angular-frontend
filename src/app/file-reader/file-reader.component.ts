@@ -16,9 +16,12 @@ export class FileReaderComponent {
   displayedFileName: string;
   file: File;
   scenarioName: string;
+  scenarioDescription: string;
 
   constructor (private _scenarioUpload: ScenarioUploadService, public snackBar: MatSnackBar,) {
     this.scenarioName = '';
+    this.scenarioDescription = '';
+
   }
 
   handleDragEnter() {
@@ -60,6 +63,7 @@ export class FileReaderComponent {
     this._scenarioUpload.upload({
       file: this.file,
       scenarioName: this.scenarioName,
+      scenarioDescription: this.scenarioDescription,
     })
     .subscribe(result => {
       this.uploading = false;

@@ -9,7 +9,7 @@ export class ScenarioUploadService {
 
   constructor(private _http: HttpClient) { }
 
-  upload({file, scenarioName}) {
+  upload({file, scenarioName, scenarioDescription}) {
     const formData = new FormData();
     formData.append('fileName', scenarioName);
     formData.append('file', file);
