@@ -28,8 +28,8 @@ export class DataRetrieverService {
 
 
   calculateTimeFrame(timeSpan: string): Object {
-    const startTime = Date.now();
-    const endTime = startTime - parseInt(timeSpan, 10) * 60 * 1000;
+    const endTime = Date.now();
+    const startTime = endTime - parseInt(timeSpan, 10) * 60 * 1000;
     return {
       startTime: (new Date(startTime)).toISOString(),
       endTime: (new Date(endTime)).toISOString(),
@@ -43,8 +43,7 @@ export class DataRetrieverService {
         CONFIG.url.base +
         CONFIG.url.publicChain +
         chain.toLowerCase() +
-        `?numberOfItems=100` // +
-        // &startTime=${timeFrame['startTime']}&endTime=${timeFrame['endTime']}
+        `?numberOfItems=100&startTime=${timeFrame['startTime']}&endTime=${timeFrame['endTime']}`
       )
       .map(response => <ChainData>({...response, access: 'Public'}));
   }
@@ -56,8 +55,7 @@ export class DataRetrieverService {
         CONFIG.url.base +
         CONFIG.url.privateChain +
         chain.toLowerCase() +
-        `?target=${target}&numberOfItems=100` // +
-        // &startTime=${timeFrame['startTime']}&endTime=${timeFrame['endTime']}
+        `?target=${target}&numberOfItems=100&startTime=${timeFrame['startTime']}&endTime=${timeFrame['endTime']}`
       )
       .map(response => <ChainData>({...response, access: 'Private', target: target}));
   }
