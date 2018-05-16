@@ -1,8 +1,12 @@
-import {Component, OnChanges, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {
+  Component, OnChanges, Input, Output, EventEmitter, OnInit,
+  OnDestroy
+} from '@angular/core';
 import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
 import { MatSnackBar } from '@angular/material';
-import {isUndefined} from "util";
+import {isUndefined} from 'util';
 import { ScenarioUploadService } from '../services/scenario-upload.service';
+import Timer = NodeJS.Timer;
 
 @Component({
   selector: 'app-parameter-setter',
@@ -10,7 +14,7 @@ import { ScenarioUploadService } from '../services/scenario-upload.service';
   styleUrls: ['./parameter-setter.component.scss']
 })
 
-export class ParameterSetterComponent implements OnChanges, OnInit {
+export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
 
 
   @Input() chainInfo: Array<object>;
@@ -36,6 +40,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
   public scenarioName: string;
   public scenarioDescription: string;
   public scenarioNumberOfNodes: number;
+  private interval: Timer;
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
@@ -79,27 +84,26 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
 
 
   updateScenarios () {
-    this._scenarioUpload
-    .getScenarios()
-    .subscribe(
-      result => {
-        const newScenarios = this.baseScenarios.concat(result);
-        if (JSON.stringify(this.scenarios) !== JSON.stringify(newScenarios)) {
-          this.scenarios = newScenarios;
-        }
-      },
-      error => {
-        this.scenarios = this.baseScenarios;
-        console.error(error);
-      },
-    );
+      this._scenarioUpload
+        .getScenarios()
+        .subscribe(
+          result => {
+            const newScenarios = this.baseScenarios.concat(result);
+            if (JSON.stringify(this.scenarios) !== JSON.stringify(newScenarios)) {
+              this.scenarios = newScenarios;
+            }
+          },
+          error => {
+            this.scenarios = this.baseScenarios;
+            console.error(error);
+          },
+        );
   }
 
   ngOnInit(): void {
-
     this.updateScenarios();
 
-    setInterval(
+    this.interval = setInterval(
       () => {
         this.updateScenarios();
         this.update.emit(null);
@@ -242,6 +246,10 @@ export class ParameterSetterComponent implements OnChanges, OnInit {
         this.updateConfiguration();
       }
     }
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.interval);
   }
 
 }
