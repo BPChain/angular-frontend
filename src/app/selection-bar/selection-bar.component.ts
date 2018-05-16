@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import { DataRetrieverService } from '../services/data-retriever.service';
 
 
@@ -7,7 +7,7 @@ import { DataRetrieverService } from '../services/data-retriever.service';
   templateUrl: './selection-bar.component.html',
   styleUrls: ['./selection-bar.component.scss']
 })
-export class SelectionBarComponent implements OnInit {
+export class SelectionBarComponent implements OnInit, OnChanges {
 
   @Input() isAuthenticated: boolean;
 
@@ -39,6 +39,11 @@ export class SelectionBarComponent implements OnInit {
     this.requestUpdate();
   }
 
+  ngOnChanges() {
+    if (!this.isAuthenticated) {
+      this.isReplaying = false;
+    }
+  }
   toggleReplay() {
     this.isReplaying = !this.isReplaying;
   }
