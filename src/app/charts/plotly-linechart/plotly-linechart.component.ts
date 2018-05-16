@@ -36,12 +36,13 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
           y: chain[this.selectedParameter],
           name: chain['chainName'],
           type: 'scatter',
+          mode: 'lines',
+          line: {
+            width: 2,
+            color: CHART_COLORS[index]
+          },
           marker: {
             symbol: 100,
-            line: {
-              width: 2,
-              color: CHART_COLORS[index]
-            },
           }
         };
       });

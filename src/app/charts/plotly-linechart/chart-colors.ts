@@ -1,4 +1,16 @@
 export const CHART_COLORS =  [
+  'rgb(24, 108, 187)',
+  'rgb(228, 46, 46)',
+  'rgb(9, 211, 43)',
+  'rgb(250, 235, 27)',
+  'rgb(155, 51, 216)',
+  'rgb(250, 66, 20)',
+  'rgb(110, 110, 110)',
+  'rgb(10, 190, 190)',
+  'rgb(231, 0, 193)',
+];
+/*
+[
   { // blue
     backgroundColor: 'rgba(24, 108, 187, 0.2)',
     borderColor: 'rgb(24, 108, 187)',
@@ -72,3 +84,4 @@ export const CHART_COLORS =  [
     pointHoverBorderColor: 'rgba(231, 0, 193,0.8)'
   },
 ];
+*/
