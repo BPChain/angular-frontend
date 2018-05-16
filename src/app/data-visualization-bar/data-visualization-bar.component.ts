@@ -65,14 +65,24 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateMiningTime(entry): number {
+    try {
     const parameter = entry['avgBlocktime'].filter(item => item !== 0);
     const sum = stats.sum(parameter) ;
     return (sum / parameter.length) || 0;
+    } catch (error) {
+      console.warn(error);
+      return 0;
+    }
   }
 
   private calculateStability(entry): number {
-    const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-    return stats.stdev(parameter) || 0;
+    try {
+      const parameter = entry['avgBlocktime'].filter(item => item !== 0);
+      return stats.stdev(parameter) || 0;
+    } catch (error) {
+      console.warn(error);
+      return 0;
+    }
   }
 
   private calculateLatency(entry): number {
@@ -80,12 +90,17 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateEnergyConsumption(entry): number {
-    const minConsumption = 105;
-    const maxConsumption = 130;
-    const consumptionDiff = maxConsumption - minConsumption;
-    const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0);
-    const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
-    return minConsumption + consumptionDiff * avgCpuUsage / 100;
+    try {
+      const minConsumption = 105;
+      const maxConsumption = 130;
+      const consumptionDiff = maxConsumption - minConsumption;
+      const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0);
+      const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
+      return minConsumption + consumptionDiff * avgCpuUsage / 100;
+    } catch (error) {
+      console.warn(error);
+      return 0;
+    }
     /*
     const costsPerHash = 0.005746; // J / H with maximum capacity
     const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
@@ -101,27 +116,37 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateDataTransfer(entry): number {
-    const numberOfHostsParameter = entry['numberOfHosts'].filter(item => item !== 0);
-    const avgNumberOfHosts = stats.sum(numberOfHostsParameter) / numberOfHostsParameter.length;
-    const blocksizeParameter = entry['avgBlockSize'].filter(item => item !== 0);
-    const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
-    const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
-    const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
+    try {
+      const numberOfHostsParameter = entry['numberOfHosts'].filter(item => item !== 0);
+      const avgNumberOfHosts = stats.sum(numberOfHostsParameter) / numberOfHostsParameter.length;
+      const blocksizeParameter = entry['avgBlockSize'].filter(item => item !== 0);
+      const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
+      const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
+      const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
 
-    return (blocksizeAvg / blocktimeAvg) * avgNumberOfHosts || 0;
+      return (blocksizeAvg / blocktimeAvg) * avgNumberOfHosts || 0;
+    } catch (error) {
+      console.warn(error);
+      return 0;
+    }
   }
 
   private calculateMetrics(chainData: Array<ChainData>): void {
     const metricBuffer = this.emptyMetricDataset();
-    chainData.forEach(entry => {
-      metricBuffer['miningTime'].push({data: this.calculateMiningTime(entry), label: entry['chainName']});
-      metricBuffer['stability'].push({data: this.calculateStability(entry), label: entry['chainName']});
-      metricBuffer['latency'].push({data: this.calculateLatency(entry), label: entry['chainName']});
-      metricBuffer['energyConsumption'].push({data: this.calculateEnergyConsumption(entry), label: entry['chainName']});
-      metricBuffer['throughput'].push({data: this.calculateThroughput(entry), label: entry['chainName']});
-      metricBuffer['dataTransfer'].push({data: this.calculateDataTransfer(entry), label: entry['chainName']});
-    });
-    this.metrics = metricBuffer;
+    try {
+      chainData.forEach(entry => {
+        metricBuffer['miningTime'].push({data: this.calculateMiningTime(entry), label: entry['chainName']});
+        metricBuffer['stability'].push({data: this.calculateStability(entry), label: entry['chainName']});
+        metricBuffer['latency'].push({data: this.calculateLatency(entry), label: entry['chainName']});
+        metricBuffer['energyConsumption'].push({data: this.calculateEnergyConsumption(entry), label: entry['chainName']});
+        metricBuffer['throughput'].push({data: this.calculateThroughput(entry), label: entry['chainName']});
+        metricBuffer['dataTransfer'].push({data: this.calculateDataTransfer(entry), label: entry['chainName']});
+      });
+      this.metrics = metricBuffer;
+    } catch (error) {
+      console.warn(error);
+      this.metrics = this.initMetricDataset;
+    }
   }
 
   private redrawBarcharts(): void {
