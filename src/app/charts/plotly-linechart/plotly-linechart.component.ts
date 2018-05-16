@@ -65,4 +65,8 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
     this.redraw();
   }
 
+  onResize(event) {
+    this.redraw();
+  }
+
 }
