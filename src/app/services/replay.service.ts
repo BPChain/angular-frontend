@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {ChainSelection} from './chain-selector.service';
 
 
 @Injectable()
@@ -23,6 +22,5 @@ export class ReplayService {
 
   setSelectedChains(selectedChains: Array<object>) {
     this.selectedChains$.next(selectedChains);
-    console.log(this.selectedChains$);
   }
 }

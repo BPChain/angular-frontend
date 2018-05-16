@@ -35,6 +35,17 @@ export class ChainRecorderComponent implements OnInit {
                 this.openSnackBar('Started recording successfully');
               }
             });
+          const i = setInterval(() => {
+            this._recorder.isRecording()
+              .subscribe(result => {
+                if (!result['isRecording']) {
+                  this.isRecording = false;
+                  this.creationDate = null;
+                  clearInterval(i);
+                  this.openSnackBar('Someone stopped the recording');
+                }
+              });
+          }, 15000);
         } else {
           this.openSnackBar('Sorry, someone else in currently recording');
           this.creationDate = recording['creationDate'];
