@@ -13,12 +13,14 @@ export class SelectionBarComponent implements OnInit {
 
   public chainInfo: Array<object>;
   public allRecordings: Array<object>;
+  public isReplaying: Boolean;
 
   constructor(
     private _dataRetriever: DataRetrieverService,
   ) {
     this.chainInfo = [];
     this.allRecordings = [];
+    this.isReplaying = false;
   }
 
   requestUpdate() {
@@ -35,5 +37,9 @@ export class SelectionBarComponent implements OnInit {
 
   ngOnInit() {
     this.requestUpdate();
+  }
+
+  toggleReplay() {
+    this.isReplaying = !this.isReplaying;
   }
 }

@@ -1,4 +1,7 @@
-import {Component, OnInit, Input, OnChanges, OnDestroy} from '@angular/core';
+import {
+  Component, OnInit, Input, OnChanges, OnDestroy,
+  Output, EventEmitter
+} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {RecordingService} from '../services/recording.service';
 import {ReplayService} from '../services/replay.service';
@@ -10,6 +13,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
 
+  @Output() toggleReplay: EventEmitter<any> = new EventEmitter();
 
   allRecordings: Array<object> = [];
   selectedRecording: object;
@@ -44,6 +48,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
 
   startReplay() {
     this.isReplaying = true;
+    this.toggleReplay.emit(null);
     const selectedRecordingData = this.allRecordings.find(recording => recording['_id'] === this.selectedRecording['_id']);
     this.recordedChains = this.selectedRecording['chains'];
     const startTime = this.selectedRecording['startTime'];
@@ -54,6 +59,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
 
   stopReplay() {
     this.isReplaying = false;
+    this.toggleReplay.emit(null);
     this._replayService.setReplaying(this.isReplaying, {startTime: '', endTime: ''});
     this.selectedChains = [{name: '', target: ''}];
     this._replayService.setSelectedChains(this.selectedChains);
