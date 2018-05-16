@@ -163,9 +163,7 @@ export class DataVisualizationBarComponent implements OnInit {
         observable.subscribe(newChainData => {
           this.dataset = newChainData;
           this.calculateMetrics(newChainData);
-          console.log('IF' + this.dataset);
           if (redraw) {
-            console.log('hallo i bims');
             this.linechart.redraw();
             this.redrawBarcharts();
           }
@@ -184,7 +182,6 @@ export class DataVisualizationBarComponent implements OnInit {
           if (!this.selectedChains.isEmpty()) {
             this.dataset = newChainData;
             this.calculateMetrics(newChainData);
-            console.log('ELSE' + this.dataset);
             if (redraw) {
               this.linechart.redraw();
               this.redrawBarcharts();
