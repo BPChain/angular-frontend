@@ -73,7 +73,7 @@ export class DataRetrieverService {
       const responses$ = selectedChains._private.map(
         chain => this.getPrivateChainApiData(chain['name'], chain['target'], timeSpan))
         .concat(selectedChains._public.map(
-          chain => this.getPublicChainApiData(chain['name'])));
+          chain => this.getPublicChainApiData(chain['name'], timeSpan)));
       return Observable.forkJoin(...responses$);
     }
   }
