@@ -16,6 +16,7 @@ import {ReplayService} from '../services/replay.service';
 })
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
+  public selectedTimeSpan: string;
   public selectedReplayChains: Array<object>;
   public dataset: Array<ChainData>;
   public update: Boolean;
@@ -40,6 +41,7 @@ export class DataVisualizationBarComponent implements OnInit {
       energyConsumption: [{data: 0, label: 'no chain selected'}],
       throughput: [{data: 202, label: 'ethereum'}],
     };
+    this.selectedTimeSpan = '30';
   }
 
   private initMetricDataset () {
@@ -132,6 +134,7 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateMetrics(chainData: Array<ChainData>): void {
+    console.info(chainData)
     const metricBuffer = this.emptyMetricDataset();
     try {
       chainData.forEach(entry => {
@@ -167,7 +170,6 @@ export class DataVisualizationBarComponent implements OnInit {
             this.linechart.redraw();
             this.redrawBarcharts();
           }
-
         });
       } else if (redraw) {
         this.dataset = [];
@@ -177,7 +179,7 @@ export class DataVisualizationBarComponent implements OnInit {
       }
     } else {
       if (!this.selectedChains.isEmpty()) {
-        const observable = this._dataRetriever.getChainData(this.selectedChains);
+        const observable = this._dataRetriever.getChainData({selectedChains: this.selectedChains, timeSpan: this.selectedTimeSpan});
         observable.subscribe(newChainData => {
           if (!this.selectedChains.isEmpty()) {
             this.dataset = newChainData;

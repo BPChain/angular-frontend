@@ -37,7 +37,7 @@ export class LinechartComponent implements OnChanges, OnInit {
 
   @Input() dataset: Array<ChainData>;
   @Input() selectedParameter: string;
-
+  @Input() timeSpan: string;
 
   // Chart.js parameter
   private lineChart: {
@@ -50,7 +50,7 @@ export class LinechartComponent implements OnChanges, OnInit {
   private labels: Array<string>;
 
 
-  // Controll chart reload
+  // Control chart reload
   public display: boolean;
 
   constructor() {
