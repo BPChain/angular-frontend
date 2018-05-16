@@ -64,7 +64,6 @@ export class DataRetrieverService {
     } else {
       const responses$ = selectedChains.map(
         chain => this.getReplayApiData(chain['name'], chain['target'], recordingTimes['startTime'], recordingTimes['endTime']));
-      console.log(Observable.forkJoin(...responses$));
       return Observable.forkJoin(...responses$);
     }
   }
