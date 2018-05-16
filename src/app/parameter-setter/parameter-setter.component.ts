@@ -6,7 +6,6 @@ import {ParameterConfiguratorService} from '../services/parameter-configurator.s
 import { MatSnackBar } from '@angular/material';
 import {isUndefined} from 'util';
 import { ScenarioUploadService } from '../services/scenario-upload.service';
-import Timer = NodeJS.Timer;
 
 @Component({
   selector: 'app-parameter-setter',
@@ -40,7 +39,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
   public scenarioName: string;
   public scenarioDescription: string;
   public scenarioNumberOfNodes: number;
-  private interval: Timer;
+  private interval: any;
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
