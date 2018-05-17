@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ChainItem} from './chain-selector.service';
 
 
 @Injectable()
@@ -7,8 +8,7 @@ export class ReplayService {
 
   public replaying: Boolean = false;
   public recordingTimes = {startTime: '', endTime: ''};
-  public selectedChains$ = new BehaviorSubject<Array<object>>(
-    new Array({name: '', target: ''}));
+  public selectedChains$ = new BehaviorSubject<Array<ChainItem>>(new Array());
   constructor() { }
 
   setReplaying(isReplaying: Boolean, recordingTime: any) {
@@ -20,7 +20,7 @@ export class ReplayService {
     return this.replaying;
   }
 
-  setSelectedChains(selectedChains: Array<object>) {
+  setSelectedChains(selectedChains: Array<ChainItem>) {
     this.selectedChains$.next(selectedChains);
   }
 }

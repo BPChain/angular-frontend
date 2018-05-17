@@ -6,6 +6,7 @@ import {FormControl} from '@angular/forms';
 import {RecordingService} from '../services/recording.service';
 import {ReplayService} from '../services/replay.service';
 import {MatSnackBar} from '@angular/material';
+import {ChainItem} from '../services/chain-selector.service';
 @Component({
   selector: 'app-chain-recorder-display',
   templateUrl: './chain-recorder-display.component.html',
@@ -19,7 +20,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
   selectedRecording: object;
   isReplaying: Boolean = false;
   recordedChains: Array<object> = [];
-  selectedChains: any;
+  selectedChains: Array<ChainItem>;
     private interval;
 
 

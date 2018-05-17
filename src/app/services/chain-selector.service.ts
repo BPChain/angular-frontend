@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
-interface ChainItem{
-  name,
-  target
+export interface ChainItem {
+  name;
+  target;
 }
 
 export class ChainSelection {
