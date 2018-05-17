@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   ChainSelectorService,
   ChainSelection,
-  ChainItem,
 } from '../services/chain-selector.service';
 import { DataRetrieverService, ChainData } from '../services/data-retriever.service';
 import * as stats from 'stats-lite';
@@ -18,7 +17,7 @@ import {ReplayService} from '../services/replay.service';
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
   public selectedTimeSpan: string;
-  public selectedReplayChains: Array<object>;
+  public selectedReplayChains: ChainSelection;
   public dataset: Array<ChainData>;
   public update: Boolean;
   public metrics: Object;
@@ -33,7 +32,7 @@ export class DataVisualizationBarComponent implements OnInit {
     private _replayRetriever: ReplayService,
   ) {
     this.selectedChains = new ChainSelection([], []);
-    this.selectedReplayChains = new Array({name: '', target: ''});
+    this.selectedReplayChains = new ChainSelection([], []);
     this.displayMetrics = true;
     this.dataset = [];
     this.metrics = {
@@ -183,23 +182,22 @@ export class DataVisualizationBarComponent implements OnInit {
 
   public updateDatasets(redraw: Boolean): void {
 
-    let selectedChains = new ChainSelection([], []);
+    let chains = new ChainSelection([], []);
     let timeSpan = {};
 
     if (this._replayRetriever.isReplaying()) {
       this.showTimeSpanSelection = false;
-      selectedChains = new ChainSelection([], this.selectedReplayChains);
+      chains = this.selectedReplayChains;
       timeSpan = this._replayRetriever.recordingTimes;
     } else {
       this.showTimeSpanSelection = true;
-      selectedChains = this.selectedChains;
+      chains = this.selectedChains;
       timeSpan = this.calculateTimeFrame(this.selectedTimeSpan);
     }
-
-    if (!selectedChains.isEmpty()) {
-      const observable = this._dataRetriever.getChainData({selectedChains, timeSpan});
+    if (!chains.isEmpty()) {
+      const observable = this._dataRetriever.getChainData(chains, timeSpan);
       observable.subscribe(newChainData => {
-        if (!this.selectedChains.isEmpty()) {
+        if (!chains.isEmpty()) {
           this.dataset = newChainData;
           this.calculateMetrics(newChainData);
           if (redraw) {
@@ -215,52 +213,6 @@ export class DataVisualizationBarComponent implements OnInit {
       this.redrawBarcharts();
     }
   }
-  /*
-    if (this._replayRetriever.isReplaying()) {
-      this.showTimeSpanSelection = false;
-      if (!(this.selectedReplayChains.length === 0)) {
-        const observable = this._dataRetriever.getReplayData(this.selectedReplayChains, this._replayRetriever.recordingTimes);
-        observable.subscribe(newChainData => {
-          if (!(this.selectedReplayChains[0]['name'] === '')
-            && !(this.selectedReplayChains[0]['target'] === '')
-            && !(this.selectedReplayChains.length === 1)) {
-            this.dataset = newChainData;
-            this.calculateMetrics(newChainData);
-            if (redraw) {
-              this.linechart.redraw();
-              this.redrawBarcharts();
-            }
-          }
-
-        });
-      } else if (redraw) {
-        this.dataset = [];
-        this.metrics = this.initMetricDataset();
-        this.linechart.redraw();
-        this.redrawBarcharts();
-      }
-    } else {
-      this.showTimeSpanSelection = true;
-      if (!this.selectedChains.isEmpty()) {
-        const observable = this._dataRetriever.getChainData({selectedChains: this.selectedChains, timeSpan: this.selectedTimeSpan});
-        observable.subscribe(newChainData => {
-          if (!this.selectedChains.isEmpty()) {
-            this.dataset = newChainData;
-            this.calculateMetrics(newChainData);
-            if (redraw) {
-              this.linechart.redraw();
-              this.redrawBarcharts();
-            }
-          }
-        });
-      } else if (redraw) {
-        this.dataset = [];
-        this.metrics = this.initMetricDataset();
-        this.linechart.redraw();
-        this.redrawBarcharts();
-      }
-    }
-  }*/
 
   private trackSelectionUpdates(): void {
     this.update = true;

@@ -1,12 +1,12 @@
 import {
-  Component, OnInit, Input, OnChanges, OnDestroy,
+  Component, OnInit, OnDestroy,
   Output, EventEmitter
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {RecordingService} from '../services/recording.service';
 import {ReplayService} from '../services/replay.service';
 import {MatSnackBar} from '@angular/material';
-import {ChainItem} from '../services/chain-selector.service';
+import {ChainItem, ChainSelection} from '../services/chain-selector.service';
 @Component({
   selector: 'app-chain-recorder-display',
   templateUrl: './chain-recorder-display.component.html',
@@ -50,7 +50,6 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
   startReplay() {
     this.isReplaying = true;
     this.toggleReplay.emit(null);
-    const selectedRecordingData = this.allRecordings.find(recording => recording['_id'] === this.selectedRecording['_id']);
     this.recordedChains = this.selectedRecording['chains'];
     const startTime = this.selectedRecording['startTime'];
     const endTime = this.selectedRecording['endTime'];
@@ -62,12 +61,14 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
     this.isReplaying = false;
     this.toggleReplay.emit(null);
     this._replayService.setReplaying(this.isReplaying, {startTime: '', endTime: ''});
-    this.selectedChains = [{name: '', target: ''}];
-    this._replayService.setSelectedChains(this.selectedChains);
+    this.selectedChains = [];
+    this._replayService.setSelectedChains(new ChainSelection([], []));
     this.openSnackBar('Stop replaying');
   }
 
   ngOnDestroy() {
+    this.selectedChains = [];
+    this._replayService.setSelectedChains(new ChainSelection([], []));
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -80,7 +81,10 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
   }
 
   updateSelectedChains() {
-    this._replayService.setSelectedChains(this.selectedChains);
+    const chainItems = this.selectedChains
+      .map(chain => ({name: chain['name'], target: chain['target']}));
+    const chainSelection = new ChainSelection([], chainItems);
+    this._replayService.setSelectedChains(chainSelection);
   }
 
 
