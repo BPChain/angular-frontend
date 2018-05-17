@@ -22,6 +22,7 @@ export class DataVisualizationBarComponent implements OnInit {
   public update: Boolean;
   public metrics: Object;
   public displayMetrics: Boolean;
+  public showTimeSpanSelection: Boolean;
 
   @ViewChild('linechart') linechart;
 
@@ -42,6 +43,7 @@ export class DataVisualizationBarComponent implements OnInit {
       throughput: [{data: 202, label: 'ethereum'}],
     };
     this.selectedTimeSpan = '30';
+    this.showTimeSpanSelection = true;
   }
 
   private initMetricDataset () {
@@ -68,9 +70,12 @@ export class DataVisualizationBarComponent implements OnInit {
 
   private calculateMiningTime(entry): number {
     try {
-    const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-    const sum = stats.sum(parameter) ;
-    return (sum / parameter.length) || 0;
+      if (entry['avgBlocktime']) {
+        const parameter = entry['avgBlocktime'].filter(item => item !== 0);
+        const sum = stats.sum(parameter) ;
+        return (sum / parameter.length) || 0;
+      }
+      return 0;
     } catch (error) {
       console.warn(error);
       return 0;
@@ -79,8 +84,11 @@ export class DataVisualizationBarComponent implements OnInit {
 
   private calculateStability(entry): number {
     try {
-      const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-      return stats.stdev(parameter) || 0;
+      if (entry['avgBlocktime']) {
+        const parameter = entry['avgBlocktime'].filter(item => item !== 0);
+        return stats.stdev(parameter) || 0;
+      }
+      return 0;
     } catch (error) {
       console.warn(error);
       return 0;
@@ -96,9 +104,12 @@ export class DataVisualizationBarComponent implements OnInit {
       const minConsumption = 105;
       const maxConsumption = 130;
       const consumptionDiff = maxConsumption - minConsumption;
-      const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0);
-      const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
-      return minConsumption + consumptionDiff * avgCpuUsage / 100;
+      if (entry['avgCpuUsage']) {
+        const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0) || [];
+        const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
+        return minConsumption + consumptionDiff * avgCpuUsage / 100;
+      }
+      return 0;
     } catch (error) {
       console.warn(error);
       return 0;
@@ -119,14 +130,16 @@ export class DataVisualizationBarComponent implements OnInit {
 
   private calculateDataTransfer(entry): number {
     try {
-      const numberOfHostsParameter = entry['numberOfHosts'].filter(item => item !== 0);
-      const avgNumberOfHosts = stats.sum(numberOfHostsParameter) / numberOfHostsParameter.length;
-      const blocksizeParameter = entry['avgBlockSize'].filter(item => item !== 0);
-      const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
-      const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
-      const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
-
-      return (blocksizeAvg / blocktimeAvg) * avgNumberOfHosts || 0;
+      if (entry['numberOfHosts'] && entry['avgBlockSize'] && entry['avgBlocktime']) {
+        const numberOfHostsParameter = entry['numberOfHosts'].filter(item => item !== 0);
+        const avgNumberOfHosts = stats.sum(numberOfHostsParameter) / numberOfHostsParameter.length;
+        const blocksizeParameter = entry['avgBlockSize'].filter(item => item !== 0);
+        const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
+        const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
+        const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
+        return (blocksizeAvg / blocktimeAvg) * avgNumberOfHosts || 0;
+      }
+      return 0;
     } catch (error) {
       console.warn(error);
       return 0;
@@ -134,7 +147,6 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateMetrics(chainData: Array<ChainData>): void {
-    console.info(chainData)
     const metricBuffer = this.emptyMetricDataset();
     try {
       chainData.forEach(entry => {
@@ -159,8 +171,9 @@ export class DataVisualizationBarComponent implements OnInit {
     });
   }
 
-  private updateDatasets(redraw: Boolean): void {
+  public updateDatasets(redraw: Boolean): void {
     if (this._replayRetriever.isReplaying()) {
+      this.showTimeSpanSelection = false;
       if (!(this.selectedReplayChains.length === 0)) {
         const observable = this._dataRetriever.getReplayData(this.selectedReplayChains, this._replayRetriever.recordingTimes);
         observable.subscribe(newChainData => {
@@ -178,6 +191,7 @@ export class DataVisualizationBarComponent implements OnInit {
         this.redrawBarcharts();
       }
     } else {
+      this.showTimeSpanSelection = true;
       if (!this.selectedChains.isEmpty()) {
         const observable = this._dataRetriever.getChainData({selectedChains: this.selectedChains, timeSpan: this.selectedTimeSpan});
         observable.subscribe(newChainData => {

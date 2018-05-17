@@ -30,10 +30,12 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
       const element = this.el.nativeElement;
       Plotly.purge(element);
 
-      const data = this.dataset.map((chain, index) => {
+      const data = this.dataset.length === 0 || this.selectedParameter.length === 0
+        ? []
+        : this.dataset.map((chain, index) => {
         return {
           x: chain['timeStamp'],
-          y: chain[this.selectedParameter],
+          y: chain[this.selectedParameter] || [],
           name: chain['chainName'],
           type: 'scatter',
           mode: 'lines',
