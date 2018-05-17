@@ -177,12 +177,17 @@ export class DataVisualizationBarComponent implements OnInit {
       if (!(this.selectedReplayChains.length === 0)) {
         const observable = this._dataRetriever.getReplayData(this.selectedReplayChains, this._replayRetriever.recordingTimes);
         observable.subscribe(newChainData => {
-          this.dataset = newChainData;
-          this.calculateMetrics(newChainData);
-          if (redraw) {
-            this.linechart.redraw();
-            this.redrawBarcharts();
+          if (!(this.selectedReplayChains[0]['name'] === '')
+            && !(this.selectedReplayChains[0]['target'] === '')
+            && !(this.selectedReplayChains.length === 1)) {
+            this.dataset = newChainData;
+            this.calculateMetrics(newChainData);
+            if (redraw) {
+              this.linechart.redraw();
+              this.redrawBarcharts();
+            }
           }
+
         });
       } else if (redraw) {
         this.dataset = [];

@@ -77,7 +77,12 @@ export class DataRetrieverService {
   }
 
   getReplayData(selectedChains: Array<object>, recordingTimes: object): Observable<Array<ChainData>> {
-    if (!selectedChains.length) {
+    console.log(selectedChains);
+    console.log(selectedChains.length);
+    if (selectedChains[0]['name'] === ''
+      && selectedChains[0]['target'] === ''
+      && selectedChains.length === 1) {
+      console.log('chain alle');
       return Observable.create(
         observer => {
           observer.next([]);
