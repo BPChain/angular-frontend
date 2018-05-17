@@ -12,6 +12,7 @@ export class ScenarioUploadService {
   upload({file, scenarioName, scenarioDescription}) {
     const formData = new FormData();
     formData.append('fileName', scenarioName);
+    formData.append('description', scenarioDescription);
     formData.append('file', file);
     const headers = new HttpHeaders()
       .set('Scenario-Name', scenarioName);
@@ -38,7 +39,7 @@ export class ScenarioUploadService {
       .post(
         CONFIG.url.base + CONFIG.url.scenarios,
         {name, description, payloadSize, period, numberOfNodes},
-        {responseType: 'json', withCredentials: true},
+        {responseType: 'text', withCredentials: true},
       );
   }
 }
