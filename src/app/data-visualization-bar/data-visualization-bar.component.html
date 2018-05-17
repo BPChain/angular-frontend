@@ -1,14 +1,13 @@
 <mat-card>
-  <mat-select [(value)]="selectedTimeSpan">
-    <mat-option value="5">5 Minutes</mat-option>
-    <mat-option value="30">30 Minutes</mat-option>
-    <mat-option value="60">1 Hour</mat-option>
-    <mat-option value="120">2 Hours</mat-option>
-    <mat-option value="300">5 Hours</mat-option>
+  <mat-select [(value)]="selectedTimeSpan" *ngIf='showTimeSpanSelection'>
+    <mat-option value="5" (click)='updateDatasets(false)'>5 Minutes</mat-option>
+    <mat-option value="30" (click)='updateDatasets(false)'>30 Minutes</mat-option>
+    <mat-option value="60" (click)='updateDatasets(false)'>1 Hour</mat-option>
+    <mat-option value="120" (click)='updateDatasets(false)'>2 Hours</mat-option>
+    <mat-option value="300" (click)='updateDatasets(false)'>5 Hours</mat-option>
   </mat-select>
   <app-plotly-linechart #linechart [dataset]='dataset' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'></app-plotly-linechart>
-  <!--<app-linechart #linechart [timeSpan]='selectedTimeSpan' [dataset]='dataset' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'>
-  </app-linechart>-->
+
   <mat-button-toggle-group #parameterSelection="matButtonToggleGroup" value='numberOfHosts'>
     <mat-button-toggle value='numberOfHosts'>Hosts</mat-button-toggle>
     <mat-button-toggle value='numberOfMiners'>Miners</mat-button-toggle>
