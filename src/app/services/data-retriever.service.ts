@@ -26,41 +26,29 @@ export class DataRetrieverService {
   constructor(private _http: HttpClient) {
   }
 
-
-  calculateTimeFrame(timeSpan: string): Object {
-    const endTime = Date.now();
-    const startTime = endTime - parseInt(timeSpan, 10) * 60 * 1000;
-    return {
-      startTime: (new Date(startTime)).toISOString(),
-      endTime: (new Date(endTime)).toISOString(),
-    };
-  }
-
-  getPublicChainApiData(chain: string, timeSpan: string): Observable<ChainData> {
-    const timeFrame = this.calculateTimeFrame(timeSpan);
+  getPublicChainApiData(chain: string, timeSpan: object): Observable<ChainData> {
     return this._http
       .get(
         CONFIG.url.base +
         CONFIG.url.publicChain +
         chain.toLowerCase() +
-        `?numberOfItems=100&startTime=${timeFrame['startTime']}&endTime=${timeFrame['endTime']}`
+        `?numberOfItems=100&startTime=${timeSpan['startTime']}&endTime=${timeSpan['endTime']}`
       )
       .map(response => <ChainData>({...response, access: 'Public'}));
   }
 
-  getPrivateChainApiData(chain: string, target: string, timeSpan: string): Observable<ChainData> {
-    const timeFrame = this.calculateTimeFrame(timeSpan);
+  getPrivateChainApiData(chain: string, target: string, timeSpan: object): Observable<ChainData> {
     return this._http
       .get(
         CONFIG.url.base +
         CONFIG.url.privateChain +
         chain.toLowerCase() +
-        `?target=${target}&numberOfItems=100&startTime=${timeFrame['startTime']}&endTime=${timeFrame['endTime']}`
+        `?target=${target}&numberOfItems=100&startTime=${timeSpan['startTime']}&endTime=${timeSpan['endTime']}`
       )
       .map(response => <ChainData>({...response, access: 'Private', target: target}));
   }
 
-  getChainData({selectedChains, timeSpan}): Observable<Array<ChainData>> {
+  getChainData(selectedChains: ChainSelection, timeSpan): Observable<Array<ChainData>> {
     if (selectedChains.isEmpty()) {
       return Observable.create(
         observer => {
@@ -72,25 +60,6 @@ export class DataRetrieverService {
         chain => this.getPrivateChainApiData(chain['name'], chain['target'], timeSpan))
         .concat(selectedChains._public.map(
           chain => this.getPublicChainApiData(chain['name'], timeSpan)));
-      return Observable.forkJoin(...responses$);
-    }
-  }
-
-  getReplayData(selectedChains: Array<object>, recordingTimes: object): Observable<Array<ChainData>> {
-    console.log(selectedChains);
-    console.log(selectedChains.length);
-    if (selectedChains[0]['name'] === ''
-      && selectedChains[0]['target'] === ''
-      && selectedChains.length === 1) {
-      console.log('chain alle');
-      return Observable.create(
-        observer => {
-          observer.next([]);
-          observer.complete();
-        });
-    } else {
-      const responses$ = selectedChains.map(
-        chain => this.getReplayApiData(chain['name'], chain['target'], recordingTimes['startTime'], recordingTimes['endTime']));
       return Observable.forkJoin(...responses$);
     }
   }

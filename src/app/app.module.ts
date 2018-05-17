@@ -17,7 +17,6 @@ import { ParameterSetterComponent } from './parameter-setter/parameter-setter.co
 import { ScenarioBarComponent } from './scenario-bar/scenario-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import { LinechartComponent } from './charts/linechart/linechart.component';
 import { PlotlyLinechartComponent} from './charts/plotly-linechart/plotly-linechart.component';
 import { BarchartComponent } from './charts/barchart/barchart.component';
 import { ChainRecorderComponent} from './chain-recorder/chain-recorder.component';
@@ -40,7 +39,6 @@ import {ReplayService} from './services/replay.service';
     ScenarioBarComponent,
     DataVisualizationBarComponent,
     LoginDialogComponent,
-    LinechartComponent,
     BarchartComponent,
     ChainDataSourceSelectorComponent,
     ParameterSetterComponent,
