@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
   ChainSelectorService,
-  ChainSelection
+  ChainSelection,
+  ChainItem,
 } from '../services/chain-selector.service';
 import { DataRetrieverService, ChainData } from '../services/data-retriever.service';
 import * as stats from 'stats-lite';
@@ -171,7 +172,50 @@ export class DataVisualizationBarComponent implements OnInit {
     });
   }
 
+  calculateTimeFrame(timeSpan: string): Object {
+    const endTime = Date.now();
+    const startTime = endTime - parseInt(timeSpan, 10) * 60 * 1000;
+    return {
+      startTime: (new Date(startTime)).toISOString(),
+      endTime: (new Date(endTime)).toISOString(),
+    };
+  }
+
   public updateDatasets(redraw: Boolean): void {
+
+    let selectedChains = new ChainSelection([], []);
+    let timeSpan = {};
+
+    if (this._replayRetriever.isReplaying()) {
+      this.showTimeSpanSelection = false;
+      selectedChains = new ChainSelection([], this.selectedReplayChains);
+      timeSpan = this._replayRetriever.recordingTimes;
+    } else {
+      this.showTimeSpanSelection = true;
+      selectedChains = this.selectedChains;
+      timeSpan = this.calculateTimeFrame(this.selectedTimeSpan);
+    }
+
+    if (!selectedChains.isEmpty()) {
+      const observable = this._dataRetriever.getChainData({selectedChains, timeSpan});
+      observable.subscribe(newChainData => {
+        if (!this.selectedChains.isEmpty()) {
+          this.dataset = newChainData;
+          this.calculateMetrics(newChainData);
+          if (redraw) {
+            this.linechart.redraw();
+            this.redrawBarcharts();
+          }
+        }
+      });
+    } else if (redraw) {
+      this.dataset = [];
+      this.metrics = this.initMetricDataset();
+      this.linechart.redraw();
+      this.redrawBarcharts();
+    }
+  }
+  /*
     if (this._replayRetriever.isReplaying()) {
       this.showTimeSpanSelection = false;
       if (!(this.selectedReplayChains.length === 0)) {
@@ -216,7 +260,7 @@ export class DataVisualizationBarComponent implements OnInit {
         this.redrawBarcharts();
       }
     }
-  }
+  }*/
 
   private trackSelectionUpdates(): void {
     this.update = true;
