@@ -17,6 +17,7 @@ import {ReplayService} from '../services/replay.service';
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
   public selectedTimeSpan: string;
+  public timeFrame: object;
   public selectedReplayChains: ChainSelection;
   public dataset: Array<ChainData>;
   public update: Boolean;
@@ -44,6 +45,7 @@ export class DataVisualizationBarComponent implements OnInit {
     };
     this.selectedTimeSpan = '30';
     this.showTimeSpanSelection = true;
+    this.timeFrame = {};
   }
 
   private initMetricDataset () {
@@ -176,21 +178,18 @@ export class DataVisualizationBarComponent implements OnInit {
   public updateDatasets(redraw: Boolean): void {
 
     let chains = new ChainSelection([], []);
-    let timeSpan = {};
 
     if (this._replayRetriever.isReplaying()) {
       this.showTimeSpanSelection = false;
       chains = this.selectedReplayChains;
-      timeSpan = this._replayRetriever.recordingTimes;
+      this.timeFrame = this._replayRetriever.recordingTimes;
     } else {
       this.showTimeSpanSelection = true;
       chains = this.selectedChains;
-      timeSpan = this.calculateTimeFrame(this.selectedTimeSpan);
+      this.timeFrame = this.calculateTimeFrame(this.selectedTimeSpan);
     }
     if (!chains.isEmpty()) {
-      console.info(chains);
-      console.info(timeSpan);
-      const observable = this._dataRetriever.getChainData(chains, timeSpan);
+      const observable = this._dataRetriever.getChainData(chains, this.timeFrame);
       observable.subscribe(newChainData => {
         if (!chains.isEmpty()) {
           this.dataset = newChainData;

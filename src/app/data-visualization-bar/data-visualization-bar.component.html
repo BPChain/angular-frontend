@@ -9,7 +9,7 @@
   </mat-select>
 
   </div>
-  <app-plotly-linechart #linechart [dataset]='dataset' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'></app-plotly-linechart>
+  <app-plotly-linechart #linechart [dataset]='dataset' [timespan]='timeFrame' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'></app-plotly-linechart>
 
   <mat-button-toggle-group #parameterSelection="matButtonToggleGroup" value='numberOfHosts'>
     <mat-button-toggle value='numberOfHosts'>Hosts</mat-button-toggle>
