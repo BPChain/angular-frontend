@@ -101,10 +101,11 @@ export class DataVisualizationBarComponent implements OnInit {
 
   private calculateEnergyConsumption(entry): number {
     try {
-      const minConsumption = 105;
-      const maxConsumption = 130;
+      const numberOfCpus = 4;
+      const minConsumption = 105 * numberOfCpus;
+      const maxConsumption = 130 * numberOfCpus;
       const consumptionDiff = maxConsumption - minConsumption;
-      if (entry['avgCpuUsage']) {
+      if (entry['avgCpuUsage'].length) {
         const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0) || [];
         const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
         return minConsumption + consumptionDiff * avgCpuUsage / 100;
@@ -114,14 +115,6 @@ export class DataVisualizationBarComponent implements OnInit {
       console.warn(error);
       return 0;
     }
-    /*
-    const costsPerHash = 0.005746; // J / H with maximum capacity
-    const hashrateParameter = entry['avgHashrate'].filter(item => item !== 0);
-    const numberOfMinersParameter = entry['numberOfMiners'].filter(item => item !== 0);
-    const avgHashrate = (stats.sum(hashrateParameter) / hashrateParameter.length) || 0;
-    const avgNumberOfMiners = (stats.sum(numberOfMinersParameter) / numberOfMinersParameter.length) || 0;
-    return (avgHashrate * avgNumberOfMiners * costsPerHash);
-    */
   }
 
   private calculateThroughput(entry): number {
@@ -195,6 +188,8 @@ export class DataVisualizationBarComponent implements OnInit {
       timeSpan = this.calculateTimeFrame(this.selectedTimeSpan);
     }
     if (!chains.isEmpty()) {
+      console.info(chains);
+      console.info(timeSpan);
       const observable = this._dataRetriever.getChainData(chains, timeSpan);
       observable.subscribe(newChainData => {
         if (!chains.isEmpty()) {
@@ -205,6 +200,9 @@ export class DataVisualizationBarComponent implements OnInit {
             this.redrawBarcharts();
           }
         }
+      }, error => {
+        console.warn(error);
+        this.dataset = [];
       });
     } else if (redraw) {
       this.dataset = [];
