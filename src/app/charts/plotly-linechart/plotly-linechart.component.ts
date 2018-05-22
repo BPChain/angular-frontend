@@ -58,7 +58,8 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
           y: 100000,
         },
         yaxis: {
-          tick0: 0,
+          rangemode: 'tozero',
+          autorange: true
         }
       };
 
