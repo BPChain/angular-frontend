@@ -14,7 +14,6 @@ import { SelectionBarComponent } from './selection-bar/selection-bar.component';
 import { ChainDataSourceSelectorComponent } from './chain-data-source-selector/chain-data-source-selector.component';
 import { ParameterSetterComponent } from './parameter-setter/parameter-setter.component';
 
-import { ScenarioBarComponent } from './scenario-bar/scenario-bar.component';
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { PlotlyLinechartComponent} from './charts/plotly-linechart/plotly-linechart.component';
@@ -36,7 +35,6 @@ import {ReplayService} from './services/replay.service';
   declarations: [
     AppComponent,
     SelectionBarComponent,
-    ScenarioBarComponent,
     DataVisualizationBarComponent,
     LoginDialogComponent,
     BarchartComponent,
