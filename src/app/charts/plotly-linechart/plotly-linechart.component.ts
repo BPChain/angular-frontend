@@ -14,6 +14,7 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
   @ViewChild('plotlyChart') el: ElementRef;
   @Input() dataset: Array<ChainData>;
   @Input() selectedParameter: string;
+  @Input() timespan: object;
 
   constructor() { }
 
@@ -49,6 +50,7 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
         };
       });
 
+
       const style = {
         margin: {t: 40, r: 20},
         autosize: true,
@@ -56,6 +58,9 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
         legend: {
           orientation: 'h',
           y: 100000,
+        },
+        xaxis: {
+          range: [this.timespan['startTime'], this.timespan['endTime']],
         },
         yaxis: {
           rangemode: 'tozero',
