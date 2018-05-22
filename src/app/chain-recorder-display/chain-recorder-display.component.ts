@@ -51,8 +51,8 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
     this.isReplaying = true;
     this.toggleReplay.emit(null);
     this.recordedChains = this.selectedRecording['chains'];
-    const startTime = this.selectedRecording['startTime'];
-    const endTime = this.selectedRecording['endTime'];
+    const startTime = (new Date(this.selectedRecording['startTime'])).toISOString();
+    const endTime = (new Date(this.selectedRecording['endTime'])).toISOString();
     this._replayService.setReplaying(this.isReplaying, {startTime: startTime, endTime: endTime});
     this.openSnackBar('Replay starting...');
   }

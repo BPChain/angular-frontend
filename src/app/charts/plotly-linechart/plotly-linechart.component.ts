@@ -56,6 +56,9 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
         legend: {
           orientation: 'h',
           y: 100000,
+        },
+        yaxis: {
+          tick0: 0,
         }
       };
 
