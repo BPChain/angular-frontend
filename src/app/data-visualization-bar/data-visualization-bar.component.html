@@ -18,6 +18,7 @@
     <mat-button-toggle value='avgHashrate'>Hashrate</mat-button-toggle>
     <mat-button-toggle value='avgBlocktime'>Blocktime</mat-button-toggle>
     <mat-button-toggle value='avgBlockSize'>Blocksize</mat-button-toggle>
+    <mat-button-toggle vlaue='avgTransactions'>Transactions/Block</mat-button-toggle>
     <mat-button-toggle value='avgDifficulty'>Difficulty</mat-button-toggle>
   </mat-button-toggle-group>
 </mat-card>
@@ -34,7 +35,7 @@
     </app-barchart>
   </mat-card>
   <mat-card class="item small">
-    Throughput
+    Throughput (Stored transactions / s)
     <app-barchart [data]="metrics['throughput']">
     </app-barchart>
   </mat-card>

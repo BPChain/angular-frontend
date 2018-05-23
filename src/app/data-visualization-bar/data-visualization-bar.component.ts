@@ -120,7 +120,19 @@ export class DataVisualizationBarComponent implements OnInit {
   }
 
   private calculateThroughput(entry): number {
-    return Math.random();
+    try {
+      if (entry['avgTransactions'] && entry['avgBlocktime']) {
+        const transactionsParameter = entry['avgTransactions'].filter(item => item !== 0);
+        const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
+        const avgTransactions = stats.sum(transactionsParameter) / transactionsParameter.length;
+        const avgBlocktime = stats.sum(blocktimeParameter) / blocktimeParameter.length;
+        return (avgTransactions / avgBlocktime) || 0;
+      }
+      return 0;
+    } catch (error) {
+      console.warn(error);
+      return 0;
+    }
   }
 
   private calculateDataTransfer(entry): number {
