@@ -60,12 +60,15 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
           y: 100000,
         },
         xaxis: {
+          fixedrange: true,
           range: [this.timespan['startTime'], this.timespan['endTime']],
         },
         yaxis: {
+          fixedrange: true,
           rangemode: 'tozero',
           autorange: true
-        }
+        },
+        scrollzoom: true,
       };
 
       Plotly.plot(element, data, style, {displayModeBar: false});
