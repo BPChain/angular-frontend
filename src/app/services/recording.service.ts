@@ -38,7 +38,7 @@ export class RecordingService {
   allRecordings(): Observable<any> {
     return this._http
       .get(
-        CONFIG.url.base + CONFIG.url.allRecordings,
+        CONFIG.url.base + CONFIG.url.recordings,
         {responseType: 'json', withCredentials: true},
       );
   }
