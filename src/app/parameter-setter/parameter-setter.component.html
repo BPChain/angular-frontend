@@ -49,10 +49,17 @@
           </div>
 
           <div *ngIf="!chainIsActive">
-            <div *ngIf='chainIsStarting' class='button-overlay'>
-              <mat-spinner [diameter]="30" color='primary'></mat-spinner>
-            </div>
-            <button mat-raised-button color="primary" (click)="startSelectedChain()">
+              <div *ngIf='chainIsStarting' class='button-spinner'>
+                <div>
+                  <div class='button-spinner-spinner'>
+                      <mat-spinner [diameter]="28" color='primary'></mat-spinner>
+                  </div>
+                  <div class='button-spinner-text'>
+                    Starting chain...
+                  </div>
+                </div>
+              </div>
+            <button *ngIf='!chainIsStarting' mat-raised-button color="primary" (click)="startSelectedChain()">
               Start chain
             </button>
           </div>
