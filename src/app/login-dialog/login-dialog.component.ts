@@ -15,6 +15,7 @@ export class LoginDialogComponent {
   public login: string;
   public usernameInput: FormControl;
   public passwordInput: FormControl;
+  public wrongCredentials: boolean;
 
   constructor(
     public dialogReference: MatDialogRef<LoginDialogComponent>,
@@ -35,6 +36,7 @@ export class LoginDialogComponent {
       '',
       [Validators.required]
     );
+    this.wrongCredentials = false;
   }
 
   getUsernameErrorMessage() {
@@ -63,6 +65,7 @@ export class LoginDialogComponent {
           this.dialogReference.close(true);
         } else {
           this.options.value.color = 'warn';
+          this.wrongCredentials = true;
           this.openSnackBar('Invalid Credentials');
         }
       },

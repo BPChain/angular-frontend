@@ -2,10 +2,19 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  width: 100%;
 
   &.login {
     justify-content: center;
   }
+}
+
+.expand {
+  width: 100%;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 button {
