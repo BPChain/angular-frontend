@@ -12,6 +12,7 @@ import {CONFIG} from '../config';
 
 import { SelectionBarComponent } from './selection-bar/selection-bar.component';
 import { ChainDataSourceSelectorComponent } from './chain-data-source-selector/chain-data-source-selector.component';
+
 import { ParameterSetterComponent } from './parameter-setter/parameter-setter.component';
 
 import { DataVisualizationBarComponent } from './data-visualization-bar/data-visualization-bar.component';
@@ -29,6 +30,8 @@ import { ParameterConfiguratorService } from './services/parameter-configurator.
 import {ScenarioUploadService } from './services/scenario-upload.service';
 import { RecordingService } from './services/recording.service';
 import {ReplayService} from './services/replay.service';
+import { ScenarioSelectorComponent } from './scenario-selector/scenario-selector.component';
+import { ScenarioCreatorComponent } from './scenario-creator/scenario-creator.component';
 
 
 @NgModule({
@@ -43,7 +46,9 @@ import {ReplayService} from './services/replay.service';
     ChainRecorderComponent,
     ChainRecorderDisplayComponent,
     FileReaderComponent,
-    PlotlyLinechartComponent
+    PlotlyLinechartComponent,
+    ScenarioSelectorComponent,
+    ScenarioCreatorComponent,
   ],
   imports: [
     BrowserModule,

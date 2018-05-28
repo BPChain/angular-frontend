@@ -1,0 +1,28 @@
+<div>
+  <mat-form-field>
+    <input matInput placeholder="Scenario name" type="text" [value]="scenarioName" (input)="scenarioName = $event.target.value">
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Scenario description" type="text" [value]="scenarioDescription" (input)="scenarioDescription = $event.target.value">
+    </textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Number of nodes" min="1" type="number" [value]="scenarioNumberOfNodes" (input)="scenarioNumberOfNodes = $event.target.value">
+  </mat-form-field>
+
+  Transaction interval: ~ {{round(transactionInterval)}} s
+  <br />
+  <mat-slider [max]="30" [step]="0.1" [min]="5" [thumb-label]="true" [(ngModel)]="transactionInterval"
+    name='transactionInterval'>
+  </mat-slider>
+  <br /> Payload size:
+  <span> {{payloadSize}} Byte </span>
+  <br />
+  <mat-slider [max]="1000" [min]="1" [step]="10" [thumb-label]="true" [(ngModel)]="payloadSize"
+    name='payloadSize'>
+  </mat-slider>
+
+  <button mat-raised-button color="primary" (click)="createScenario()">
+    Create scenario
+  </button>
+</div>

@@ -2,10 +2,11 @@ import {
   Component, OnChanges, Input, Output, EventEmitter, OnInit,
   OnDestroy
 } from '@angular/core';
-import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
-import { MatSnackBar } from '@angular/material';
 import {isUndefined} from 'util';
+import { MatSnackBar } from '@angular/material';
 import { ScenarioUploadService } from '../services/scenario-upload.service';
+import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
+
 
 @Component({
   selector: 'app-parameter-setter',
@@ -21,27 +22,19 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
   @Output() update: EventEmitter<any> = new EventEmitter();
 
   public connectedNodes: Array<string>;
+  public availableChains: Array<object>;
   public chains: Array<object>;
   public selectedTarget: string;
   public selectedChain: string;
-  public availableChains: Array<object>;
-  public chainSelector: Array<string>;
+  public selectedScenario: object;
+  public configuration: Array<object>;
   public configurationStore: object;
   public currentConfigStore: object;
-  public configuration: Array<object>;
+  public chainSelector: Array<string>;
   public chainIsActive: Boolean;
-  public transactionInterval: number;
-  public payloadSize: number;
-  public scenarios: Array<object>;
-  public selectedScenario: object;
-  public baseScenarios: Array<object>;
-  public currentNumber: object;
-  public scenarioName: string;
-  public scenarioDescription: string;
-  public scenarioNumberOfNodes: number;
   public chainIsStarting: boolean;
-  private interval: any;
   public startChainPipeline: Array<object>;
+  private interval: any;
 
 
   constructor(
@@ -57,59 +50,16 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.configurationStore = {};
     this.currentConfigStore = {};
     this.configuration = [];
+    this.selectedScenario = {};
     this.startChainPipeline = [];
     this.chainIsActive = false;
-    this.transactionInterval = 10;
-    this.payloadSize = 10;
-    this.scenarioName = '',
-    this.scenarioDescription = '',
-    this.scenarioNumberOfNodes = 1,
     this.chainIsStarting = false;
-    this.selectedScenario = {
-      name: 'No scenario',
-      payloadSize: 1,
-      period: 60,
-    },
 
-    this.baseScenarios = [
-      {
-        logName: 'Create',
-        description: 'Create a new scenario',
-      },
-      {
-        logName: 'No scenario',
-        description: 'Run the blockchain without a scenario',
-      },
-    ];
-
-    this.scenarios = [];
-  }
-
-
-
-  updateScenarios () {
-      this._scenarioUpload
-        .getScenarios()
-        .subscribe(
-          result => {
-            const newScenarios = this.baseScenarios.concat(result);
-            if (JSON.stringify(this.scenarios) !== JSON.stringify(newScenarios)) {
-              this.scenarios = newScenarios;
-            }
-          },
-          error => {
-            this.scenarios = this.baseScenarios;
-            console.error(error);
-          },
-        );
   }
 
   ngOnInit(): void {
-    this.updateScenarios();
-
     this.interval = setInterval(
       () => {
-        this.updateScenarios();
         this.update.emit(null);
       },
       5000
@@ -122,8 +72,8 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     });
   }
 
-  round(float: number) {
-    return Math.round(float * 10) / 10;
+  selectScenario (scenario: object): void {
+    this.selectedScenario = scenario;
   }
 
   updateChainSelection() {
@@ -149,6 +99,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
 
   }
 
+
   convertjson() {
     if (!isUndefined(this.currentConfigStore['miners'])) {
       this.currentConfigStore['numberOfMiners'] = this.currentConfigStore['miners'];
@@ -158,30 +109,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     }
   }
 
-  createScenario() {
-    if (this.scenarioName.length > 0 && this.scenarioDescription.length > 0) {
-      this._scenarioUpload.createScenario({
-        name: this.scenarioName,
-        description: this.scenarioDescription,
-        payloadSize: this.payloadSize,
-        period: this.transactionInterval,
-        numberOfNodes: this.scenarioNumberOfNodes,
-      }).subscribe(
-        result => {
-          this.openSnackBar(`Created scenario: ${this.scenarioName}`);
-          this.scenarioName = '';
-          this.scenarioDescription = '';
-          this.scenarioNumberOfNodes = 1;
-          this.updateScenarios();
-          this.selectedScenario = this.baseScenarios[1];
-        },
-        error => {
-          this.openSnackBar(`Error occured creating scenario: ${this.scenarioName}`);
-          console.error(error);
-        },
-      );
-    }
-  }
+
 
   requestParameterChange() {
     if (this.isAuthenticated) {
