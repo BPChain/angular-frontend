@@ -39,7 +39,10 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
   public scenarioName: string;
   public scenarioDescription: string;
   public scenarioNumberOfNodes: number;
+  public chainIsStarting: boolean;
   private interval: any;
+  public startChainPipeline: Array<object>;
+
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
@@ -54,12 +57,14 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.configurationStore = {};
     this.currentConfigStore = {};
     this.configuration = [];
+    this.startChainPipeline = [];
     this.chainIsActive = false;
     this.transactionInterval = 10;
     this.payloadSize = 10;
     this.scenarioName = '',
     this.scenarioDescription = '',
     this.scenarioNumberOfNodes = 1,
+    this.chainIsStarting = false;
     this.selectedScenario = {
       name: 'No scenario',
       payloadSize: 1,
@@ -137,6 +142,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.convertjson();
     this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
     this.chainIsActive = selectedChainInfo['active'];
+    this.checkChainProgress(this.selectedChain, this.selectedTarget);
     this.configurationStore = this.configuration.reduce((parameters, parameter) => {
       return Object.assign(parameters, {[parameter['selector']]: this.configurationStore[parameter['selector']]});
     }, {});
@@ -213,6 +219,9 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
       .startChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
         this.update.emit(null);
+        this.startChainPipeline.push({chain: this.selectedChain, target: this.selectedTarget});
+        this.checkChainProgress(this.selectedChain, this.selectedTarget);
+        console.info(this.startChainPipeline);
         this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
@@ -230,12 +239,36 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
       error => {
         this.openSnackBar(`Could not stop ${this.selectedChain} on ${this.selectedTarget}`);
       });
+  }
 
+  checkChainProgress(chain: string, target: string): void {
+    if (chain && target) {
+      if (this.startChainPipeline
+        .find(element => element['chain'] === chain && element['target'] === target)) {
+        this.chainIsStarting = true;
+      } else {
+        this.chainIsStarting = false;
+      }
+    }
+  }
+
+  checkActiveChains(chains: Array<object>): void {
+    const startChainPipelineBuffer = [];
+    this.startChainPipeline = this.startChainPipeline.filter(chain => {
+      const chainInfo = chains
+        .filter(element => element['target'] === chain['target'])
+        .find(element => element['chainName'].toLowerCase() === chain['chain'].toLowerCase());
+      return !chainInfo['active'];
+    });
+    console.info('update');
+    console.info(this.startChainPipeline);
   }
 
 
   ngOnChanges() {
     this.chains = this.chainInfo.filter(element => element['accessability'] === 'private');
+    this.checkActiveChains(this.chains);
+    this.checkChainProgress(this.selectedChain, this.selectedTarget);
     this.connectedNodes = this.chains
       .map(element => element['target'])
       .reduce((x, y) => x && x.includes(y) ? x : [...x, y], []);

@@ -86,6 +86,9 @@
           </div>
 
           <div *ngIf="!chainIsActive">
+            <div *ngIf='chainIsStarting' class='button-overlay'>
+              <mat-spinner [diameter]="30" color='primary'></mat-spinner>
+            </div>
             <button mat-raised-button color="primary" (click)="startSelectedChain()">
               Start chain
             </button>
