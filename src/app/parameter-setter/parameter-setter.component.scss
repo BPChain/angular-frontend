@@ -44,14 +44,28 @@ mat-icon {
   width: 20% !important;
 }
 
-.button-overlay {
-  margin-top: 10px;
-  padding-top: 3px;
-  position: absolute;
+.button-spinner {
+  padding-top: 4px;
   display: flex;
   justify-content: center;
-  background-color: #ffffff75;
-  height: 36px;
+  flex-direction: row;
+  margin-top: 10px;
+  border-radius: 3px;
+  text-align: center;
+  background-color: #9099c9;
+  height: 36px !important;
   width: 100%;
   z-index: 100;
+}
+
+.button-spinner-text {
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  margin-top: -24px;
+}
+
+.button-spinner-spinner {
+  display: flex;
+  justify-content: center;
 }
