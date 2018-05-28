@@ -221,7 +221,6 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
         this.update.emit(null);
         this.startChainPipeline.push({chain: this.selectedChain, target: this.selectedTarget});
         this.checkChainProgress(this.selectedChain, this.selectedTarget);
-        console.info(this.startChainPipeline);
         this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
@@ -260,8 +259,6 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
         .find(element => element['chainName'].toLowerCase() === chain['chain'].toLowerCase());
       return !chainInfo['active'];
     });
-    console.info('update');
-    console.info(this.startChainPipeline);
   }
 
 
