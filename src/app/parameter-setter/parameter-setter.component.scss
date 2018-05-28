@@ -43,3 +43,15 @@ mat-icon {
   justify-content: flex-end;
   width: 20% !important;
 }
+
+.button-overlay {
+  margin-top: 10px;
+  padding-top: 3px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff75;
+  height: 36px;
+  width: 195px;
+  z-index: 100;
+}
