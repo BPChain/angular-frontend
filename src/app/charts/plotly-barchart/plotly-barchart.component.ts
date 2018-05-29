@@ -32,7 +32,6 @@ export class PlotlyBarchartComponent implements OnInit, OnChanges {
   drawChart() {
     if (this.data) {
       const element = this.el.nativeElement;
-      Plotly.purge(element);
 
       const data = [this.data.reduce((dataset, value, index) => {
         dataset['x'].push(value['label']);
@@ -58,7 +57,7 @@ export class PlotlyBarchartComponent implements OnInit, OnChanges {
           zeroline: true,
         }
       };
-
+      Plotly.purge(element);
       Plotly.plot(element, data, style, {displayModeBar: false});
     }
   }
