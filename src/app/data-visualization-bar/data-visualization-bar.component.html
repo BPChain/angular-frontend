@@ -25,28 +25,23 @@
 
 <div class="container" *ngIf='displayMetrics'>
   <mat-card class="item small">
-    Mining Time (s)
-    <app-barchart [data]="metrics['miningTime']">
-    </app-barchart>
+    <app-plotly-barchart title="Mining Time (s)" [data]="metrics['miningTime']">
+    </app-plotly-barchart>
   </mat-card>
   <mat-card class="item small">
-    Stability (Blocktime deviation in s)
-    <app-barchart [data]="metrics['stability']">
-    </app-barchart>
+    <app-plotly-barchart title="Stability (Blocktime deviation in s)" [data]="metrics['stability']">
+    </app-plotly-barchart>
   </mat-card>
   <mat-card class="item small">
-    Throughput (Stored transactions / s)
-    <app-barchart [data]="metrics['throughput']">
-    </app-barchart>
+    <app-plotly-barchart title="Throughput (Stored transactions / s)" [data]="metrics['throughput']">
+    </app-plotly-barchart>
   </mat-card>
   <mat-card class="item small">
-    Data transfer (Bytes / s)
-    <app-barchart [data]="metrics['dataTransfer']">
-    </app-barchart>
+    <app-plotly-barchart title="Data transfer (Bytes / s)" [data]="metrics['dataTransfer']">
+    </app-plotly-barchart>
   </mat-card>
   <mat-card class="item small">
-    Energy Consumption (W)
-    <app-barchart [data]="metrics['energyConsumption']">
-    </app-barchart>
+    <app-plotly-barchart title="Energy Consumption (W)" [data]="metrics['energyConsumption']">
+    </app-plotly-barchart>
   </mat-card>
 </div>
