@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {RecordingService} from '../services/recording.service';
+import {RecordingHandlerService} from '../services/recording-handler.service';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -20,7 +20,7 @@ export class ChainRecorderComponent implements OnInit {
   public recordingName: String;
   @Input() isAuthenticated: Boolean;
 
-  constructor(private _recorder: RecordingService, public snackBar: MatSnackBar) {}
+  constructor(private _recorder: RecordingHandlerService, public snackBar: MatSnackBar) {}
 
   onStartedRecording() {
     this._recorder.isRecording()

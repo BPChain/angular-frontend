@@ -3,8 +3,7 @@ import {
   Output, EventEmitter
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {RecordingService} from '../services/recording.service';
-import {ReplayService} from '../services/replay.service';
+import {RecordingHandlerService} from '../services/recording-handler.service';
 import {MatSnackBar} from '@angular/material';
 import {ChainItem, ChainSelection} from '../services/chain-selector.service';
 @Component({
@@ -24,7 +23,9 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
     private interval;
 
 
-  constructor(private _recordingService: RecordingService, private _replayService: ReplayService, public snackBar: MatSnackBar) {
+  constructor(
+    private _recordingService: RecordingHandlerService,
+    public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -53,22 +54,22 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
     this.recordedChains = this.selectedRecording['chains'];
     const startTime = (new Date(this.selectedRecording['startTime'])).toISOString();
     const endTime = (new Date(this.selectedRecording['endTime'])).toISOString();
-    this._replayService.setReplaying(this.isReplaying, {startTime: startTime, endTime: endTime});
+    this._recordingService.setReplaying(this.isReplaying, {startTime: startTime, endTime: endTime});
     this.openSnackBar('Replay starting...');
   }
 
   stopReplay() {
     this.isReplaying = false;
     this.toggleReplay.emit(null);
-    this._replayService.setReplaying(this.isReplaying, {startTime: '', endTime: ''});
+    this._recordingService.setReplaying(this.isReplaying, {startTime: '', endTime: ''});
     this.selectedChains = [];
-    this._replayService.setSelectedChains(new ChainSelection([], []));
+    this._recordingService.setSelectedChains(new ChainSelection([], []));
     this.openSnackBar('Stop replaying');
   }
 
   ngOnDestroy() {
     this.selectedChains = [];
-    this._replayService.setSelectedChains(new ChainSelection([], []));
+    this._recordingService.setSelectedChains(new ChainSelection([], []));
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -84,7 +85,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
     const chainItems = this.selectedChains
       .map(chain => ({name: chain['name'], target: chain['target']}));
     const chainSelection = new ChainSelection([], chainItems);
-    this._replayService.setSelectedChains(chainSelection);
+    this._recordingService.setSelectedChains(chainSelection);
   }
 
 

@@ -3,10 +3,17 @@ import {HttpClient} from '@angular/common/http';
 import {CONFIG} from '../../config';
 import {Observable} from 'rxjs/Observable';
 import {ChainData} from './data-retriever.service';
-
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {ChainSelection} from './chain-selector.service';
 
 @Injectable()
-export class RecordingService {
+export class RecordingHandlerService {
+
+  public replaying: Boolean = false;
+  public recordingTimes = {startTime: '', endTime: ''};
+  public selectedChains$ = new BehaviorSubject<ChainSelection>(
+    new ChainSelection([], [])
+  );
 
   constructor(private _http: HttpClient) { }
 
@@ -45,5 +52,20 @@ export class RecordingService {
 
   getRecordingData(id: String) {
     return ('Hier könnte ihre Recording Data stehen: ' + id);
+  }
+
+
+
+  setReplaying(isReplaying: Boolean, recordingTime: any) {
+    this.replaying = isReplaying;
+    this.recordingTimes = recordingTime;
+  }
+
+  isReplaying() {
+    return this.replaying;
+  }
+
+  setSelectedChains(selectedChains: ChainSelection) {
+    this.selectedChains$.next(selectedChains);
   }
 }

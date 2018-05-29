@@ -27,9 +27,8 @@ import { DataRetrieverService } from './services/data-retriever.service';
 import { ChainSelectorService } from './services/chain-selector.service';
 import { UserAuthenticationService } from './services/user-authentication.service';
 import { ParameterConfiguratorService } from './services/parameter-configurator.service';
-import {ScenarioUploadService } from './services/scenario-upload.service';
-import { RecordingService } from './services/recording.service';
-import {ReplayService} from './services/replay.service';
+import {ScenarioConfiguratorService } from './services/scenario-configurator.service';
+import { RecordingHandlerService } from './services/recording-handler.service';
 import { ScenarioSelectorComponent } from './scenario-selector/scenario-selector.component';
 import { ScenarioCreatorComponent } from './scenario-creator/scenario-creator.component';
 
@@ -64,9 +63,8 @@ import { ScenarioCreatorComponent } from './scenario-creator/scenario-creator.co
     ChainSelectorService,
     UserAuthenticationService,
     ParameterConfiguratorService,
-    ScenarioUploadService,
-    RecordingService,
-    ReplayService
+    ScenarioConfiguratorService,
+    RecordingHandlerService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [LoginDialogComponent],

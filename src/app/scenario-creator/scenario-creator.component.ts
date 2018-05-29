@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { ScenarioUploadService } from '../services/scenario-upload.service';
+import { ScenarioConfiguratorService } from '../services/scenario-configurator.service';
 
 @Component({
   selector: 'app-scenario-creator',
@@ -16,7 +16,7 @@ export class ScenarioCreatorComponent {
   public payloadSize: number;
 
   constructor(
-    private _scenarioUpload: ScenarioUploadService,
+    private _scenarioConfigurator: ScenarioConfiguratorService,
     private _snackBar: MatSnackBar,
   ) {
     this.transactionInterval = 10;
@@ -38,7 +38,7 @@ export class ScenarioCreatorComponent {
 
   createScenario() {
     if (this.scenarioName.length > 0 && this.scenarioDescription.length > 0) {
-      this._scenarioUpload.createScenario({
+      this._scenarioConfigurator.createScenario({
         name: this.scenarioName,
         description: this.scenarioDescription,
         payloadSize: this.payloadSize,

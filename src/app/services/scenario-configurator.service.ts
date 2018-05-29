@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
-export class ScenarioUploadService {
+export class ScenarioConfiguratorService {
 
   constructor(private _http: HttpClient) { }
 

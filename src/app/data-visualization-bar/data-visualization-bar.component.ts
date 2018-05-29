@@ -5,7 +5,7 @@ import {
 } from '../services/chain-selector.service';
 import { DataRetrieverService, ChainData } from '../services/data-retriever.service';
 import {CONFIG} from '../../config';
-import {ReplayService} from '../services/replay.service';
+import {RecordingHandlerService} from '../services/recording-handler.service';
 import metricCalculator from './metric-calculation-helper';
 
 
@@ -30,7 +30,7 @@ export class DataVisualizationBarComponent implements OnInit {
   constructor(
     private _chainSelector: ChainSelectorService,
     private _dataRetriever: DataRetrieverService,
-    private _replayRetriever: ReplayService,
+    private _replayRetriever: RecordingHandlerService,
   ) {
     this.selectedChains = new ChainSelection([], []);
     this.selectedReplayChains = new ChainSelection([], []);

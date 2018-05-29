@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {ScenarioUploadService} from '../services/scenario-upload.service';
+import {ScenarioConfiguratorService} from '../services/scenario-configurator.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -18,7 +18,10 @@ export class FileReaderComponent {
   scenarioName: string;
   scenarioDescription: string;
 
-  constructor (private _scenarioUpload: ScenarioUploadService, public snackBar: MatSnackBar,) {
+  constructor (
+    private _scenarioConfigurator: ScenarioConfiguratorService,
+    public snackBar: MatSnackBar,
+  ) {
     this.scenarioName = '';
     this.scenarioDescription = '';
 
@@ -60,7 +63,7 @@ export class FileReaderComponent {
 
   uploadFile() {
     this.uploading = true;
-    this._scenarioUpload.upload({
+    this._scenarioConfigurator.upload({
       file: this.file,
       scenarioName: this.scenarioName,
       scenarioDescription: this.scenarioDescription,

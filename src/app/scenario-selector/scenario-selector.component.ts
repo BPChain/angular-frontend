@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { ScenarioUploadService } from '../services/scenario-upload.service';
+import { ScenarioConfiguratorService } from '../services/scenario-configurator.service';
 
 @Component({
   selector: 'app-scenario-selector',
@@ -15,7 +15,7 @@ export class ScenarioSelectorComponent implements OnInit, OnDestroy {
   public baseScenarios: Array<object>;
   private interval: any;
 
-  constructor(private _scenarioUpload: ScenarioUploadService) {
+  constructor(private _scenarioConfigurator: ScenarioConfiguratorService) {
     this.scenarios = [];
     this.selectedScenario = {
       id: '1',
@@ -45,7 +45,7 @@ export class ScenarioSelectorComponent implements OnInit, OnDestroy {
   }
 
   updateScenarios () {
-    this._scenarioUpload
+    this._scenarioConfigurator
       .getScenarios()
       .subscribe(
         result => {

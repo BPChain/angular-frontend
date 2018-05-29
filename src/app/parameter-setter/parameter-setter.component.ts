@@ -1,10 +1,14 @@
 import {
-  Component, OnChanges, Input, Output, EventEmitter, OnInit,
-  OnDestroy
+  Component,
+  OnChanges,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
 import {isUndefined} from 'util';
 import { MatSnackBar } from '@angular/material';
-import { ScenarioUploadService } from '../services/scenario-upload.service';
 import {ParameterConfiguratorService} from '../services/parameter-configurator.service';
 
 
@@ -39,7 +43,6 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
 
   constructor(
     private _parameterConfigurator: ParameterConfiguratorService,
-    private _scenarioUpload: ScenarioUploadService,
     private _snackBar: MatSnackBar,
   ) {
     this.connectedNodes = [];
