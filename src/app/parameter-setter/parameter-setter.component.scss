@@ -52,10 +52,17 @@ mat-icon {
   margin-top: 10px;
   border-radius: 3px;
   text-align: center;
-  background-color: #9099c9;
   height: 36px !important;
   width: 100%;
   z-index: 100;
+
+  &.primary {
+    background-color: #9099c9;
+  }
+
+  &.warn {
+    background-color: #d37777;
+  }
 }
 
 .button-spinner-text {

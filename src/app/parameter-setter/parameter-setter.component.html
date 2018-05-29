@@ -43,22 +43,33 @@
             <button *ngIf='selectedScenario["logName"] !== "Create"' mat-raised-button color="primary" (click)="requestParameterChange()">
               Update configuration
             </button>
-            <button mat-raised-button color="warn" (click)="stopSelectedChain()">
+
+            <div *ngIf='chainIsStopping' class='button-spinner warn'>
+              <div>
+                <div class='button-spinner-spinner'>
+                    <mat-spinner [diameter]="28" color='warn'></mat-spinner>
+                </div>
+                <div class='button-spinner-text'>
+                  Stopping chain...
+                </div>
+              </div>
+            </div>
+            <button *ngIf='!chainIsStopping' mat-raised-button color="warn" (click)="stopSelectedChain()">
               Stop chain
             </button>
           </div>
 
           <div *ngIf="!chainIsActive">
-              <div *ngIf='chainIsStarting' class='button-spinner'>
-                <div>
-                  <div class='button-spinner-spinner'>
-                      <mat-spinner [diameter]="28" color='primary'></mat-spinner>
-                  </div>
-                  <div class='button-spinner-text'>
-                    Starting chain...
-                  </div>
+            <div *ngIf='chainIsStarting' class='button-spinner primary'>
+              <div>
+                <div class='button-spinner-spinner'>
+                    <mat-spinner [diameter]="28" color='primary'></mat-spinner>
+                </div>
+                <div class='button-spinner-text'>
+                  Starting chain...
                 </div>
               </div>
+            </div>
             <button *ngIf='!chainIsStarting' mat-raised-button color="primary" (click)="startSelectedChain()">
               Start chain
             </button>

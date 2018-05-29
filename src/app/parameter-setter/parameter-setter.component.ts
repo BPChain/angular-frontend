@@ -37,7 +37,9 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
   public chainSelector: Array<string>;
   public chainIsActive: Boolean;
   public chainIsStarting: boolean;
+  public chainIsStopping: boolean;
   public startChainPipeline: Array<object>;
+  public stopChainPipeline: Array<object>;
   private interval: any;
 
 
@@ -55,8 +57,10 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.configuration = [];
     this.selectedScenario = {};
     this.startChainPipeline = [];
+    this.stopChainPipeline = [];
     this.chainIsActive = false;
     this.chainIsStarting = false;
+    this.chainIsStopping = false;
 
   }
 
@@ -95,7 +99,8 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.convertjson();
     this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
     this.chainIsActive = selectedChainInfo['active'];
-    this.checkChainProgress(this.selectedChain, this.selectedTarget);
+    this.chainIsStarting = this.checkChainProgress(this.startChainPipeline, this.selectedChain, this.selectedTarget);
+    this.chainIsStopping = this.checkChainProgress(this.stopChainPipeline, this.selectedChain, this.selectedTarget);
     this.configurationStore = this.configuration.reduce((parameters, parameter) => {
       return Object.assign(parameters, {[parameter['selector']]: this.configurationStore[parameter['selector']]});
     }, {});
@@ -151,7 +156,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
       .subscribe(result => {
         this.update.emit(null);
         this.startChainPipeline.push({chain: this.selectedChain, target: this.selectedTarget});
-        this.checkChainProgress(this.selectedChain, this.selectedTarget);
+        this.chainIsStarting = true;
         this.openSnackBar(`Successfully started ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
@@ -164,6 +169,8 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
       .stopChain(this.selectedChain, this.selectedTarget)
       .subscribe(result => {
         this.update.emit(null);
+        this.stopChainPipeline.push({chain: this.selectedChain, target: this.selectedTarget});
+        this.chainIsStopping = true;
         this.openSnackBar(`Successfully stopped ${this.selectedChain} on ${this.selectedTarget}`);
       },
       error => {
@@ -171,32 +178,33 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
       });
   }
 
-  checkChainProgress(chain: string, target: string): void {
+  checkChainProgress(queue: Array<object>, chain: string, target: string): boolean {
     if (chain && target) {
-      if (this.startChainPipeline
+      if (queue
         .find(element => element['chain'] === chain && element['target'] === target)) {
-        this.chainIsStarting = true;
+        return true;
       } else {
-        this.chainIsStarting = false;
+        return false;
       }
     }
   }
 
-  checkActiveChains(chains: Array<object>): void {
-    const startChainPipelineBuffer = [];
-    this.startChainPipeline = this.startChainPipeline.filter(chain => {
+  checkActiveChains(queue: Array<object>, chains: Array<object>, reverse = false): Array<object> {
+    return queue.filter(chain => {
       const chainInfo = chains
         .filter(element => element['target'] === chain['target'])
         .find(element => element['chainName'].toLowerCase() === chain['chain'].toLowerCase());
-      return !chainInfo['active'];
+      return reverse !== !chainInfo['active'];
     });
   }
 
 
   ngOnChanges() {
     this.chains = this.chainInfo.filter(element => element['accessability'] === 'private');
-    this.checkActiveChains(this.chains);
-    this.checkChainProgress(this.selectedChain, this.selectedTarget);
+    this.startChainPipeline = this.checkActiveChains(this.startChainPipeline, this.chains);
+    this.stopChainPipeline = this.checkActiveChains(this.stopChainPipeline, this.chains, true);
+    this.chainIsStarting = this.checkChainProgress(this.startChainPipeline, this.selectedChain, this.selectedTarget);
+    this.chainIsStopping = this.checkChainProgress(this.startChainPipeline, this.selectedChain, this.selectedTarget);
     this.connectedNodes = this.chains
       .map(element => element['target'])
       .reduce((x, y) => x && x.includes(y) ? x : [...x, y], []);
