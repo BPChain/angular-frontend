@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HttpClientModule, HttpClient} from '@angular/common/http';
-import { ChartsModule } from 'ng2-charts';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CONFIG} from '../config';
 
@@ -54,7 +53,6 @@ import { PlotlyBarchartComponent } from './charts/plotly-barchart/plotly-barchar
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
   ],
