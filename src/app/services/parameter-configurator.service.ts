@@ -46,14 +46,4 @@ export class ParameterConfiguratorService {
       }
     });
   }
-
-  switchChainTo(chainToStop: string, chainToStart: string, target: string): Observable<string> {
-    return this.setChainParameters({
-      chainName: chainToStop,
-      target,
-      parameters: {
-        switchChain: chainToStart,
-      }
-    });
-  }
 }

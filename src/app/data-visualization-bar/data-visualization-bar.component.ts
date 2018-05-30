@@ -105,7 +105,7 @@ export class DataVisualizationBarComponent implements OnInit {
 
   private trackReplaySelection() {
     this.update = true;
-    this._replayRetriever.selectedChains$.subscribe(
+    this._replayRetriever.selectedRecordingChains.subscribe(
       newChainSelection => {
         this.selectedReplayChains = newChainSelection;
         this.updateDatasets(true);

@@ -11,7 +11,7 @@ export class RecordingHandlerService {
 
   public replaying: Boolean = false;
   public recordingTimes = {startTime: '', endTime: ''};
-  public selectedChains$ = new BehaviorSubject<ChainSelection>(
+  public selectedRecordingChains = new BehaviorSubject<ChainSelection>(
     new ChainSelection([], [])
   );
 
@@ -66,6 +66,6 @@ export class RecordingHandlerService {
   }
 
   setSelectedChains(selectedChains: ChainSelection) {
-    this.selectedChains$.next(selectedChains);
+    this.selectedRecordingChains.next(selectedChains);
   }
 }

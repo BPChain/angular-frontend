@@ -21,7 +21,7 @@ export class ChainSelectorService {
     new ChainSelection([], [])
   );
 
-  setSelectedChains(selectedChains: ChainSelection) {
+  setSelectedChains(selectedChains: ChainSelection): void {
     this.selectedChains$.next(selectedChains);
   }
 }

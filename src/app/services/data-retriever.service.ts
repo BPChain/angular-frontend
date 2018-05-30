@@ -64,7 +64,7 @@ export class DataRetrieverService {
     }
   }
 
-  getReplayApiData(chain: string, target: string, startTime: string, endTime: string) {
+  getReplayApiData(chain: string, target: string, startTime: string, endTime: string): Observable<object> {
     return this._http
       .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase()
         + `?target=${target}&startTime=${startTime}&endTime=${endTime}&numberOfItems=100`)

@@ -9,7 +9,7 @@ export class ScenarioConfiguratorService {
 
   constructor(private _http: HttpClient) { }
 
-  upload({file, scenarioName, scenarioDescription}) {
+  upload({file, scenarioName, scenarioDescription}): Observable<string> {
     const formData = new FormData();
     formData.append('fileName', scenarioName);
     formData.append('description', scenarioDescription);
@@ -42,7 +42,7 @@ export class ScenarioConfiguratorService {
       );
   }
 
-  createScenario({name, description, payloadSize, period, numberOfNodes}) {
+  createScenario({name, description, payloadSize, period, numberOfNodes}): Observable<string> {
     return this._http
       .post(
         CONFIG.url.base + CONFIG.url.scenarios,
