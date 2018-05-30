@@ -55,7 +55,13 @@ export class PlotlyBarchartComponent implements OnInit, OnChanges {
         title: this.title,
         yaxis: {
           zeroline: true,
-        }
+          fixedrange: true,
+          rangemode: 'tozero',
+          autorange: true
+        },
+        xaxis: {
+          fixedrange: true,
+        },
       };
       Plotly.purge(element);
       Plotly.plot(element, data, style, {displayModeBar: false});
