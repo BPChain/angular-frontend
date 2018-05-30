@@ -50,7 +50,7 @@ export class ScenarioSelectorComponent implements OnInit, OnDestroy, OnChanges {
         timestamp: (new Date()).toISOString(),
       },
     ];
-    this.currentScenario = {name: 'No scenario'};
+    this.currentScenario = {logName: 'No scenario', description: ''};
 
     this.select.emit(this.selectedScenario);
   }
@@ -95,15 +95,14 @@ export class ScenarioSelectorComponent implements OnInit, OnDestroy, OnChanges {
       this._scenarioConfigurator
       .getScenario(this.current['name'])
       .subscribe(result => {
-        console.info(result)
         this.currentScenario = result;
       },
       error => {
-        this.currentScenario = {name: 'No scenario'};
+        this.currentScenario = {logName: 'No scenario', description: ''};
         console.warn('Could not load scenario ' + this.current['name']);
       });
     } else {
-      this.currentScenario = {name: 'No scenario'};
+      this.currentScenario = {logName: 'No scenario', description: ''};
     }
   }
 

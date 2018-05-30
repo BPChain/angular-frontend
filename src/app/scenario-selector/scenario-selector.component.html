@@ -2,9 +2,11 @@
   <h3>
     Scenario configuration
   </h3>
-  <mat-label>
-    Current scenario: {{ currentScenario['name'] }}
-  </mat-label>
+  <div [matTooltip]="currentScenario['description']" [matTooltipPosition]="'after'">
+    <mat-label>
+      Current scenario: {{ currentScenario['logName'] }}
+    </mat-label>
+  </div>
   <div [matTooltip]="selectedScenario['description']" [matTooltipPosition]="'after'">
     <mat-form-field>
       <mat-select placeholder="Select a scenario" [(value)]="selectedScenario">
