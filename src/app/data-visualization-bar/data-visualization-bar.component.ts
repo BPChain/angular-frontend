@@ -22,7 +22,6 @@ export class DataVisualizationBarComponent implements OnInit {
   public dataset: Array<ChainData>;
   public update: Boolean;
   public metrics: Object;
-  public displayMetrics: Boolean;
   public showTimeSpanSelection: Boolean;
 
   @ViewChild('linechart') linechart;
@@ -34,7 +33,6 @@ export class DataVisualizationBarComponent implements OnInit {
   ) {
     this.selectedChains = new ChainSelection([], []);
     this.selectedReplayChains = new ChainSelection([], []);
-    this.displayMetrics = true;
     this.dataset = [];
     this.metrics = metricCalculator.initMetricDataset();
     this.selectedTimeSpan = '30';
@@ -42,12 +40,6 @@ export class DataVisualizationBarComponent implements OnInit {
     this.timeFrame = {};
   }
 
-  private redrawBarcharts(): void {
-    this.displayMetrics = false;
-    setTimeout(() => {
-      this.displayMetrics = true;
-    });
-  }
 
   calculateTimeFrame(timeSpan: string): Object {
     const endTime = Date.now();
@@ -79,7 +71,6 @@ export class DataVisualizationBarComponent implements OnInit {
           this.metrics = metricCalculator.calculateMetrics(newChainData);
           if (redraw) {
             this.linechart.redraw();
-            this.redrawBarcharts();
           }
         }
       }, error => {
@@ -90,7 +81,6 @@ export class DataVisualizationBarComponent implements OnInit {
       this.dataset = [];
       this.metrics = metricCalculator.initMetricDataset();
       this.linechart.redraw();
-      this.redrawBarcharts();
     }
   }
 
