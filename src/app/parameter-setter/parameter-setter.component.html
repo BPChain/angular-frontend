@@ -36,8 +36,7 @@
                 <input *ngIf='selectedScenario["logName"] === "Create"' disabled matInput placeholder="Desired {{parameter['name']}}" type="number" [value]="configurationStore[parameter['selector']]">
               </mat-form-field>
             </div>
-
-            <app-scenario-selector (select)='selectScenario($event)'></app-scenario-selector>
+            <app-scenario-selector (select)='selectScenario($event)' [current]='currentScenario'></app-scenario-selector>
             <app-scenario-creator *ngIf='selectedScenario["logName"] === "Create"'></app-scenario-creator>
 
             <button *ngIf='selectedScenario["logName"] !== "Create"' mat-raised-button color="primary" (click)="requestParameterChange()">

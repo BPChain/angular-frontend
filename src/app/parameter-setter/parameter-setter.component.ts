@@ -34,6 +34,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
   public configuration: Array<object>;
   public configurationStore: object;
   public currentConfigStore: object;
+  public currentScenario: object;
   public chainSelector: Array<string>;
   public chainIsActive: Boolean;
   public chainIsStarting: boolean;
@@ -61,6 +62,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.chainIsActive = false;
     this.chainIsStarting = false;
     this.chainIsStopping = false;
+    this.currentScenario = {};
 
   }
 
@@ -97,6 +99,7 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
       .find(element => element['chainName'].toLowerCase() === this.selectedChain.toLowerCase());
     this.currentConfigStore = selectedChainInfo['state'];
     this.convertjson();
+    this.currentScenario = selectedChainInfo['scenario'] || {};
     this.configuration = selectedChainInfo['parameter'].filter(parameter => parameter['name']);
     this.chainIsActive = selectedChainInfo['active'];
     this.chainIsStarting = this.checkChainProgress(this.startChainPipeline, this.selectedChain, this.selectedTarget);

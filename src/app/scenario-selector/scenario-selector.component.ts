@@ -1,4 +1,12 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Output,
+  Input,
+  EventEmitter,
+  OnChanges
+} from '@angular/core';
 import { ScenarioConfiguratorService } from '../services/scenario-configurator.service';
 
 @Component({
@@ -6,10 +14,12 @@ import { ScenarioConfiguratorService } from '../services/scenario-configurator.s
   templateUrl: './scenario-selector.component.html',
   styleUrls: ['./scenario-selector.component.scss']
 })
-export class ScenarioSelectorComponent implements OnInit, OnDestroy {
+export class ScenarioSelectorComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() select: EventEmitter<any> = new EventEmitter ();
+  @Input() current: object;
 
+  public currentScenario: object;
   public scenarios: Array<object>;
   public selectedScenario: object;
   public baseScenarios: Array<object>;
@@ -40,6 +50,7 @@ export class ScenarioSelectorComponent implements OnInit, OnDestroy {
         timestamp: (new Date()).toISOString(),
       },
     ];
+    this.currentScenario = {name: 'No scenario'};
 
     this.select.emit(this.selectedScenario);
   }
@@ -77,6 +88,23 @@ export class ScenarioSelectorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     clearInterval(this.interval);
+  }
+
+  ngOnChanges() {
+    if (this.current['name']) {
+      this._scenarioConfigurator
+      .getScenario(this.current['name'])
+      .subscribe(result => {
+        console.info(result)
+        this.currentScenario = result;
+      },
+      error => {
+        this.currentScenario = {name: 'No scenario'};
+        console.warn('Could not load scenario ' + this.current['name']);
+      });
+    } else {
+      this.currentScenario = {name: 'No scenario'};
+    }
   }
 
 }

@@ -34,6 +34,14 @@ export class ScenarioConfiguratorService {
       );
   }
 
+  getScenario(id: string): Observable<Object> {
+    return this._http
+      .get(
+        CONFIG.url.base + CONFIG.url.scenarios + `?id=${id}`,
+        {responseType: 'json', withCredentials: true},
+      );
+  }
+
   createScenario({name, description, payloadSize, period, numberOfNodes}) {
     return this._http
       .post(
@@ -42,4 +50,6 @@ export class ScenarioConfiguratorService {
         {responseType: 'text', withCredentials: true},
       );
   }
+
 }
+

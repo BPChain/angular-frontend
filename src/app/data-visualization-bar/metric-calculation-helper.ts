@@ -41,7 +41,7 @@ export class MetricCalculationHelper {
     try {
       if (entry['avgBlocktime']) {
         const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-        return stats.stdev(parameter) || 0;
+        return 1 / stats.stdev(parameter) || 0;
       }
       return 0;
     } catch (error) {
