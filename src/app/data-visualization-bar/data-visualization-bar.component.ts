@@ -17,7 +17,7 @@ import metricDescriptions from './metric-descriptions';
 })
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
-  public selectedTimeSpan: String;
+  public selectedTimeSpan: string;
   public timeFrame: Object;
   public selectedReplayChains: ChainSelection;
   public dataset: Array<ChainData>;
