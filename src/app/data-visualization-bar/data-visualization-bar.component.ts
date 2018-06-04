@@ -7,6 +7,7 @@ import { DataRetrieverService, ChainData } from '../services/data-retriever.serv
 import {CONFIG} from '../../config';
 import {RecordingHandlerService} from '../services/recording-handler.service';
 import metricCalculator from './metric-calculation-helper';
+import metricDescriptions from './metric-descriptions';
 
 
 @Component({
@@ -16,13 +17,14 @@ import metricCalculator from './metric-calculation-helper';
 })
 export class DataVisualizationBarComponent implements OnInit {
   public selectedChains: ChainSelection;
-  public selectedTimeSpan: string;
-  public timeFrame: object;
+  public selectedTimeSpan: String;
+  public timeFrame: Object;
   public selectedReplayChains: ChainSelection;
   public dataset: Array<ChainData>;
   public update: Boolean;
   public metrics: Object;
   public showTimeSpanSelection: Boolean;
+  public descriptions: Object;
 
   @ViewChild('linechart') linechart;
 
@@ -38,6 +40,7 @@ export class DataVisualizationBarComponent implements OnInit {
     this.selectedTimeSpan = '30';
     this.showTimeSpanSelection = true;
     this.timeFrame = {};
+    this.descriptions = metricDescriptions;
   }
 
 
