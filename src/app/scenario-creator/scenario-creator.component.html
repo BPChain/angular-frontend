@@ -18,11 +18,13 @@
   <br /> Payload size:
   <span> {{payloadSize}} Byte </span>
   <br />
-  <mat-slider [max]="1000" [min]="1" [step]="10" [thumb-label]="true" [(ngModel)]="payloadSize"
+  <mat-slider [max]="1000" [min]="10" [step]="10" [thumb-label]="true" [(ngModel)]="payloadSize"
     name='payloadSize'>
   </mat-slider>
-
-  <button mat-raised-button color="primary" (click)="createScenario()">
+  <button *ngIf='!(scenarioName && scenarioDescription)' mat-raised-button color="primary" disabled>
+      Create scenario
+  </button>
+  <button *ngIf='scenarioName && scenarioDescription' mat-raised-button color="primary" (click)="createScenario()">
     Create scenario
   </button>
 </div>
