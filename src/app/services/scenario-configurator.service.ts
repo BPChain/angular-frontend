@@ -37,7 +37,7 @@ export class ScenarioConfiguratorService {
   getScenario(id: string): Observable<Object> {
     return this._http
       .get(
-        CONFIG.url.base + CONFIG.url.scenarios + `?id=${id}`,
+        CONFIG.url.base + CONFIG.url.scenarios + id,
         {responseType: 'json', withCredentials: true},
       );
   }
