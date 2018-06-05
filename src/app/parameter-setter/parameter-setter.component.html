@@ -32,8 +32,10 @@
                 Current {{parameter['name']}}: {{currentConfigStore[parameter['selector']]}}
               </mat-label>
               <mat-form-field>
-                <input *ngIf='selectedScenario["logName"] !== "Create"' matInput placeholder="Desired {{parameter['name']}}" min="1" type="number" [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
-                <input *ngIf='selectedScenario["logName"] === "Create"' disabled matInput placeholder="Desired {{parameter['name']}}" type="number" [value]="configurationStore[parameter['selector']]">
+                <input *ngIf='selectedScenario["logName"] !== "Create"' matInput placeholder="Desired {{parameter['name']}}" min="1" type="number"
+                  [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
+                <input *ngIf='selectedScenario["logName"] === "Create"' disabled matInput placeholder="Desired {{parameter['name']}}" type="number"
+                  [value]="configurationStore[parameter['selector']]">
               </mat-form-field>
             </div>
             <app-scenario-selector (select)='selectScenario($event)' [current]='currentScenario'></app-scenario-selector>
@@ -46,7 +48,7 @@
             <div *ngIf='chainIsStopping' class='button-spinner warn'>
               <div>
                 <div class='button-spinner-spinner'>
-                    <mat-spinner [diameter]="28" color='warn'></mat-spinner>
+                  <mat-spinner [diameter]="28" color='warn'></mat-spinner>
                 </div>
                 <div class='button-spinner-text'>
                   Stopping chain...
@@ -62,7 +64,7 @@
             <div *ngIf='chainIsStarting' class='button-spinner primary'>
               <div>
                 <div class='button-spinner-spinner'>
-                    <mat-spinner [diameter]="28" color='primary'></mat-spinner>
+                  <mat-spinner [diameter]="28" color='primary'></mat-spinner>
                 </div>
                 <div class='button-spinner-text'>
                   Starting chain...

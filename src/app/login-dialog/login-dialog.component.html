@@ -3,7 +3,7 @@
     <mat-form-field [color]='options.value.color'>
       <input #username matInput placeholder="Username" [formControl]="usernameInput" type="text">
       <mat-icon *ngIf='wrongCredentials' color='warn' matSuffix>
-          warning
+        warning
       </mat-icon>
       <mat-error *ngIf="usernameInput.invalid">
         {{getUsernameErrorMessage()}}
@@ -19,7 +19,7 @@
         {{getPasswordErrorMessage()}}
       </mat-error>
       <mat-icon *ngIf='wrongCredentials' matSuffix color='warn'>
-          warning
+        warning
       </mat-icon>
     </mat-form-field>
   </form>
