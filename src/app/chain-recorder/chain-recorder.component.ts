@@ -68,7 +68,8 @@ export class ChainRecorderComponent implements OnInit {
       });
     this.calculateTime();
     const i = setInterval(() => {
-      this._recorder.isRecording()
+      if (this.isAuthenticated) {
+        this._recorder.isRecording()
         .subscribe(result => {
           if (result['isRecording'] !== this.isRecording) {
             if (result['isRecording']) {
@@ -84,6 +85,7 @@ export class ChainRecorderComponent implements OnInit {
             }
           }
         });
+      }
     }, 10000);
   }
 
