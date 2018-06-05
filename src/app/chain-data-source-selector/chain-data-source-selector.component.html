@@ -1,15 +1,15 @@
 <mat-card>
   <mat-card-content>
-    <h3>Permissioned chains</h3>
+    <h2>Chain selection</h2>
     <hr />
-        <mat-selection-list #privateChainSelector>
-          <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.isSelected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
-            [value]="chain">
-            {{ chain.name }}
-            <p class="description">
-              {{ chain.target }}
-            </p>
-          </mat-list-option>
-        </mat-selection-list>
+    <mat-selection-list #privateChainSelector>
+      <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.isSelected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
+        [value]="chain">
+        {{ chain.name }}
+        <p class="description">
+          {{ chain.target }}
+        </p>
+      </mat-list-option>
+    </mat-selection-list>
   </mat-card-content>
 </mat-card>
