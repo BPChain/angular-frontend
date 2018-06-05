@@ -10,15 +10,6 @@ export class ParameterConfiguratorService {
 
   constructor(private _http: HttpClient) { }
 
-  getConnectedNodes(): Observable<string> {
-    return this._http
-      .post(
-        CONFIG.url.base + CONFIG.url.connectedNodes,
-        {},
-        {responseType: 'text'},
-      );
-  }
-
   chainInfo(): Observable<string> {
     return this._http
       .get(
@@ -32,7 +23,27 @@ export class ParameterConfiguratorService {
     .post(
       CONFIG.url.base + CONFIG.url.changeParameter,
       parameters,
-      {responseType: 'text'},
+      {responseType: 'text', withCredentials: true},
     );
+  }
+
+  startChain(chainName: string, target: string): Observable<string> {
+    return this.setChainParameters({
+      chainName,
+      target,
+      parameters: {
+        startChain: true,
+      }
+    });
+  }
+
+  stopChain(chainName: string, target: string): Observable<string> {
+    return this.setChainParameters({
+      chainName,
+      target,
+      parameters: {
+        stopChain: true,
+      }
+    });
   }
 }

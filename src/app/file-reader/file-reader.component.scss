@@ -1,0 +1,37 @@
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  font-size: 1em;
+  font-weight: 700;
+  color: dimgray;
+  display: inline-block;
+  cursor: pointer; /* "hand" cursor */
+  background-color: rgba(56, 51, 51, 0.027);
+  padding: 20px;
+  width: 155px;
+  border: 1px dashed rgb(189, 189, 189);
+  text-align: center;
+}
+
+.inputfile:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+.inputfile + label:hover {
+  color: black;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.fill-width {
+  width: 100%;
+}

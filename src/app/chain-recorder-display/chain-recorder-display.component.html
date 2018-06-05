@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-content>
+    <h2>Recordings</h2>
+    <mat-form-field>
+      <mat-select placeholder="Recordings" [(ngModel)]="selectedRecording" [disabled]="isReplaying">
+        <mat-option *ngFor="let recording of allRecordings" [value]="recording">
+          {{recording['recordingName']}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-selection-list #recordedChainSelector *ngIf="isReplaying" [(ngModel)]="selectedChains">
+      <mat-list-option *ngFor="let chain of recordedChains" (click)="updateSelectedChains()" [value]="{target: chain.target, name: chain.chainName}">
+        {{ chain.chainName }}
+        <p class="description">
+          {{ chain.target }}
+        </p>
+      </mat-list-option>
+    </mat-selection-list>
+    <button *ngIf="!selectedRecording && !isReplaying" mat-raised-button color="primary" disabled>
+      <i class="material-icons">play_circle_fill</i>
+    </button>
+    <button *ngIf="selectedRecording && !isReplaying" mat-raised-button color="primary" (click)="startReplay()">
+      <i class="material-icons">play_circle_fill</i>
+    </button>
+    <button *ngIf="isReplaying" mat-raised-button color="warn" (click)="stopReplay()">
+      <i class="material-icons">stop</i>
+    </button>
+  </mat-card-content>
+</mat-card>

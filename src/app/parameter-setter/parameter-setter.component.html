@@ -1,15 +1,22 @@
 <mat-card>
-  <h2>Parameter</h2>
+  <div class='container'>
+    <div class='left'>
+      <h2>Configurator</h2>
+    </div>
+  </div>
   <mat-card-content>
+    <h3>Chain configuration</h3>
+
     <form>
       <mat-form-field>
-        <mat-select placeholder="Target system" [(value)]="selectedNode">
+        <mat-select placeholder="Target system" [(value)]="selectedTarget">
           <mat-option *ngFor="let node of connectedNodes" [value]="node" (click)="updateChainSelection()">
             {{ node }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div *ngIf="selectedNode !== ''">
+
+      <div *ngIf="selectedTarget !== ''">
         <mat-form-field>
           <mat-select placeholder="Select a chain" [(value)]="selectedChain">
             <mat-option *ngFor="let chain of chainSelector" [value]="chain" (click)="updateConfiguration()">
@@ -20,32 +27,51 @@
 
         <div *ngIf="selectedChain !== ''">
           <div *ngIf="chainIsActive">
-           <mat-form-field>
-              <input #numberOfHosts matInput placeholder="Number of hosts" type="number" [(value)]="configuration['numberOfHosts']">
-            </mat-form-field>
+            <div *ngFor="let parameter of configuration">
+              <mat-label>
+                Current {{parameter['name']}}: {{currentConfigStore[parameter['selector']]}}
+              </mat-label>
+              <mat-form-field>
+                <input *ngIf='selectedScenario["logName"] !== "Create"' matInput placeholder="Desired {{parameter['name']}}" min="1" type="number"
+                  [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">
+                <input *ngIf='selectedScenario["logName"] === "Create"' disabled matInput placeholder="Desired {{parameter['name']}}" type="number"
+                  [value]="configurationStore[parameter['selector']]">
+              </mat-form-field>
+            </div>
+            <app-scenario-selector (select)='selectScenario($event)' [current]='currentScenario'></app-scenario-selector>
+            <app-scenario-creator *ngIf='selectedScenario["logName"] === "Create"'></app-scenario-creator>
 
-            <mat-form-field>
-              <input #numberOfMiners matInput placeholder="Number of miners" type="number" [(value)]="configuration['numberOfMiners']">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #initialDifficulty matInput placeholder="Initial difficulty" type="number" [(value)]="configuration['initialDifficulty']">
-            </mat-form-field>
-
-            <mat-form-field>
-              <input #transactionsPerMin matInput placeholder="Transactions / min" type="number" [(value)]="configuration['transactionsPerMin']">
-            </mat-form-field>
-
-            <button mat-raised-button (click)="requestParameterChange()">
-              Change Parameters
+            <button *ngIf='selectedScenario["logName"] !== "Create"' mat-raised-button color="primary" (click)="requestParameterChange()">
+              Update configuration
             </button>
-            <button mat-raised-button (click)="stopSelectedChain()">
-                Stop chain
+
+            <div *ngIf='chainIsStopping' class='button-spinner warn'>
+              <div>
+                <div class='button-spinner-spinner'>
+                  <mat-spinner [diameter]="28" color='warn'></mat-spinner>
+                </div>
+                <div class='button-spinner-text'>
+                  Stopping chain...
+                </div>
+              </div>
+            </div>
+            <button *ngIf='!chainIsStopping' mat-raised-button color="warn" (click)="stopSelectedChain()">
+              Stop chain
             </button>
           </div>
 
           <div *ngIf="!chainIsActive">
-            <button mat-raised-button (click)="startSelectedChain()">
+            <div *ngIf='chainIsStarting' class='button-spinner primary'>
+              <div>
+                <div class='button-spinner-spinner'>
+                  <mat-spinner [diameter]="28" color='primary'></mat-spinner>
+                </div>
+                <div class='button-spinner-text'>
+                  Starting chain...
+                </div>
+              </div>
+            </div>
+            <button *ngIf='!chainIsStarting' mat-raised-button color="primary" (click)="startSelectedChain()">
               Start chain
             </button>
           </div>

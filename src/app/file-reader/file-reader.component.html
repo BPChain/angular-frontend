@@ -1,0 +1,31 @@
+<mat-card>
+  <h2>
+    Scenario upload
+  </h2>
+  <div>
+    <mat-form-field class='fill-width'>
+      <input matInput placeholder="Scenario name" type="text" [value]='scenarioName' (input)="scenarioName = $event.target.value">
+    </mat-form-field>
+    <mat-form-field class='fill-width'>
+      <textarea matInput placeholder="Scenario description" type="text" [value]='scenarioDescription' (input)="scenarioDescription = $event.target.value">
+      </textarea>
+    </mat-form-field>
+    <input type="file" [name]="'Upload Scylla log'" [accept]="'.xes'" (change)="handleInputChange($event)" class="inputfile"
+    />
+    <label [for]="data" ondragover="return false;" [class.loaded]="loaded" (dragenter)="handleDragEnter()" (dragleave)="handleDragLeave()"
+      (drop)="handleDrop($event)">
+      <span *ngIf="loaded">
+        {{displayedFileName}}
+      </span>
+      <span *ngIf="!loaded">
+        Upload Scylla log (.xes)
+      </span>
+    </label>
+    <button *ngIf='!loaded || !scenarioName' mat-raised-button disabled class='fill-width'>
+      Upload
+    </button>
+    <button *ngIf='loaded && scenarioName' mat-raised-button color="primary" (click)="uploadFile()" class='fill-width'>
+      Upload
+    </button>
+  </div>
+</mat-card>

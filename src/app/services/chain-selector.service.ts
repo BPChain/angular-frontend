@@ -1,9 +1,13 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+export interface ChainItem {
+  name;
+  target;
+}
 
 export class ChainSelection {
-  constructor(public _public: Array<string>, public _private: Array<string>) {
+  constructor(public _public: Array<ChainItem>, public _private: Array<ChainItem>) {
   }
 
   public isEmpty(): boolean {
@@ -17,7 +21,7 @@ export class ChainSelectorService {
     new ChainSelection([], [])
   );
 
-  setSelectedChains(selectedChains: ChainSelection) {
+  setSelectedChains(selectedChains: ChainSelection): void {
     this.selectedChains$.next(selectedChains);
   }
 }

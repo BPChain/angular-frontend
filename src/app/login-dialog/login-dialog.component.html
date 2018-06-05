@@ -2,23 +2,32 @@
   <form class="container">
     <mat-form-field [color]='options.value.color'>
       <input #username matInput placeholder="Username" [formControl]="usernameInput" type="text">
+      <mat-icon *ngIf='wrongCredentials' color='warn' matSuffix>
+        warning
+      </mat-icon>
       <mat-error *ngIf="usernameInput.invalid">
         {{getUsernameErrorMessage()}}
       </mat-error>
     </mat-form-field>
 
     <mat-form-field [color]='options.value.color'>
-      <input #password matInput placeholder="Password" [formControl]="passwordInput" [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix (click)="hide = !hide">
+      <input #password matInput placeholder="Password" [formControl]="passwordInput" [type]="hide ? 'password' : 'text'" (keyup.Enter)='submitCredentials(username.value, password.value)'>
+      <mat-icon matSuffix (click)="hide = !hide" class='clickable'>
         {{hide ? 'visibility' : 'visibility_off'}}
       </mat-icon>
       <mat-error *ngIf="passwordInput.invalid">
         {{getPasswordErrorMessage()}}
       </mat-error>
+      <mat-icon *ngIf='wrongCredentials' matSuffix color='warn'>
+        warning
+      </mat-icon>
     </mat-form-field>
   </form>
-
-  <button class="container" mat-raised-button (click)="submitCredentials(username.value, password.value)">
-    Submit
+  <div class='container' *ngIf='wrongCredentials'>
+    Invalid credentials.
+    <hr />
+  </div>
+  <button class='expand' color='primary' mat-raised-button (click)="submitCredentials(username.value, password.value)">
+    Login
   </button>
 </div>

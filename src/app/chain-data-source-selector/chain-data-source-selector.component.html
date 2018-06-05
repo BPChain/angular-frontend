@@ -3,20 +3,20 @@
     <mat-tab-group>
       <mat-tab label="Private">
         <mat-selection-list #privateChainSelector>
-          <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.selected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
-            [value]="chain.name">
+          <mat-list-option *ngFor="let chain of privateChains" [selected]="chain.isSelected" (click)="onSelectedPrivateChainsChanged(privateChainSelector.selectedOptions.selected)"
+            [value]="chain">
             {{ chain.name }}
-            <br />
-            ({{ chain.target }})
+            <p class="description">
+              {{ chain.target }}
+            </p>
           </mat-list-option>
         </mat-selection-list>
-
       </mat-tab>
       <mat-tab label="Public">
 
         <mat-selection-list #publicChainSelector>
           <mat-list-option *ngFor="let chain of publicChains" [selected]="chain.selected" (click)="onSelectedPublicChainsChanged(publicChainSelector.selectedOptions.selected)"
-            [value]=" chain.name">
+            [value]="chain">
             {{ chain.name }}
           </mat-list-option>
         </mat-selection-list>

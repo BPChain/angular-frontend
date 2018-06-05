@@ -22,7 +22,8 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/frappe-charts/dist/frappe-charts.min.iife.js"
+        "../node_modules/plotly.js/dist/plotly-basic.min.js",
+        "../node_modules/stats-lite/stats.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

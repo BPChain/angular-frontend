@@ -1,14 +1,20 @@
 export const CONFIG = {
   url: {
     base: 'https://bpt-lab.org/bp2017w1-bpchain/',
-    login: 'login',
-    logout: 'logout',
-    checkLogin: 'checkLogin',
-    publicChain: 'api/public/',
-    privateChain: 'api/private/',
-    changeParameter: 'api/change',
-    connectedNodes: 'api/connectedNodes',
-    chainInfo: 'api/getChainInfo'
-  }
+    login: 'user/login/',
+    logout: 'user/logout/',
+    checkLogin: 'user/check/',
+    changeParameter: 'chain/',
+    chainInfo: 'chain/',
+    publicChain: 'chain/public/',
+    privateChain: 'chain/private/',
+    recordings: 'recordings/',
+    startRecording: 'recordings/start/',
+    stopRecording: 'recordings/stop/',
+    isRecording: 'recordings/isRecording/',
+    scenarios: 'scenarios/',
+    upload: 'scenarios/upload/',
+  },
+  refreshTime: 15000,
 };
 

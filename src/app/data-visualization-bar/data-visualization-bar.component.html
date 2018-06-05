@@ -1,14 +1,63 @@
 <mat-card>
+  <div class='right'>
+    <mat-select class='time-selector' [(value)]="selectedTimeSpan" *ngIf='showTimeSpanSelection'>
+      <mat-option value="5" (click)='updateDatasets(false)'>5 Minutes</mat-option>
+      <mat-option value="30" (click)='updateDatasets(false)'>30 Minutes</mat-option>
+      <mat-option value="60" (click)='updateDatasets(false)'>1 Hour</mat-option>
+      <mat-option value="120" (click)='updateDatasets(false)'>2 Hours</mat-option>
+      <mat-option value="300" (click)='updateDatasets(false)'>5 Hours</mat-option>
+      <mat-option value="600" (click)='updateDatasets(false)'>10 Hours</mat-option>
+      <mat-option value="1440" (click)='updateDatasets(false)'>1 Day</mat-option>
+    </mat-select>
 
-  <app-linechart  [selectedChains]='selectedChains'
-                  [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'>
-  </app-linechart>
-  <mat-button-toggle-group #parameterSelection = "matButtonToggleGroup" value = 'numberOfHosts'>
-    <mat-button-toggle value = 'numberOfHosts' >Number of Hosts</mat-button-toggle>
-    <mat-button-toggle value = 'numberOfMiners'>Number of Miners</mat-button-toggle>
-    <mat-button-toggle value = 'avgHashrate'>Average Hashrate</mat-button-toggle>
-    <mat-button-toggle value = 'avgBlocktime'>Average Blocktime</mat-button-toggle>
-    <mat-button-toggle value = 'avgGasPrice'>Average Gas price</mat-button-toggle>
-    <mat-button-toggle value = 'avgDifficulty'>Average Difficulty</mat-button-toggle>
+  </div>
+  <app-plotly-linechart #linechart [dataset]='dataset' [timespan]='timeFrame' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'></app-plotly-linechart>
+
+  <mat-button-toggle-group #parameterSelection="matButtonToggleGroup" value='numberOfHosts'>
+    <mat-button-toggle value='numberOfHosts'>Hosts</mat-button-toggle>
+    <mat-button-toggle value='numberOfMiners'>Miners</mat-button-toggle>
+    <mat-button-toggle value='avgCpuUsage'>CPU usage</mat-button-toggle>
+    <mat-button-toggle value='avgHashrate'>Hashrate</mat-button-toggle>
+    <mat-button-toggle value='avgBlocktime'>Blocktime</mat-button-toggle>
+    <mat-button-toggle value='avgBlockSize'>Blocksize</mat-button-toggle>
+    <mat-button-toggle value='avgTransactions'>Transactions/Block</mat-button-toggle>
+    <mat-button-toggle value='avgDifficulty'>Difficulty</mat-button-toggle>
   </mat-button-toggle-group>
 </mat-card>
+
+<div class="container">
+  <mat-card class="item small">
+    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['miningTime']" [matTooltipPosition]="'above'">
+      <app-plotly-barchart title="Mining Time (s)" [data]="metrics['miningTime']">
+      </app-plotly-barchart>
+    </div>
+  </mat-card>
+
+  <mat-card class="item small">
+    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['stability']" [matTooltipPosition]="'above'">
+      <app-plotly-barchart title="Stability (1 / Blocktime deviation in s)" [data]="metrics['stability']">
+      </app-plotly-barchart>
+    </div>
+  </mat-card>
+
+  <mat-card class="item small">
+    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['throughput']" [matTooltipPosition]="'above'">
+      <app-plotly-barchart title="Throughput (Stored transactions / s)" [data]="metrics['throughput']">
+      </app-plotly-barchart>
+    </div>
+  </mat-card>
+
+  <mat-card class="item small">
+    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['dataTransfer']" [matTooltipPosition]="'above'">
+      <app-plotly-barchart title="Data transfer (Bytes / s)" [data]="metrics['dataTransfer']">
+      </app-plotly-barchart>
+    </div>
+  </mat-card>
+
+  <mat-card class="item small">
+    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['energyConsumption']" [matTooltipPosition]="'above'">
+      <app-plotly-barchart title="Energy Consumption (W)" [data]="metrics['energyConsumption']">
+      </app-plotly-barchart>
+    </div>
+  </mat-card>
+</div>

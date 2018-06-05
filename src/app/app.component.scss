@@ -6,11 +6,11 @@
 
   mat-toolbar {
     a {
-      color: rgb(255, 255, 255);
+      color: #ffffff;
     }
 
     button {
-      border: 1px solid rgba(216, 216, 216, 0.192);
+      border: 1px solid #d8d8d831 !important;
       border-radius: 2px;
       margin: 3px;
     }
@@ -25,21 +25,27 @@
     }
 
     &.footer {
-      height: 30px;
+      min-height: 32px;
       bottom: 30px;
+    }
+
+    .logo {
+      height: 40px;
+      background-color: #ffffffd0;
+      padding: 5px;
+      border: 0px solid white;
+      border-radius: 4px;
     }
   }
 
   #content-with-arrow-buttons {
     display: flex;
-    height: 100%;
+    overflow-y: scroll;
 
     mat-sidenav-container {
       width: 100%;
-      height: 100%;
       min-width: 400px;
 
-      //Style all the cards in one style
       ::ng-deep mat-card {
         margin: 10px;
         padding: 10px;
@@ -53,10 +59,6 @@
         background-color: transparent;
       }
 
-      mat-sidenav-content {
-        //I think this has no effect
-        min-width: 300px;
-      }
     }
 
     .button-container {
@@ -66,3 +68,4 @@
   }
 
 }
+

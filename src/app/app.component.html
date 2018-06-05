@@ -1,7 +1,7 @@
 <div id="page-wrapper">
   <mat-toolbar color="primary" class="header">
     <mat-toolbar-row>
-      <span>BPChain</span>
+      <img src="bp2017w1-frontend/assets/img/logo.png" class='logo' alt="BPChain">
       <span class="spacer"></span>
       <button *ngIf="!isAuthenticated" mat-button (click)="openLoginDialog()">Login</button>
       <button *ngIf="isAuthenticated" mat-button (click)="triggerLogout()">Logout</button>
@@ -26,18 +26,7 @@
       <mat-sidenav-content>
         <app-data-visualization-bar></app-data-visualization-bar>
       </mat-sidenav-content>
-
-      <mat-sidenav #snavRight mode='side' position="end">
-        <app-scenario-bar [isAuthenticated]="isAuthenticated"></app-scenario-bar>
-      </mat-sidenav>
-
     </mat-sidenav-container>
-    <div class="button-container">
-      <button class="arrow-button" mat-icon-button (click)="rightSliderOnClick(snavRight)">
-        <mat-icon>{{rightSliderIcon}}</mat-icon>
-      </button>
-    </div>
-
   </div>
 
 

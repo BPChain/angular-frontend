@@ -16,6 +16,7 @@ export interface ChainData {
   numberOfHosts: Array<number>;
   numberOfMiners: Array<number>;
   timestamp: Array<string>;
+  target: string;
 }
 
 
@@ -25,19 +26,29 @@ export class DataRetrieverService {
   constructor(private _http: HttpClient) {
   }
 
-  getPublicChainApiData(chain: string): Observable<ChainData> {
+  getPublicChainApiData(chain: string, timeSpan: object): Observable<ChainData> {
     return this._http
-      .get(CONFIG.url.base + CONFIG.url.publicChain + chain.toLowerCase() + '?numberOfItems=100')
+      .get(
+        CONFIG.url.base +
+        CONFIG.url.publicChain +
+        chain.toLowerCase() +
+        `?numberOfItems=100&startTime=${timeSpan['startTime']}&endTime=${timeSpan['endTime']}`
+      )
       .map(response => <ChainData>({...response, access: 'Public'}));
   }
 
-  getPrivateChainApiData(chain: string): Observable<ChainData> {
+  getPrivateChainApiData(chain: string, target: string, timeSpan: object): Observable<ChainData> {
     return this._http
-      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase() + '?numberOfItems=100')
-      .map(response => <ChainData>({...response, access: 'Private'}));
+      .get(
+        CONFIG.url.base +
+        CONFIG.url.privateChain +
+        chain.toLowerCase() +
+        `?target=${target}&numberOfItems=100&startTime=${timeSpan['startTime']}&endTime=${timeSpan['endTime']}`
+      )
+      .map(response => <ChainData>({...response, access: 'Private', target: target}));
   }
 
-  getChainData(selectedChains: ChainSelection): Observable<Array<ChainData>> {
+  getChainData(selectedChains: ChainSelection, timeSpan): Observable<Array<ChainData>> {
     if (selectedChains.isEmpty()) {
       return Observable.create(
         observer => {
@@ -46,11 +57,18 @@ export class DataRetrieverService {
         });
     } else {
       const responses$ = selectedChains._private.map(
-        chain => this.getPrivateChainApiData(chain))
+        chain => this.getPrivateChainApiData(chain['name'], chain['target'], timeSpan))
         .concat(selectedChains._public.map(
-          chain => this.getPublicChainApiData(chain)));
+          chain => this.getPublicChainApiData(chain['name'], timeSpan)));
       return Observable.forkJoin(...responses$);
     }
+  }
+
+  getReplayApiData(chain: string, target: string, startTime: string, endTime: string): Observable<object> {
+    return this._http
+      .get(CONFIG.url.base + CONFIG.url.privateChain + chain.toLowerCase()
+        + `?target=${target}&startTime=${startTime}&endTime=${endTime}&numberOfItems=100`)
+      .map(response => <ChainData>({...response, access: 'Private', target: target}));
   }
 
   chainInfo(): Observable<string> {
@@ -69,4 +87,7 @@ export class DataRetrieverService {
         {responseType: 'text'},
       );
   }
+
+
+
 }
