@@ -35,17 +35,6 @@ export class ChainRecorderComponent implements OnInit {
                 this.openSnackBar('Started recording successfully');
               }
             });
-          const i = setInterval(() => {
-            this._recorder.isRecording()
-              .subscribe(result => {
-                if (!result['isRecording']) {
-                  this.isRecording = false;
-                  this.creationDate = null;
-                  clearInterval(i);
-                  this.openSnackBar('Someone stopped the recording');
-                }
-              });
-          }, 15000);
         } else {
           this.openSnackBar('Sorry, someone else in currently recording');
           this.creationDate = recording['creationDate'];
@@ -76,7 +65,26 @@ export class ChainRecorderComponent implements OnInit {
         } else {
           this.creationDate = null;
         }
-      });    this.calculateTime();
+      });
+    this.calculateTime();
+    const i = setInterval(() => {
+      this._recorder.isRecording()
+        .subscribe(result => {
+          if (result['isRecording'] !== this.isRecording) {
+            if (result['isRecording']) {
+              this.isRecording = true;
+              this.recordingName = result['recordingName'];
+              this.creationDate = result['creationDate'];
+              this.openSnackBar('Someone started a recording');
+            } else {
+              this.recordingName = '';
+              this.isRecording = false;
+              this.creationDate = null;
+              this.openSnackBar('Someone stopped the recording');
+            }
+          }
+        });
+    }, 10000);
   }
 
   calculateTime() {
@@ -87,7 +95,6 @@ export class ChainRecorderComponent implements OnInit {
       this.recordingTime['minutes'] = Math.floor( timeDelta / 60);
       timeDelta = timeDelta - this.recordingTime['minutes'] * 60;
       this.recordingTime['seconds'] = Math.floor(timeDelta);
-
     }}, 1000);
   }
 
