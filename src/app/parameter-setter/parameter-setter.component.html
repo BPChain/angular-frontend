@@ -28,9 +28,14 @@
         <div *ngIf="selectedChain !== ''">
           <div *ngIf="chainIsActive">
             <div *ngFor="let parameter of configuration">
-              <mat-label>
+              <mat-label *ngIf="parameter['name'] !== 'Number of miners'">
                 Current {{parameter['name']}}: {{currentConfigStore[parameter['selector']]}}
               </mat-label>
+              <div *ngIf="parameter['name'] === 'Number of miners'" matTooltip="There will always be an additional host who is the admin of the network but does not participate" matTooltipPosition="right">
+                <mat-label>
+                  Current {{parameter['name']}}: {{currentConfigStore[parameter['selector']]}}
+                </mat-label>
+              </div>
               <mat-form-field>
                 <input *ngIf='selectedScenario["logName"] !== "Create"' matInput placeholder="Desired {{parameter['name']}}" min="1" type="number"
                   [value]="configurationStore[parameter['selector']]" (input)="configurationStore[parameter['selector']] = $event.target.value">

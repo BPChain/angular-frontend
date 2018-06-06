@@ -14,48 +14,48 @@
   <app-plotly-linechart #linechart [dataset]='dataset' [timespan]='timeFrame' [selectedParameter]='parameterSelection.value ? parameterSelection.value : "numberOfHosts"'></app-plotly-linechart>
 
   <mat-button-toggle-group #parameterSelection="matButtonToggleGroup" value='numberOfHosts'>
-    <mat-button-toggle value='numberOfHosts'>Hosts</mat-button-toggle>
-    <mat-button-toggle value='numberOfMiners'>Miners</mat-button-toggle>
-    <mat-button-toggle value='avgCpuUsage'>CPU usage</mat-button-toggle>
-    <mat-button-toggle value='avgHashrate'>Hashrate</mat-button-toggle>
-    <mat-button-toggle value='avgBlocktime'>Blocktime</mat-button-toggle>
-    <mat-button-toggle value='avgBlockSize'>Blocksize</mat-button-toggle>
-    <mat-button-toggle value='avgTransactions'>Transactions/Block</mat-button-toggle>
-    <mat-button-toggle value='avgDifficulty'>Difficulty</mat-button-toggle>
+    <mat-button-toggle value='numberOfHosts' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Number of all hosts including admins" matTooltipPosition="below">Hosts</mat-button-toggle>
+    <mat-button-toggle value='numberOfMiners' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Number of mining nodes" matTooltipPosition="below">Miners</mat-button-toggle>
+    <mat-button-toggle value='avgCpuUsage' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Total CPU consumption (Percent)" matTooltipPosition="below">CPU usage</mat-button-toggle>
+    <mat-button-toggle value='avgHashrate' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Calculated hashes per second" matTooltipPosition="below">Hashrate</mat-button-toggle>
+    <mat-button-toggle value='avgBlocktime' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Average time it takes to mine a block (Seconds)" matTooltipPosition="below">Blocktime</mat-button-toggle>
+    <mat-button-toggle value='avgBlockSize' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Average size of a block (Bytes)" matTooltipPosition="below">Blocksize</mat-button-toggle>
+    <mat-button-toggle value='avgTransactions' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Average amount of transactions that are stored per second" matTooltipPosition="below">Transactions/Block</mat-button-toggle>
+    <mat-button-toggle value='avgDifficulty' matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Unit to measure the Difficulty of the hash algorithm" matTooltipPosition="below">Difficulty</mat-button-toggle>
   </mat-button-toggle-group>
 </mat-card>
 
 <div class="container">
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['miningTime']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['miningTime']" matTooltipPosition="above">
       <app-plotly-barchart title="Mining Time (s)" [data]="metrics['miningTime']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['stability']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['stability']" matTooltipPosition="above">
       <app-plotly-barchart title="Stability (1 / Blocktime deviation in s)" [data]="metrics['stability']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['throughput']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['throughput']" matTooltipPosition="above">
       <app-plotly-barchart title="Throughput (Stored transactions / s)" [data]="metrics['throughput']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['dataTransfer']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['dataTransfer']" matTooltipPosition="above">
       <app-plotly-barchart title="Data transfer (Bytes / s)" [data]="metrics['dataTransfer']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['energyConsumption']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['energyConsumption']" matTooltipPosition="above">
       <app-plotly-barchart title="Energy Consumption (W)" [data]="metrics['energyConsumption']">
       </app-plotly-barchart>
     </div>
