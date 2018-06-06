@@ -27,35 +27,35 @@
 
 <div class="container">
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['miningTime']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['miningTime']" matTooltipPosition="above">
       <app-plotly-barchart title="Mining Time (s)" [data]="metrics['miningTime']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['stability']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['stability']" matTooltipPosition="above">
       <app-plotly-barchart title="Stability (1 / Blocktime deviation in s)" [data]="metrics['stability']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['throughput']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['throughput']" matTooltipPosition="above">
       <app-plotly-barchart title="Throughput (Stored transactions / s)" [data]="metrics['throughput']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['dataTransfer']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['dataTransfer']" matTooltipPosition="above">
       <app-plotly-barchart title="Data transfer (Bytes / s)" [data]="metrics['dataTransfer']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div [matTooltipShowDelay]="'1000'" [matTooltipHideDelay]="'0'" [matTooltip]="descriptions['energyConsumption']" [matTooltipPosition]="'above'">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" [matTooltip]="descriptions['energyConsumption']" matTooltipPosition="above">
       <app-plotly-barchart title="Energy Consumption (W)" [data]="metrics['energyConsumption']">
       </app-plotly-barchart>
     </div>
