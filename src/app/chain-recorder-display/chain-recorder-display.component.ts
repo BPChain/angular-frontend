@@ -5,7 +5,7 @@ import {
 import {FormControl} from '@angular/forms';
 import {RecordingHandlerService} from '../services/recording-handler.service';
 import {MatSnackBar} from '@angular/material';
-import {ChainItem, ChainSelection} from '../services/chain-selector.service';
+import {ChainItem, ChainSelection, ChainSelectorService} from '../services/chain-selector.service';
 @Component({
   selector: 'app-chain-recorder-display',
   templateUrl: './chain-recorder-display.component.html',
@@ -25,6 +25,7 @@ export class ChainRecorderDisplayComponent implements OnInit, OnDestroy {
 
   constructor(
     private _recordingService: RecordingHandlerService,
+    private _chainSelectorService: ChainSelectorService,
     public snackBar: MatSnackBar) {
   }
 

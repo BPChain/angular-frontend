@@ -91,6 +91,8 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
     this.chainSelector = this.availableChains.map(element => element['chainName']);
     if (!this.chainSelector.includes(this.selectedChain)) {
       this.selectedChain = '';
+    } else {
+      this.updateConfiguration();
     }
   }
 
@@ -112,11 +114,18 @@ export class ParameterSetterComponent implements OnChanges, OnInit, OnDestroy {
 
 
   convertjson() {
-    if (!isUndefined(this.currentConfigStore['miners'])) {
-      this.currentConfigStore['numberOfMiners'] = this.currentConfigStore['miners'];
-    }
-    if (!isUndefined(this.currentConfigStore['hosts'])) {
-      this.currentConfigStore['numberOfHosts'] = this.currentConfigStore['hosts'];
+    if (!isUndefined(this.currentConfigStore)) {
+      if (!isUndefined(this.currentConfigStore['miners'])) {
+        this.currentConfigStore['numberOfMiners'] = this.currentConfigStore['miners'];
+      }
+      if (!isUndefined(this.currentConfigStore['hosts'])) {
+        this.currentConfigStore['numberOfHosts'] = this.currentConfigStore['hosts'];
+      }
+    } else {
+      this.currentConfigStore = {
+        numberOfHosts: 0,
+        numberOfMiners: 0,
+      };
     }
   }
 
