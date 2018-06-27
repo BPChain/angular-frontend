@@ -25,6 +25,8 @@ export class DataVisualizationBarComponent implements OnInit {
   public metrics: Object;
   public showTimeSpanSelection: Boolean;
   public descriptions: Object;
+  public tps: number;
+  public pld: number;
 
   @ViewChild('linechart') linechart;
 
@@ -41,6 +43,8 @@ export class DataVisualizationBarComponent implements OnInit {
     this.showTimeSpanSelection = true;
     this.timeFrame = {};
     this.descriptions = metricDescriptions;
+    this.tps = 0;
+    this.pld = 0;
   }
 
 
@@ -71,7 +75,7 @@ export class DataVisualizationBarComponent implements OnInit {
       observable.subscribe(newChainData => {
         if (!chains.isEmpty()) {
           this.dataset = newChainData;
-          this.metrics = metricCalculator.calculateMetrics(newChainData);
+          this.metrics = metricCalculator.calculateMetrics(newChainData, this.tps, this.pld);
           if (redraw) {
             this.linechart.redraw();
           }

@@ -89,7 +89,7 @@ export class MetricCalculationHelper {
     }
   }
 
-  private calculateDataTransfer(entry): number {
+  private calculateDataTransfer(entry, tps, pld): number {
     try {
       if (entry['numberOfHosts'] && entry['avgBlockSize'] && entry['avgBlocktime']) {
         const numberOfHostsParameter = entry['numberOfHosts'].filter(item => item !== 0);
@@ -98,7 +98,7 @@ export class MetricCalculationHelper {
         const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
         const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
         const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
-        return (blocksizeAvg / blocktimeAvg + 0.2 * 10) * avgNumberOfHosts || 0;
+        return (blocksizeAvg / blocktimeAvg + (1 / tps) * pld) * avgNumberOfHosts || 0;
       }
       return 0;
     } catch (error) {
@@ -107,7 +107,7 @@ export class MetricCalculationHelper {
     }
   }
 
-  public calculateMetrics(chainData: Array<ChainData>): object {
+  public calculateMetrics(chainData: Array<ChainData>, tps: number, pld: number): object {
     const metricBuffer = this.emptyMetricDataset();
     try {
       chainData.forEach(entry => {
@@ -115,7 +115,7 @@ export class MetricCalculationHelper {
         metricBuffer['stability'].push({data: this.calculateStability(entry), label: entry['chainName']});
         metricBuffer['energyConsumption'].push({data: this.calculateEnergyConsumption(entry), label: entry['chainName']});
         metricBuffer['throughput'].push({data: this.calculateThroughput(entry), label: entry['chainName']});
-        metricBuffer['dataTransfer'].push({data: this.calculateDataTransfer(entry), label: entry['chainName']});
+        metricBuffer['dataTransfer'].push({data: this.calculateDataTransfer(entry, tps, pld), label: entry['chainName']});
       });
       return metricBuffer;
     } catch (error) {

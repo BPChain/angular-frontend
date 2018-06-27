@@ -25,6 +25,15 @@
   </mat-button-toggle-group>
 </mat-card>
 
+<mat-form-field>
+  <input matInput placeholder="Transaction interval" min="1" type="number"
+    [value]="tps" (input)="tps = $event.target.value" />
+</mat-form-field>
+<mat-form-field>
+  <input matInput placeholder="Payload" type="number"
+    [value]="pld" (input)="pld = $event.target.value" />
+</mat-form-field>
+
 <div class="container">
   <mat-card class="item small">
     <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="Scalability" matTooltipPosition="above">
