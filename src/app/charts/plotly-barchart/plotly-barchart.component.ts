@@ -52,7 +52,6 @@ export class PlotlyBarchartComponent implements OnInit, OnChanges {
           r: 20,
           l: 50,
         },
-        title: this.title,
         yaxis: {
           zeroline: true,
           fixedrange: true,
@@ -64,7 +63,7 @@ export class PlotlyBarchartComponent implements OnInit, OnChanges {
         },
       };
       Plotly.purge(element);
-      Plotly.plot(element, data, style, {displayModeBar: false});
+      Plotly.plot(element, data, style, {displayModeBar: true});
     }
   }
 

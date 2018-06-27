@@ -71,7 +71,7 @@ export class PlotlyLinechartComponent implements OnInit, OnChanges {
         scrollzoom: true,
       };
 
-      Plotly.plot(element, data, style, {displayModeBar: false});
+      Plotly.plot(element, data, style, {displayModeBar: true});
     }
   }
 
