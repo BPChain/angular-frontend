@@ -25,11 +25,14 @@ export class MetricCalculationHelper {
 
   private calculateMiningTime(entry): number {
     try {
-      if (entry['avgBlocktime']) {
-        const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-        const sum = stats.sum(parameter) ;
-        return (sum / parameter.length) || 0;
+      if (entry['avgBlocktime'] && entry['avgBlockSize'] && entry['numberOfHosts']) {
+        const blocktime = entry['avgBlocktime'].filter(item => item !== 0);
+        const blocksize = entry['avgBlockSize'].filter(item => item !== 0);
+        const numberOfHosts = entry['numberOfHosts'].filter(item => item !== 0);
+        const avgNumberOfHosts = stats.sum(numberOfHosts) / numberOfHosts.length;
+        return ((avgNumberOfHosts * (1 + stats.stdev(numberOfHosts))) / (1 + stats.stdev(blocktime) + stats.stdev(blocksize))) || 0;
       }
+      console.info('Error');
       return 0;
     } catch (error) {
       console.warn(error);
@@ -41,7 +44,7 @@ export class MetricCalculationHelper {
     try {
       if (entry['avgBlocktime']) {
         const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-        return 1 / stats.stdev(parameter) || 0;
+        return 1 / (1 + stats.stdev(parameter)) || 0;
       }
       return 0;
     } catch (error) {
@@ -56,10 +59,12 @@ export class MetricCalculationHelper {
       const minConsumption = 105 * numberOfCpus;
       const maxConsumption = 130 * numberOfCpus;
       const consumptionDiff = maxConsumption - minConsumption;
+      const numberOfHosts = entry['numberOfHosts'].filter(item => item !== 0);
+      const avgNumberOfHosts = stats.sum(numberOfHosts) / numberOfHosts.length;
       if (entry['avgCpuUsage'].length) {
         const cpuUsageParameter = entry['avgCpuUsage'].filter(item => item !== 0) || [];
         const avgCpuUsage = (stats.sum(cpuUsageParameter) / cpuUsageParameter.length) || 0;
-        return minConsumption + consumptionDiff * avgCpuUsage / 100;
+        return (avgNumberOfHosts * minConsumption + consumptionDiff * avgCpuUsage / 100) / this.calculateThroughput(entry);
       }
       return 0;
     } catch (error) {
@@ -93,7 +98,7 @@ export class MetricCalculationHelper {
         const blocktimeParameter = entry['avgBlocktime'].filter(item => item !== 0);
         const blocksizeAvg = stats.sum(blocksizeParameter) / blocksizeParameter.length;
         const blocktimeAvg = stats.sum(blocktimeParameter) / blocktimeParameter.length;
-        return (blocksizeAvg / blocktimeAvg) * avgNumberOfHosts || 0;
+        return (blocksizeAvg / blocktimeAvg + 0.2 * 10) * avgNumberOfHosts || 0;
       }
       return 0;
     } catch (error) {
