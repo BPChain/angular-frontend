@@ -50,21 +50,21 @@
   </mat-card>
 
   <mat-card class="item small">
-    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="throughput" matTooltipPosition="above">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="throughput [1/s]" matTooltipPosition="above">
       <app-plotly-barchart title="Throughput (Stored transactions / s)" [data]="metrics['throughput']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="dataTransfer" matTooltipPosition="above">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="dataTransfer [Byte/s]" matTooltipPosition="above">
       <app-plotly-barchart title="Data transfer (Bytes / s)" [data]="metrics['dataTransfer']">
       </app-plotly-barchart>
     </div>
   </mat-card>
 
   <mat-card class="item small">
-    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="energyConsumption" matTooltipPosition="above">
+    <div matTooltipShowDelay="1000" matTooltipHideDelay="0" matTooltip="energyConsumption [Ws/Transaction]" matTooltipPosition="above">
       <app-plotly-barchart title="Energy Consumption (W)" [data]="metrics['energyConsumption']">
       </app-plotly-barchart>
     </div>

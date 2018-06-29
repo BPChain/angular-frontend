@@ -30,7 +30,9 @@ export class MetricCalculationHelper {
         const blocksize = entry['avgBlockSize'].filter(item => item !== 0);
         const numberOfHosts = entry['numberOfHosts'].filter(item => item !== 0);
         const avgNumberOfHosts = stats.sum(numberOfHosts) / numberOfHosts.length;
-        return ((avgNumberOfHosts * (1 + stats.stdev(numberOfHosts))) / (1 + stats.stdev(blocktime) + stats.stdev(blocksize))) || 0;
+        const avgBlocktime = stats.sum(blocktime) / blocktime.length;
+        const avgBlocksize = stats.sum(blocksize) / blocksize.length;
+        return ((avgNumberOfHosts * (1 + stats.stdev(numberOfHosts))) / (1 + (stats.stdev(blocktime) / avgBlocktime) + (stats.stdev(blocksize) / avgBlocksize))) || 0;
       }
       console.info('Error');
       return 0;
@@ -43,8 +45,9 @@ export class MetricCalculationHelper {
   private calculateStability(entry): number {
     try {
       if (entry['avgBlocktime']) {
-        const parameter = entry['avgBlocktime'].filter(item => item !== 0);
-        return 1 / (1 + stats.stdev(parameter)) || 0;
+        const blocktime = entry['avgBlocktime'].filter(item => item !== 0);
+        const avgBlocktime = stats.sum(blocktime) / blocktime.length;
+        return 1 / (1 + (stats.stdev(blocktime) / avgBlocktime)) || 0;
       }
       return 0;
     } catch (error) {
